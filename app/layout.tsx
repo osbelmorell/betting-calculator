@@ -50,6 +50,9 @@ export default async function RootLayout({
   const requestHeaders = await headers();
   const lang = resolveLocale(requestHeaders.get('x-locale') ?? undefined);
   const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const schemaDescription = lang === 'es'
+    ? 'Calculadora de apuestas gratis con conversion de cuotas en tiempo real. Calcula pagos de apuestas simples, parlays y probabilidad implicita.'
+    : siteConfig.webApplicationDescription;
 
   return (
     <html
@@ -75,7 +78,7 @@ export default async function RootLayout({
               'name': siteConfig.name,
               'url': siteConfig.url,
               'applicationCategory': 'UtilityApplication',
-              'description': siteConfig.webApplicationDescription,
+              'description': schemaDescription,
               'offers': {
                 '@type': 'Offer',
                 'price': '0',

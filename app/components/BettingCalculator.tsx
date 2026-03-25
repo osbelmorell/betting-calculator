@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Locale } from '../i18n';
+import { singleCalculatorContent } from '../content/calculatorContent';
 import { getStickyBarVariant, trackCalculatorEvent, type StickyBarVariant } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
@@ -45,41 +46,7 @@ export default function BettingCalculator({
   initialSharedState,
   incomingSeedState,
 }: BettingCalculatorProps) {
-  const copy = locale === 'es'
-    ? {
-      title: 'Calculadora de Apuesta Simple',
-      subtitle: 'Elige un formato de cuota, ingresa una vez y mira como se convierten los demas al instante.',
-      cardTitle: 'Cuotas y Monto',
-      betAmount: 'Monto de Apuesta',
-      betAmountAria: 'Monto de apuesta simple en dolares',
-      results: 'Resultados Proyectados',
-      winnings: 'Ganancias',
-      payout: 'Pago Total',
-      winPct: 'Prob. de acierto %',
-      reset: 'Reiniciar',
-      resetAria: 'Restablecer valores de la calculadora de apuesta simple',
-      howToTitle: 'Como usar la calculadora de apuesta simple',
-      oddsFormatsTitle: 'Entender los formatos de cuotas',
-      faqTitle: 'Preguntas frecuentes',
-      shareLabel: 'apuesta simple',
-    }
-    : {
-      title: 'Single Bet Calculator',
-      subtitle: 'Pick one odds format, enter once, and see every other format convert instantly.',
-      cardTitle: 'Odds & Amount',
-      betAmount: 'Bet Amount',
-      betAmountAria: 'Single bet amount in dollars',
-      results: 'Projected Results',
-      winnings: 'Winnings',
-      payout: 'Payout',
-      winPct: 'Win %',
-      reset: 'Reset',
-      resetAria: 'Reset single bet calculator values',
-      howToTitle: 'How to Use the Single Bet Calculator',
-      oddsFormatsTitle: 'Understanding Betting Odds Formats',
-      faqTitle: 'Frequently Asked Questions',
-      shareLabel: 'single bet',
-    };
+  const copy = singleCalculatorContent[locale].ui;
 
   const initialState = useMemo<SingleCalculatorState>(() => {
     return decodeSingleState(initialSharedState) ?? createDefaultSingleState();
@@ -438,44 +405,27 @@ export default function BettingCalculator({
         <section className="space-y-6">
           <h2 className="text-section-title">{copy.howToTitle}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
-            <p>
-              Our single bet calculator makes it easy to calculate your potential winnings and payout instantly. Whether you are betting on moneyline, spread, or totals, follow these simple steps:
-            </p>
+            <p>{copy.howToIntro}</p>
             <ol className="space-y-3 list-decimal list-inside">
-              <li><strong>Enter your bet amount</strong> — Type the amount you plan to wager in dollars</li>
-              <li><strong>Choose an odds format</strong> — Select from American, Decimal, Fractional, or Implied Probability</li>
-              <li><strong>Enter the odds</strong> — Input your odds in your chosen format</li>
-              <li><strong>View results instantly</strong> — See your potential winnings, total payout, and winning probability automatically</li>
+              {copy.howToSteps.map(([title, description]) => (
+                <li key={title}><strong>{title}</strong> — {description}</li>
+              ))}
             </ol>
-            <p>
-              The calculator automatically converts your odds to all other formats, so you can see the full picture no matter which format your sportsbook uses.
-            </p>
+            <p>{copy.howToOutro}</p>
           </div>
         </section>
 
         <section className="space-y-6">
           <h2 className="text-section-title">{copy.oddsFormatsTitle}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
-            <p>
-              Different sportsbooks and betting markets use different odds formats. Here is what each one means:
-            </p>
+            <p>{copy.oddsIntro}</p>
             <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold">American Odds (Moneyline)</h3>
-                <p>Shows how much you need to bet to win $100 (negative odds) or how much $100 wins (positive odds). Example: -150 means bet $150 to win $100; +150 means $100 wins $150.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Decimal Odds</h3>
-                <p>Your total return for every $1 wagered, including your original stake. Example: 2.50 means a $100 bet returns $250 total ($150 profit).</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Fractional Odds</h3>
-                <p>Common in UK and European betting. Shows profit relative to stake. Example: 5/2 means a $2 bet wins $5 profit, returning $7 total.</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Implied Probability</h3>
-                <p>Expresses odds as a percentage likelihood of winning. Example: 52% implies you will win about half of comparable 52% probability bets over time.</p>
-              </div>
+              {copy.oddsSections.map(([title, description]) => (
+                <div key={title}>
+                  <h3 className="font-semibold">{title}</h3>
+                  <p>{description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -483,30 +433,12 @@ export default function BettingCalculator({
         <section className="space-y-6">
           <h2 className="text-section-title">{copy.faqTitle}</h2>
           <div className="space-y-6">
-            <div>
-              <h3 className="font-semibold text-base">What is the difference between payout and winnings?</h3>
-              <p className="mt-2 text-base text-[var(--foreground)]">
-                <strong>Winnings</strong> = profit only (original bet removed). <strong>Payout</strong> = total return including your original bet. If you bet $100 at 2.0 decimal odds: winnings = $100, payout = $200.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-base">What does +150 mean in American odds?</h3>
-              <p className="mt-2 text-base text-[var(--foreground)]">
-                +150 means if you bet $100, you win $150 profit (total payout $250). Positive American odds show how much profit $100 will make. The higher the number, the more likely the bookmaker thinks you will lose.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-base">How do I convert American odds to decimal?</h3>
-              <p className="mt-2 text-base text-[var(--foreground)]">
-                For positive odds: (American ÷ 100) + 1. For negative odds: (100 ÷ |American|) + 1. Or just use this calculator—it converts instantly across all formats.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-base">What is implied probability?</h3>
-              <p className="mt-2 text-base text-[var(--foreground)]">
-                Implied probability converts odds into the percentage chance the bookmaker thinks you have to win. A -110 American odds implies ~52.38% probability. It is what you should win if you bet the same odds 100 times.
-              </p>
-            </div>
+            {copy.faqItems.map(([title, description]) => (
+              <div key={title}>
+                <h3 className="font-semibold text-base">{title}</h3>
+                <p className="mt-2 text-base text-[var(--foreground)]">{description}</p>
+              </div>
+            ))}
           </div>
         </section>
       </div>

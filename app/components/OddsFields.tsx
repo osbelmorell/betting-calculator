@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { oddsFieldsContent } from '../content/calculatorContent';
 import type { Locale } from '../i18n';
 import type { OddsField, OddsValues } from './oddsUtils';
 
@@ -29,43 +30,43 @@ type FormatOption = {
 };
 
 function getFormatOptions(locale: Locale): FormatOption[] {
-  const spanish = locale === 'es';
+  const content = oddsFieldsContent[locale];
 
   return [
     {
       key: 'american',
-      label: spanish ? 'Americana' : 'American',
-      shortLabel: 'US',
-      placeholder: '-110',
+      label: content.formats.american.label,
+      shortLabel: content.formats.american.shortLabel,
+      placeholder: content.formats.american.placeholder,
       type: 'text',
       pattern: '-?[0-9]+',
     },
     {
       key: 'decimal',
-      label: 'Decimal',
-      shortLabel: 'Dec',
-      placeholder: '1.909',
+      label: content.formats.decimal.label,
+      shortLabel: content.formats.decimal.shortLabel,
+      placeholder: content.formats.decimal.placeholder,
       type: 'number',
       min: '1',
       step: '0.001',
     },
     {
       key: 'fractional',
-      label: spanish ? 'Fraccional' : 'Fractional',
-      shortLabel: spanish ? 'Frac' : 'Frac',
-      placeholder: '10/11',
+      label: content.formats.fractional.label,
+      shortLabel: content.formats.fractional.shortLabel,
+      placeholder: content.formats.fractional.placeholder,
       type: 'text',
     },
     {
       key: 'implied',
-      label: spanish ? 'Probabilidad' : 'Probability',
-      shortLabel: spanish ? 'Prob' : 'Prob',
-      placeholder: '52.38',
+      label: content.formats.implied.label,
+      shortLabel: content.formats.implied.shortLabel,
+      placeholder: content.formats.implied.placeholder,
       type: 'number',
       min: '0',
       max: '99.99',
       step: '0.01',
-      suffix: '%',
+      suffix: content.formats.implied.suffix,
     },
   ];
 }
@@ -107,23 +108,7 @@ export default function OddsFields({
 
   const convertedOptions = formatOptions.filter((option) => option.key !== activeFormat);
 
-  const copy = locale === 'es'
-    ? {
-      selector: 'selector de formato de cuotas',
-      enter: 'Ingresa',
-      converted: 'Convertido',
-      switchInput: 'Cambiar campo activo de cuotas a',
-      inputFields: 'campos de entrada',
-      oddsLabel: 'cuotas',
-    }
-    : {
-      selector: 'odds format selector',
-      enter: 'Enter',
-      converted: 'Converted',
-      switchInput: 'Switch active odds input to',
-      inputFields: 'input fields',
-      oddsLabel: 'odds',
-    };
+  const copy = oddsFieldsContent[locale];
 
   return (
     <fieldset className="space-y-4" aria-label={`${contextLabel} ${copy.inputFields}`}>

@@ -1,30 +1,10 @@
 import type { Metadata } from 'next';
+import { singleCalculatorContent } from './content/calculatorContent';
 import BettingCalculator from './components/BettingCalculator';
 import { NAVIGATION_SEED_PARAM, SINGLE_STATE_PARAM } from './components/calculatorState';
-import { getCanonicalUrl, schemaOrgUrl } from './siteConfig';
+import { getCanonicalUrl, schemaOrgUrl, siteConfig } from './siteConfig';
 
-const metadataCopy = {
-  title: 'Single Bet Calculator | Free Odds Conversion Tool',
-  description:
-    'Fast, free single bet calculator. Calculate payouts, winnings, and implied probability instantly. Convert between American, fractional, decimal, and percentage odds formats.',
-  faq: [
-    {
-      question: 'How do I use the single bet calculator?',
-      answer:
-        'Enter your bet amount and odds in any format (American, decimal, fractional, or implied probability). The calculator instantly converts all formats and shows your potential winnings and payout.',
-    },
-    {
-      question: 'What is implied probability?',
-      answer:
-        'Implied probability is the conversion of betting odds into a percentage representing the likelihood of an outcome. For example, -110 American odds implies approximately 52.38% probability.',
-    },
-    {
-      question: 'How do I convert American odds to decimal?',
-      answer:
-        'Positive American odds: (American odds / 100) + 1. Negative American odds: (100 / |American odds|) + 1. Or use this calculator to convert instantly.',
-    },
-  ],
-} as const;
+const metadataCopy = singleCalculatorContent.en.seo;
 
 export const metadata: Metadata = {
   title: metadataCopy.title,
@@ -36,6 +16,19 @@ export const metadata: Metadata = {
       es: getCanonicalUrl('/es'),
       'x-default': getCanonicalUrl('/'),
     },
+  },
+  openGraph: {
+    title: metadataCopy.title,
+    description: metadataCopy.description,
+    url: getCanonicalUrl('/'),
+    siteName: siteConfig.name,
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: metadataCopy.title,
+    description: metadataCopy.description,
   },
 };
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { shareLinkButtonContent } from '../content/calculatorContent';
 import type { Locale } from '../i18n';
 
 type ShareLinkButtonProps = {
@@ -11,26 +12,7 @@ type ShareLinkButtonProps = {
 
 export default function ShareLinkButton({ className, locale = 'en', onCopied }: ShareLinkButtonProps) {
   const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle');
-
-  const copy = locale === 'es'
-    ? {
-      copied: 'Enlace compartible copiado al portapapeles.',
-      error: 'No se pudo copiar el enlace. Copia la URL de la pagina desde tu navegador.',
-      idle: 'Copia un enlace que abre esta calculadora con tus valores actuales.',
-      button: 'Copiar enlace compartible',
-      buttonAria: 'Copiar un enlace compartible con los valores actuales de la calculadora',
-      copiedLive: 'Enlace compartible copiado.',
-      failedLive: 'Fallo al copiar el enlace compartible.',
-    }
-    : {
-      copied: 'Shareable link copied to your clipboard.',
-      error: 'Could not copy the link. Copy the page URL from your browser instead.',
-      idle: 'Copy a link that opens this calculator with your current values.',
-      button: 'Copy Shareable Link',
-      buttonAria: 'Copy a shareable link with the current calculator values',
-      copiedLive: 'Share link copied.',
-      failedLive: 'Share link copy failed.',
-    };
+  const copy = shareLinkButtonContent[locale];
 
   const tooltipMessage =
     status === 'copied'

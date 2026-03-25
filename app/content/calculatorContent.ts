@@ -1,0 +1,473 @@
+import type { Locale } from '../i18n';
+
+type TextPair = readonly [string, string];
+
+type SeoFaqItem = {
+  question: string;
+  answer: string;
+};
+
+type SingleCalculatorUiCopy = {
+  title: string;
+  subtitle: string;
+  cardTitle: string;
+  betAmount: string;
+  betAmountAria: string;
+  results: string;
+  winnings: string;
+  payout: string;
+  winPct: string;
+  reset: string;
+  resetAria: string;
+  howToTitle: string;
+  oddsFormatsTitle: string;
+  faqTitle: string;
+  shareLabel: string;
+  howToIntro: string;
+  howToSteps: readonly TextPair[];
+  howToOutro: string;
+  oddsIntro: string;
+  oddsSections: readonly TextPair[];
+  faqItems: readonly TextPair[];
+};
+
+type ParlayCalculatorUiCopy = {
+  title: string;
+  subtitle: string;
+  cardTitle: string;
+  betAmount: string;
+  betAmountAria: string;
+  legs: string;
+  addLeg: string;
+  addLegAria: string;
+  remove: string;
+  removeAria: string;
+  label: string;
+  projectedResults: string;
+  combined: string;
+  winnings: string;
+  payout: string;
+  winPct: string;
+  reset: string;
+  resetAria: string;
+  leg: string;
+  legListAria: string;
+  howItWorks: string;
+  buildParlay: string;
+  faq: string;
+  howItWorksIntro: string;
+  howItWorksExample: string;
+  howItWorksOutro: string;
+  buildIntro: string;
+  buildSteps: readonly TextPair[];
+  faqItems: readonly TextPair[];
+};
+
+type SeoCopy = {
+  title: string;
+  description: string;
+  faq: readonly SeoFaqItem[];
+};
+
+type SingleCalculatorContent = {
+  ui: SingleCalculatorUiCopy;
+  seo: SeoCopy;
+};
+
+type ParlayCalculatorContent = {
+  ui: ParlayCalculatorUiCopy;
+  seo: SeoCopy;
+};
+
+type ShareLinkButtonCopy = {
+  copied: string;
+  error: string;
+  idle: string;
+  button: string;
+  buttonAria: string;
+  copiedLive: string;
+  failedLive: string;
+};
+
+type OddsFieldsFormatOptionCopy = {
+  label: string;
+  shortLabel: string;
+  placeholder: string;
+  suffix?: string;
+};
+
+type OddsFieldsCopy = {
+  selector: string;
+  enter: string;
+  converted: string;
+  switchInput: string;
+  inputFields: string;
+  oddsLabel: string;
+  formats: {
+    american: OddsFieldsFormatOptionCopy;
+    decimal: OddsFieldsFormatOptionCopy;
+    fractional: OddsFieldsFormatOptionCopy;
+    implied: OddsFieldsFormatOptionCopy;
+  };
+};
+
+type BetAmountSliderCopy = {
+  quickPresets: string;
+  setBetAmount: string;
+  dollars: string;
+  range: string;
+  slider: string;
+};
+
+type GlobalCalcToggleCopy = {
+  single: string;
+  parlay: string;
+  nav: string;
+  calcType: string;
+  language: string;
+  localeNames: Record<Locale, string>;
+};
+
+export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = {
+  en: {
+    ui: {
+      title: 'Single Bet Calculator',
+      subtitle: 'Pick one odds format, enter once, and see every other format convert instantly.',
+      cardTitle: 'Odds & Amount',
+      betAmount: 'Bet Amount',
+      betAmountAria: 'Single bet amount in dollars',
+      results: 'Projected Results',
+      winnings: 'Winnings',
+      payout: 'Payout',
+      winPct: 'Win %',
+      reset: 'Reset',
+      resetAria: 'Reset single bet calculator values',
+      howToTitle: 'How to Use the Single Bet Calculator',
+      oddsFormatsTitle: 'Understanding Betting Odds Formats',
+      faqTitle: 'Frequently Asked Questions',
+      shareLabel: 'single bet',
+      howToIntro: 'Our single bet calculator makes it easy to calculate your potential winnings and payout instantly. Whether you are betting on moneyline, spread, or totals, follow these simple steps:',
+      howToSteps: [
+        ['Enter your bet amount', 'Type the amount you plan to wager in dollars'],
+        ['Choose an odds format', 'Select from American, Decimal, Fractional, or Implied Probability'],
+        ['Enter the odds', 'Input your odds in your chosen format'],
+        ['View results instantly', 'See your potential winnings, total payout, and winning probability automatically'],
+      ],
+      howToOutro: 'The calculator automatically converts your odds to all other formats, so you can see the full picture no matter which format your sportsbook uses.',
+      oddsIntro: 'Different sportsbooks and betting markets use different odds formats. Here is what each one means:',
+      oddsSections: [
+        ['American Odds (Moneyline)', 'Shows how much you need to bet to win $100 (negative odds) or how much $100 wins (positive odds). Example: -150 means bet $150 to win $100; +150 means $100 wins $150.'],
+        ['Decimal Odds', 'Your total return for every $1 wagered, including your original stake. Example: 2.50 means a $100 bet returns $250 total ($150 profit).'],
+        ['Fractional Odds', 'Common in UK and European betting. Shows profit relative to stake. Example: 5/2 means a $2 bet wins $5 profit, returning $7 total.'],
+        ['Implied Probability', 'Expresses odds as a percentage likelihood of winning. Example: 52% implies you will win about half of comparable 52% probability bets over time.'],
+      ],
+      faqItems: [
+        ['What is the difference between payout and winnings?', 'Winnings = profit only (original bet removed). Payout = total return including your original bet. If you bet $100 at 2.0 decimal odds: winnings = $100, payout = $200.'],
+        ['What does +150 mean in American odds?', '+150 means if you bet $100, you win $150 profit (total payout $250). Positive American odds show how much profit $100 will make. The higher the number, the more likely the bookmaker thinks you will lose.'],
+        ['How do I convert American odds to decimal?', 'For positive odds: (American ÷ 100) + 1. For negative odds: (100 ÷ |American|) + 1. Or just use this calculator, it converts instantly across all formats.'],
+        ['What is implied probability?', 'Implied probability converts odds into the percentage chance the bookmaker thinks you have to win. A -110 American odds implies about 52.38% probability. It is what you should win if you bet the same odds repeatedly over time.'],
+      ],
+    },
+    seo: {
+      title: 'Single Bet Calculator | Free Odds Conversion Tool',
+      description: 'Fast, free single bet calculator. Calculate payouts, winnings, and implied probability instantly. Convert between American, fractional, decimal, and percentage odds formats.',
+      faq: [
+        {
+          question: 'How do I use the single bet calculator?',
+          answer: 'Enter your bet amount and odds in any format (American, decimal, fractional, or implied probability). The calculator instantly converts all formats and shows your potential winnings and payout.',
+        },
+        {
+          question: 'What is implied probability?',
+          answer: 'Implied probability is the conversion of betting odds into a percentage representing the likelihood of an outcome. For example, -110 American odds implies approximately 52.38% probability.',
+        },
+        {
+          question: 'How do I convert American odds to decimal?',
+          answer: 'Positive American odds: (American odds / 100) + 1. Negative American odds: (100 / |American odds|) + 1. Or use this calculator to convert instantly.',
+        },
+      ],
+    },
+  },
+  es: {
+    ui: {
+      title: 'Calculadora de Apuesta Simple',
+      subtitle: 'Elige un formato de cuota, ingresa una vez y mira como se convierten los demas al instante.',
+      cardTitle: 'Cuotas y Monto',
+      betAmount: 'Monto de Apuesta',
+      betAmountAria: 'Monto de apuesta simple en dolares',
+      results: 'Resultados Proyectados',
+      winnings: 'Ganancias',
+      payout: 'Pago Total',
+      winPct: 'Prob. de acierto %',
+      reset: 'Reiniciar',
+      resetAria: 'Restablecer valores de la calculadora de apuesta simple',
+      howToTitle: 'Como usar la calculadora de apuesta simple',
+      oddsFormatsTitle: 'Entender los formatos de cuotas',
+      faqTitle: 'Preguntas frecuentes',
+      shareLabel: 'apuesta simple',
+      howToIntro: 'Nuestra calculadora de apuesta simple te ayuda a calcular al instante tus ganancias potenciales y el pago total. Ya sea que apuestes moneyline, spread o totales, sigue estos pasos:',
+      howToSteps: [
+        ['Ingresa tu monto de apuesta', 'Escribe la cantidad que planeas apostar en dolares'],
+        ['Elige un formato de cuotas', 'Selecciona entre Americana, Decimal, Fraccional o Probabilidad implicita'],
+        ['Ingresa las cuotas', 'Escribe tus cuotas en el formato que prefieras'],
+        ['Mira los resultados al instante', 'Consulta automaticamente tus ganancias potenciales, pago total y probabilidad de acierto'],
+      ],
+      howToOutro: 'La calculadora convierte automaticamente tus cuotas a los demas formatos para que veas el panorama completo sin importar el formato que use tu casa de apuestas.',
+      oddsIntro: 'Diferentes casas de apuestas y mercados usan distintos formatos de cuotas. Esto es lo que significa cada uno:',
+      oddsSections: [
+        ['Cuotas Americanas (Moneyline)', 'Muestran cuanto debes apostar para ganar $100 cuando son negativas, o cuanto ganas con $100 cuando son positivas. Ejemplo: -150 significa apostar $150 para ganar $100; +150 significa que $100 ganan $150.'],
+        ['Cuotas Decimales', 'Muestran el retorno total por cada $1 apostado, incluyendo tu stake original. Ejemplo: 2.50 significa que una apuesta de $100 devuelve $250 en total ($150 de ganancia).'],
+        ['Cuotas Fraccionales', 'Son comunes en Reino Unido y Europa. Muestran la ganancia en relacion con el stake. Ejemplo: 5/2 significa que una apuesta de $2 gana $5 y devuelve $7 en total.'],
+        ['Probabilidad Implicita', 'Expresa las cuotas como un porcentaje de probabilidad de ganar. Ejemplo: 52% implica que ganarias aproximadamente la mitad de apuestas comparables a largo plazo.'],
+      ],
+      faqItems: [
+        ['Cual es la diferencia entre pago total y ganancias?', 'Ganancias = solo beneficio neto (sin contar la apuesta original). Pago total = retorno completo incluyendo tu apuesta original. Si apuestas $100 a cuota decimal 2.0: ganancias = $100 y pago total = $200.'],
+        ['Que significa +150 en cuotas americanas?', '+150 significa que si apuestas $100, ganas $150 de beneficio para un pago total de $250. Las cuotas americanas positivas muestran cuanto beneficio genera una apuesta de $100. Mientras mas alto el numero, menos probable considera la casa que ocurra el resultado.'],
+        ['Como convierto cuotas americanas a decimales?', 'Para cuotas positivas: (Americana ÷ 100) + 1. Para cuotas negativas: (100 ÷ |Americana|) + 1. O simplemente usa esta calculadora para convertir al instante entre todos los formatos.'],
+        ['Que es la probabilidad implicita?', 'La probabilidad implicita convierte las cuotas en el porcentaje de posibilidad de ganar que estima la casa de apuestas. Una cuota americana -110 implica aproximadamente 52.38% de probabilidad. Es la frecuencia con la que deberias ganar si hicieras la misma apuesta muchas veces.'],
+      ],
+    },
+    seo: {
+      title: 'Calculadora de Apuesta Simple | Conversor de Cuotas Gratis',
+      description: 'Calculadora de apuesta simple rapida y gratis. Calcula pagos, ganancias y probabilidad implicita al instante. Convierte entre cuotas americanas, fraccionales, decimales y porcentaje.',
+      faq: [
+        {
+          question: 'Como uso la calculadora de apuesta simple?',
+          answer: 'Ingresa el monto de tu apuesta y las cuotas en cualquier formato (americano, decimal, fraccional o probabilidad implicita). La calculadora convierte al instante todos los formatos y muestra tus ganancias y pago potencial.',
+        },
+        {
+          question: 'Que es la probabilidad implicita?',
+          answer: 'La probabilidad implicita es la conversion de las cuotas a un porcentaje que representa la probabilidad de un resultado. Por ejemplo, cuotas americanas -110 implican aproximadamente 52.38% de probabilidad.',
+        },
+        {
+          question: 'Como convierto cuotas americanas a decimales?',
+          answer: 'Cuotas americanas positivas: (cuota americana / 100) + 1. Cuotas negativas: (100 / |cuota americana|) + 1. O usa esta calculadora para convertir al instante.',
+        },
+      ],
+    },
+  },
+};
+
+export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = {
+  en: {
+    ui: {
+      title: 'Parlay Calculator',
+      subtitle: 'Build parlays fast: choose a format per leg, enter once, and get live combined payouts.',
+      cardTitle: 'Bet & Legs',
+      betAmount: 'Bet Amount',
+      betAmountAria: 'Parlay bet amount in dollars',
+      legs: 'Parlay Legs',
+      addLeg: '+ Add Leg',
+      addLegAria: 'Add a parlay leg',
+      remove: 'Remove',
+      removeAria: 'Remove',
+      label: 'Label',
+      projectedResults: 'Projected Results',
+      combined: 'Combined',
+      winnings: 'Winnings',
+      payout: 'Payout',
+      winPct: 'Win %',
+      reset: 'Reset',
+      resetAria: 'Reset parlay calculator values and legs',
+      leg: 'Leg',
+      legListAria: 'Parlay leg list',
+      howItWorks: 'How Parlay Odds Work',
+      buildParlay: 'How to Build a Parlay with This Calculator',
+      faq: 'Parlay Betting FAQs',
+      howItWorksIntro: 'A parlay combines multiple bets into one. All legs must win for the parlay to cash. The odds multiply together, meaning your potential payout grows exponentially, but so does the risk.',
+      howItWorksExample: 'If you combine three legs with decimal odds of 2.0, 1.5, and 2.0, your combined decimal odds = 2.0 × 1.5 × 2.0 = 6.0. A $100 parlay wins $600 total ($500 profit).',
+      howItWorksOutro: 'The key advantage of parlays is that one $100 bet can have the winning power of $600 (6x return). The key risk is that if any single leg loses, the entire parlay loses with no partial payouts.',
+      buildIntro: 'Building a parlay is simple:',
+      buildSteps: [
+        ['Enter your parlay bet amount', 'Your total stake across all legs'],
+        ['Add your first leg', 'Enter odds in any format and the calculator converts them automatically'],
+        ['Click "+ Add Leg"', 'Keep adding as many legs as you want'],
+        ['Watch the combined odds multiply', 'Each leg multiplies the last, growing your potential payout'],
+        ['Remove any leg', 'If you change your mind, remove that leg as long as at least one remains'],
+        ['View your combined payout', 'See what you could win if all legs hit'],
+      ],
+      faqItems: [
+        ['What happens if one leg of my parlay loses?', 'The entire parlay loses. There are no partial payouts in traditional parlays. If you hit 5 out of 6 legs, you get nothing. This is why parlays are high-risk, high-reward bets.'],
+        ['How many legs can I add to a parlay?', 'This calculator supports unlimited legs. Most sportsbooks limit parlays to 10 to 15 legs. The more legs you add, the lower your probability of cashing, but the higher your potential payout. A 10-leg parlay at 2.0 decimal odds would return 1024x your bet.'],
+        ['What is the difference between a parlay and a round-robin?', 'A parlay combines all legs into one bet where everything depends on every leg winning. A round-robin automatically creates multiple smaller parlays from your legs, so you can cash even if some legs lose. This calculator focuses on single parlays.'],
+        ['How do I calculate implied probability for a parlay?', 'Convert your combined decimal odds to implied probability using: (1 ÷ combined decimal) × 100. If your combined odds are 6.0, your implied winning probability is (1 ÷ 6.0) × 100 = 16.67%. This calculator shows this automatically.'],
+        ['Can I share or save my parlay?', 'Yes. Click the share button to copy a shareable link with all your legs and odds encoded in the URL. You can send it to friends or save it for later. The calculator also saves your last parlay locally.'],
+      ],
+    },
+    seo: {
+      title: 'Parlay Calculator | Free Multi-Leg Betting Tool',
+      description: 'Build and calculate parlays with unlimited legs. Convert each leg odds format, calculate combined odds, payouts, and winning probability. Free parlay betting calculator.',
+      faq: [
+        {
+          question: 'How do parlay odds work?',
+          answer: "Parlay odds multiply together. Each leg's decimal odds are multiplied by the next leg's odds to create the combined decimal odds. Your potential winnings multiply with each added leg.",
+        },
+        {
+          question: 'What happens if one leg of my parlay loses?',
+          answer: 'If any single leg loses, the entire parlay is lost and you forfeit your stake. This is why parlays carry higher risk but offer higher potential rewards.',
+        },
+        {
+          question: 'How many legs can I add to a parlay?',
+          answer: 'This calculator supports unlimited parlay legs. However, most sportsbooks limit parlays to 10-15 legs. The more legs you add, the harder it becomes to win, but the higher the potential payout.',
+        },
+      ],
+    },
+  },
+  es: {
+    ui: {
+      title: 'Calculadora de Parlay',
+      subtitle: 'Construye parlays rapido: elige formato por pierna, ingresa una vez y obtiene pagos combinados en vivo.',
+      cardTitle: 'Apuesta y Piernas',
+      betAmount: 'Monto de Apuesta',
+      betAmountAria: 'Monto de apuesta parlay en dolares',
+      legs: 'Piernas del Parlay',
+      addLeg: '+ Agregar pierna',
+      addLegAria: 'Agregar una pierna al parlay',
+      remove: 'Eliminar',
+      removeAria: 'Eliminar',
+      label: 'Etiqueta',
+      projectedResults: 'Resultados Proyectados',
+      combined: 'Combinada',
+      winnings: 'Ganancias',
+      payout: 'Pago Total',
+      winPct: 'Prob. de acierto %',
+      reset: 'Reiniciar',
+      resetAria: 'Restablecer valores y piernas de la calculadora de parlay',
+      leg: 'Pierna',
+      legListAria: 'Lista de piernas del parlay',
+      howItWorks: 'Como funcionan las cuotas de parlay',
+      buildParlay: 'Como construir un parlay con esta calculadora',
+      faq: 'Preguntas frecuentes sobre parlays',
+      howItWorksIntro: 'Un parlay combina multiples apuestas en una sola. Todas las piernas deben acertarse para cobrar el parlay. Las cuotas se multiplican entre si, por lo que el pago potencial crece mucho, pero tambien el riesgo.',
+      howItWorksExample: 'Si combinas tres piernas con cuotas decimales de 2.0, 1.5 y 2.0, la cuota decimal combinada es 2.0 × 1.5 × 2.0 = 6.0. Un parlay de $100 devuelve $600 en total ($500 de ganancia).',
+      howItWorksOutro: 'La principal ventaja del parlay es que una sola apuesta de $100 puede tener el potencial de $600 (retorno 6x). El principal riesgo es que si una sola pierna pierde, pierdes todo el parlay sin pagos parciales.',
+      buildIntro: 'Construir un parlay es sencillo:',
+      buildSteps: [
+        ['Ingresa tu monto de apuesta parlay', 'Es tu stake total para todas las piernas'],
+        ['Agrega tu primera pierna', 'Ingresa cuotas en cualquier formato y la calculadora las convierte automaticamente'],
+        ['Haz clic en "+ Agregar pierna"', 'Sigue agregando todas las piernas que quieras'],
+        ['Observa como se multiplican las cuotas combinadas', 'Cada pierna multiplica la anterior y aumenta el pago potencial'],
+        ['Elimina cualquier pierna', 'Si cambias de idea, puedes quitar esa pierna mientras quede al menos una'],
+        ['Consulta tu pago combinado', 'Ve cuanto podrias ganar si todas las piernas aciertan'],
+      ],
+      faqItems: [
+        ['Que pasa si una pierna de mi parlay pierde?', 'Se pierde todo el parlay. En los parlays tradicionales no existen pagos parciales. Si aciertas 5 de 6 piernas, no cobras nada. Por eso los parlays son apuestas de alto riesgo y alta recompensa.'],
+        ['Cuantas piernas puedo agregar a un parlay?', 'Esta calculadora soporta piernas ilimitadas. La mayoria de las casas de apuestas limita los parlays entre 10 y 15 piernas. Cuantas mas piernas agregues, menor sera tu probabilidad de cobrar, pero mayor sera el pago potencial. Un parlay de 10 piernas a cuota decimal 2.0 devolveria 1024 veces tu apuesta.'],
+        ['Cual es la diferencia entre un parlay y un round-robin?', 'Un parlay combina todas las piernas en una sola apuesta, donde todo o nada depende del resultado. Un round-robin crea automaticamente varios parlays mas pequenos con tus piernas, por lo que puedes cobrar incluso si algunas fallan. Esta calculadora se enfoca en parlays simples.'],
+        ['Como calculo la probabilidad implicita de un parlay?', 'Convierte la cuota decimal combinada a probabilidad implicita con la formula: (1 ÷ cuota decimal combinada) × 100. Si tu cuota combinada es 6.0, la probabilidad implicita es (1 ÷ 6.0) × 100 = 16.67%. Esta calculadora lo muestra automaticamente.'],
+        ['Puedo compartir o guardar mi parlay?', 'Si. Haz clic en el boton de compartir para copiar un enlace con todas tus piernas y cuotas codificadas en la URL. Puedes enviarlo a otras personas o guardarlo para despues. La calculadora tambien guarda tu ultimo parlay localmente.'],
+      ],
+    },
+    seo: {
+      title: 'Calculadora de Parlay | Herramienta Gratis de Apuestas Multiples',
+      description: 'Crea y calcula parlays con piernas ilimitadas. Convierte el formato de cuotas de cada pierna, calcula cuotas combinadas, pagos y probabilidad de acierto. Calculadora de parlay gratis.',
+      faq: [
+        {
+          question: 'Como funcionan las cuotas de un parlay?',
+          answer: 'Las cuotas del parlay se multiplican entre si. Las cuotas decimales de cada pierna se multiplican para crear la cuota decimal combinada. Tus ganancias potenciales crecen con cada pierna agregada.',
+        },
+        {
+          question: 'Que pasa si una pierna de mi parlay pierde?',
+          answer: 'Si una sola pierna pierde, se pierde todo el parlay y tu stake. Por eso los parlays tienen mayor riesgo, pero tambien mayor recompensa potencial.',
+        },
+        {
+          question: 'Cuantas piernas puedo agregar a un parlay?',
+          answer: 'Esta calculadora soporta piernas ilimitadas. Sin embargo, la mayoria de las casas de apuestas limita los parlays entre 10 y 15 piernas. Cuantas mas piernas agregues, mas dificil es acertar, pero mayor el pago potencial.',
+        },
+      ],
+    },
+  },
+};
+
+export const shareLinkButtonContent: Record<Locale, ShareLinkButtonCopy> = {
+  en: {
+    copied: 'Shareable link copied to your clipboard.',
+    error: 'Could not copy the link. Copy the page URL from your browser instead.',
+    idle: 'Copy a link that opens this calculator with your current values.',
+    button: 'Copy Shareable Link',
+    buttonAria: 'Copy a shareable link with the current calculator values',
+    copiedLive: 'Share link copied.',
+    failedLive: 'Share link copy failed.',
+  },
+  es: {
+    copied: 'Enlace compartible copiado al portapapeles.',
+    error: 'No se pudo copiar el enlace. Copia la URL de la pagina desde tu navegador.',
+    idle: 'Copia un enlace que abre esta calculadora con tus valores actuales.',
+    button: 'Copiar enlace compartible',
+    buttonAria: 'Copiar un enlace compartible con los valores actuales de la calculadora',
+    copiedLive: 'Enlace compartible copiado.',
+    failedLive: 'Fallo al copiar el enlace compartible.',
+  },
+};
+
+export const oddsFieldsContent: Record<Locale, OddsFieldsCopy> = {
+  en: {
+    selector: 'odds format selector',
+    enter: 'Enter',
+    converted: 'Converted',
+    switchInput: 'Switch active odds input to',
+    inputFields: 'input fields',
+    oddsLabel: 'odds',
+    formats: {
+      american: { label: 'American', shortLabel: 'US', placeholder: '-110' },
+      decimal: { label: 'Decimal', shortLabel: 'Dec', placeholder: '1.909' },
+      fractional: { label: 'Fractional', shortLabel: 'Frac', placeholder: '10/11' },
+      implied: { label: 'Probability', shortLabel: 'Prob', placeholder: '52.38', suffix: '%' },
+    },
+  },
+  es: {
+    selector: 'selector de formato de cuotas',
+    enter: 'Ingresa',
+    converted: 'Convertido',
+    switchInput: 'Cambiar campo activo de cuotas a',
+    inputFields: 'campos de entrada',
+    oddsLabel: 'cuotas',
+    formats: {
+      american: { label: 'Americana', shortLabel: 'US', placeholder: '-110' },
+      decimal: { label: 'Decimal', shortLabel: 'Dec', placeholder: '1.909' },
+      fractional: { label: 'Fraccional', shortLabel: 'Frac', placeholder: '10/11' },
+      implied: { label: 'Probabilidad', shortLabel: 'Prob', placeholder: '52.38', suffix: '%' },
+    },
+  },
+};
+
+export const betAmountSliderContent: Record<Locale, BetAmountSliderCopy> = {
+  en: {
+    quickPresets: 'Quick bet amount presets',
+    setBetAmount: 'Set bet amount to',
+    dollars: 'dollars',
+    range: 'Range',
+    slider: 'Bet amount slider',
+  },
+  es: {
+    quickPresets: 'Montos rapidos de apuesta',
+    setBetAmount: 'Fijar monto de apuesta en',
+    dollars: 'dolares',
+    range: 'Rango',
+    slider: 'Control deslizante del monto de apuesta',
+  },
+};
+
+export const globalCalcToggleContent: Record<Locale, GlobalCalcToggleCopy> = {
+  en: {
+    single: 'Single',
+    parlay: 'Parlay',
+    nav: 'Calculator navigation',
+    calcType: 'Calculator type',
+    language: 'Language',
+    localeNames: {
+      en: 'English',
+      es: 'Spanish',
+    },
+  },
+  es: {
+    single: 'Simple',
+    parlay: 'Parlay',
+    nav: 'Navegacion de calculadora',
+    calcType: 'Tipo de calculadora',
+    language: 'Idioma',
+    localeNames: {
+      en: 'Ingles',
+      es: 'Espanol',
+    },
+  },
+};

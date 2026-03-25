@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { betAmountSliderContent } from '../content/calculatorContent';
 import type { Locale } from '../i18n';
 import { parseFormattedNumber } from './oddsUtils';
 
@@ -39,21 +40,7 @@ export default function BetAmountSlider({
   min = 0,
   max = 1000,
 }: BetAmountSliderProps) {
-  const copy = locale === 'es'
-    ? {
-      quickPresets: 'Montos rapidos de apuesta',
-      setBetAmount: 'Fijar monto de apuesta en',
-      dollars: 'dolares',
-      range: 'Rango',
-      slider: 'Control deslizante del monto de apuesta',
-    }
-    : {
-      quickPresets: 'Quick bet amount presets',
-      setBetAmount: 'Set bet amount to',
-      dollars: 'dollars',
-      range: 'Range',
-      slider: 'Bet amount slider',
-    };
+  const copy = betAmountSliderContent[locale];
 
   const quickAmounts = useMemo(() => {
     const candidates = [10, 25, 50, 100, 250, 500, 1000];
