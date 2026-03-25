@@ -14,6 +14,18 @@ This app reads reusable public site metadata from `.env` or `.env.local`.
 - `NEXT_PUBLIC_SITE_DESCRIPTION`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` (optional, e.g. `G-XXXXXXXXXX`)
 
+## MCP Support
+
+This project is configured for the Next.js DevTools MCP server via the root `.mcp.json` file.
+
+- Requires Next.js 16+, which this project already uses.
+- Start the app with `npm run dev`.
+- MCP-compatible coding agents can then auto-discover the built-in Next.js MCP endpoint exposed by the dev server at `/_next/mcp`.
+- The `/_next/mcp` endpoint is not a normal browser page. It speaks MCP over HTTP for agent clients, so opening it directly in a browser can fail or show a non-useful response.
+
+The `.mcp.json` configuration uses `npx -y next-devtools-mcp@latest`, matching the official Next.js MCP guide.
+The app config also sets `experimental.mcpServer: true` explicitly in `next.config.ts` so the runtime endpoint is enabled intentionally rather than relying on defaults.
+
 The repository includes `.env.example` with the current defaults.
 
 ## Getting Started
