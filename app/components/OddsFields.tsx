@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from 'react';
+import type { Locale } from '../i18n';
 import type { OddsField, OddsValues } from './oddsUtils';
 
 type OddsFieldsProps = {
   idPrefix: string;
   contextLabel?: string;
+  locale?: Locale;
   values: OddsValues;
   onAmericanChange: (value: string) => void;
   onFractionalChange: (value: string) => void;
@@ -26,53 +28,59 @@ type FormatOption = {
   suffix?: string;
 };
 
-const formatOptions: FormatOption[] = [
-  {
-    key: 'american',
-    label: 'American',
-    shortLabel: 'US',
-    placeholder: '-110',
-    type: 'text',
-    pattern: '-?[0-9]+',
-  },
-  {
-    key: 'decimal',
-    label: 'Decimal',
-    shortLabel: 'Dec',
-    placeholder: '1.909',
-    type: 'number',
-    min: '1',
-    step: '0.001',
-  },
-  {
-    key: 'fractional',
-    label: 'Fractional',
-    shortLabel: 'Frac',
-    placeholder: '10/11',
-    type: 'text',
-  },
-  {
-    key: 'implied',
-    label: 'Probability',
-    shortLabel: 'Prob',
-    placeholder: '52.38',
-    type: 'number',
-    min: '0',
-    max: '99.99',
-    step: '0.01',
-    suffix: '%',
-  },
-];
+function getFormatOptions(locale: Locale): FormatOption[] {
+  const spanish = locale === 'es';
+
+  return [
+    {
+      key: 'american',
+      label: spanish ? 'Americana' : 'American',
+      shortLabel: 'US',
+      placeholder: '-110',
+      type: 'text',
+      pattern: '-?[0-9]+',
+    },
+    {
+      key: 'decimal',
+      label: 'Decimal',
+      shortLabel: 'Dec',
+      placeholder: '1.909',
+      type: 'number',
+      min: '1',
+      step: '0.001',
+    },
+    {
+      key: 'fractional',
+      label: spanish ? 'Fraccional' : 'Fractional',
+      shortLabel: spanish ? 'Frac' : 'Frac',
+      placeholder: '10/11',
+      type: 'text',
+    },
+    {
+      key: 'implied',
+      label: spanish ? 'Probabilidad' : 'Probability',
+      shortLabel: spanish ? 'Prob' : 'Prob',
+      placeholder: '52.38',
+      type: 'number',
+      min: '0',
+      max: '99.99',
+      step: '0.01',
+      suffix: '%',
+    },
+  ];
+}
 
 export default function OddsFields({
   idPrefix,
   contextLabel = 'Odds',
+  locale = 'en',
   values,
   onAmericanChange,
   onFractionalChange,
   onDecimalChange,
   onImpliedChange,
 }: OddsFieldsProps) {
+  const formatOptions = getFormatOptions(locale);
   const [activeFormat, setActiveFormat] = useState<OddsField>('american');
 
   const activeOption = formatOptions.find((option) => option.key === activeFormat) ?? formatOptions[0];
@@ -99,10 +107,28 @@ export default function OddsFields({
 
   const convertedOptions = formatOptions.filter((option) => option.key !== activeFormat);
 
+  const copy = locale === 'es'
+    ? {
+      selector: 'selector de formato de cuotas',
+      enter: 'Ingresa',
+      converted: 'Convertido',
+      switchInput: 'Cambiar campo activo de cuotas a',
+      inputFields: 'campos de entrada',
+      oddsLabel: 'cuotas',
+    }
+    : {
+      selector: 'odds format selector',
+      enter: 'Enter',
+      converted: 'Converted',
+      switchInput: 'Switch active odds input to',
+      inputFields: 'input fields',
+      oddsLabel: 'odds',
+    };
+
   return (
-    <fieldset className="space-y-4" aria-label={`${contextLabel} input fields`}>
+    <fieldset className="space-y-4" aria-label={`${contextLabel} ${copy.inputFields}`}>
       <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface-soft)] p-1">
-        <div role="tablist" aria-label={`${contextLabel} odds format selector`} className="grid grid-cols-4 gap-1">
+        <div role="tablist" aria-label={`${contextLabel} ${copy.selector}`} className="grid grid-cols-4 gap-1">
           {formatOptions.map((option) => {
             const isActive = option.key === activeFormat;
 
@@ -129,7 +155,7 @@ export default function OddsFields({
 
       <div className="flex flex-col gap-2">
         <label htmlFor={`${idPrefix}-${activeOption.key}-odds`} className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)]">
-          Enter {activeOption.label}
+          {copy.enter} {activeOption.label}
         </label>
         <div className="relative">
           <input
@@ -139,7 +165,7 @@ export default function OddsFields({
             min={activeOption.min}
             max={activeOption.max}
             step={activeOption.step}
-            aria-label={`${contextLabel} ${activeOption.label.toLowerCase()} odds`}
+            aria-label={`${contextLabel} ${activeOption.label.toLowerCase()} ${copy.oddsLabel}`}
             value={activeValue}
             onChange={(event) => onActiveChange(event.target.value)}
             className={`w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-3 text-base sm:text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:outline-none ${activeOption.suffix ? 'pr-7' : ''}`}
@@ -155,7 +181,7 @@ export default function OddsFields({
 
       <div className="space-y-2">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
-          Converted
+          {copy.converted}
         </p>
         <div className="grid gap-2 sm:grid-cols-3">
           {convertedOptions.map((option) => (
@@ -164,7 +190,7 @@ export default function OddsFields({
               type="button"
               onClick={() => setActiveFormat(option.key)}
               className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-left transition-colors hover:border-[var(--brand)]/40 hover:bg-[var(--surface-soft)]"
-              aria-label={`Switch active odds input to ${option.label}`}
+              aria-label={`${copy.switchInput} ${option.label}`}
             >
               <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
               <p className="mt-1 truncate text-sm font-semibold">

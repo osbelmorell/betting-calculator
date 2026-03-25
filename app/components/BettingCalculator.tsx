@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Locale } from '../i18n';
 import { getStickyBarVariant, trackCalculatorEvent, type StickyBarVariant } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
@@ -34,14 +35,52 @@ import {
 } from './oddsUtils';
 
 type BettingCalculatorProps = {
+  locale?: Locale;
   initialSharedState?: string;
   incomingSeedState?: string;
 };
 
 export default function BettingCalculator({
+  locale = 'en',
   initialSharedState,
   incomingSeedState,
 }: BettingCalculatorProps) {
+  const copy = locale === 'es'
+    ? {
+      title: 'Calculadora de Apuesta Simple',
+      subtitle: 'Elige un formato de cuota, ingresa una vez y mira como se convierten los demas al instante.',
+      cardTitle: 'Cuotas y Monto',
+      betAmount: 'Monto de Apuesta',
+      betAmountAria: 'Monto de apuesta simple en dolares',
+      results: 'Resultados Proyectados',
+      winnings: 'Ganancias',
+      payout: 'Pago Total',
+      winPct: 'Prob. de acierto %',
+      reset: 'Reiniciar',
+      resetAria: 'Restablecer valores de la calculadora de apuesta simple',
+      howToTitle: 'Como usar la calculadora de apuesta simple',
+      oddsFormatsTitle: 'Entender los formatos de cuotas',
+      faqTitle: 'Preguntas frecuentes',
+      shareLabel: 'apuesta simple',
+    }
+    : {
+      title: 'Single Bet Calculator',
+      subtitle: 'Pick one odds format, enter once, and see every other format convert instantly.',
+      cardTitle: 'Odds & Amount',
+      betAmount: 'Bet Amount',
+      betAmountAria: 'Single bet amount in dollars',
+      results: 'Projected Results',
+      winnings: 'Winnings',
+      payout: 'Payout',
+      winPct: 'Win %',
+      reset: 'Reset',
+      resetAria: 'Reset single bet calculator values',
+      howToTitle: 'How to Use the Single Bet Calculator',
+      oddsFormatsTitle: 'Understanding Betting Odds Formats',
+      faqTitle: 'Frequently Asked Questions',
+      shareLabel: 'single bet',
+    };
+
   const initialState = useMemo<SingleCalculatorState>(() => {
     return decodeSingleState(initialSharedState) ?? createDefaultSingleState();
   }, [initialSharedState]);
@@ -49,13 +88,9 @@ export default function BettingCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [odds, setOdds] = useState<OddsValues>(initialState.odds);
   const [hasHydrated, setHasHydrated] = useState(false);
-  const [stickyVariant, setStickyVariant] = useState<StickyBarVariant>('compact');
+  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
   const hasTrackedFirstInput = useRef(false);
   const hasTrackedFirstCalc = useRef(false);
-
-  useEffect(() => {
-    setStickyVariant(getStickyBarVariant());
-  }, []);
 
   useEffect(() => {
     const sharedState = decodeSingleState(initialSharedState);
@@ -258,10 +293,10 @@ export default function BettingCalculator({
         {/* Hero Section */}
         <div className="space-y-4">
           <h1 id="single-calculator-title" className="text-hero">
-            Single Bet Calculator
+            {copy.title}
           </h1>
           <p id="single-calculator-help" className="text-subtitle max-w-lg">
-            Pick one odds format, enter once, and see every other format convert instantly.
+            {copy.subtitle}
           </p>
         </div>
 
@@ -277,13 +312,13 @@ export default function BettingCalculator({
             aria-describedby="single-calculator-help"
           >
             <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
-              <h2 className="text-card-title">Odds & Amount</h2>
+              <h2 className="text-card-title">{copy.cardTitle}</h2>
             </div>
 
           <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-8 sm:px-8">
             <div className="flex flex-col gap-3">
               <label htmlFor="bet-amount" className="text-sm font-medium">
-                Bet Amount
+                {copy.betAmount}
               </label>
               <div className="relative">
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]">
@@ -293,19 +328,20 @@ export default function BettingCalculator({
                   id="bet-amount"
                   type="text"
                   inputMode="decimal"
-                  aria-label="Single bet amount in dollars"
+                  aria-label={copy.betAmountAria}
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
                   className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:border-[var(--brand)] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>
-              <BetAmountSlider amount={betAmount} onAmountChange={setBetAmount} max={1000} />
+              <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={setBetAmount} max={1000} />
             </div>
 
             <OddsFields
               idPrefix="single"
-              contextLabel="Single bet"
+              locale={locale}
+              contextLabel={copy.shareLabel}
               values={odds}
               onAmericanChange={onAmericanChange}
               onFractionalChange={onFractionalChange}
@@ -321,25 +357,25 @@ export default function BettingCalculator({
           >
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
-                Projected Results
+                {copy.results}
               </p>
               <div className="grid grid-cols-3 gap-4">
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">Winnings</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{copy.winnings}</p>
                   <p key={`single-winnings-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-2 text-xl font-semibold leading-tight">
                     <MoneyDisplay value={expectedWinnings} />
                   </p>
                 </div>
 
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">Payout</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{copy.payout}</p>
                   <p key={`single-payout-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-2 text-xl font-semibold leading-tight">
                     <MoneyDisplay value={expectedPayout} />
                   </p>
                 </div>
 
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">Win %</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{copy.winPct}</p>
                   <p key={`single-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-2 truncate text-xl font-semibold leading-tight">
                     {impliedWinningPercentage.toFixed(2)}%
                   </p>
@@ -351,12 +387,13 @@ export default function BettingCalculator({
                 <button
                   type="button"
                   onClick={onReset}
-                  aria-label="Reset single bet calculator values"
+                  aria-label={copy.resetAria}
                   className="btn btn-secondary btn-md flex-1 sm:flex-none"
                 >
-                  Reset
+                  {copy.reset}
                 </button>
                 <ShareLinkButton
+                  locale={locale}
                   className="btn btn-secondary btn-md flex-1 sm:flex-none"
                   onCopied={() => trackCalculatorEvent('single_share_copied', { betAmount, legCount: 1 })}
                 />
@@ -373,20 +410,20 @@ export default function BettingCalculator({
       >
         <div className={`grid gap-3 ${stickyVariant === 'expanded' ? 'grid-cols-3' : 'grid-cols-2'}`}>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Winnings</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
             <p key={`single-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedWinnings} />
             </p>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Payout</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.payout}</p>
             <p key={`single-sticky-pay-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedPayout} />
             </p>
           </div>
           {stickyVariant === 'expanded' ? (
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Win %</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winPct}</p>
               <p key={`single-sticky-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
                 {impliedWinningPercentage.toFixed(2)}%
               </p>
@@ -399,10 +436,10 @@ export default function BettingCalculator({
       {/* Editorial Content Section */}
       <div className="w-full max-w-2xl space-y-8 px-6 py-16 md:py-20">
         <section className="space-y-6">
-          <h2 className="text-section-title">How to Use the Single Bet Calculator</h2>
+          <h2 className="text-section-title">{copy.howToTitle}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
             <p>
-              Our single bet calculator makes it easy to calculate your potential winnings and payout instantly. Whether you're betting on moneyline, spread, or totals, follow these simple steps:
+              Our single bet calculator makes it easy to calculate your potential winnings and payout instantly. Whether you are betting on moneyline, spread, or totals, follow these simple steps:
             </p>
             <ol className="space-y-3 list-decimal list-inside">
               <li><strong>Enter your bet amount</strong> — Type the amount you plan to wager in dollars</li>
@@ -417,10 +454,10 @@ export default function BettingCalculator({
         </section>
 
         <section className="space-y-6">
-          <h2 className="text-section-title">Understanding Betting Odds Formats</h2>
+          <h2 className="text-section-title">{copy.oddsFormatsTitle}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
             <p>
-              Different sportsbooks and betting markets use different odds formats. Here's what each one means:
+              Different sportsbooks and betting markets use different odds formats. Here is what each one means:
             </p>
             <div className="space-y-4">
               <div>
@@ -437,17 +474,17 @@ export default function BettingCalculator({
               </div>
               <div>
                 <h3 className="font-semibold">Implied Probability</h3>
-                <p>Expresses odds as a percentage likelihood of winning. Example: 52% implies you'll win about half of comparable 52% probability bets over time.</p>
+                <p>Expresses odds as a percentage likelihood of winning. Example: 52% implies you will win about half of comparable 52% probability bets over time.</p>
               </div>
             </div>
           </div>
         </section>
 
         <section className="space-y-6">
-          <h2 className="text-section-title">Frequently Asked Questions</h2>
+          <h2 className="text-section-title">{copy.faqTitle}</h2>
           <div className="space-y-6">
             <div>
-              <h3 className="font-semibold text-base">What's the difference between payout and winnings?</h3>
+              <h3 className="font-semibold text-base">What is the difference between payout and winnings?</h3>
               <p className="mt-2 text-base text-[var(--foreground)]">
                 <strong>Winnings</strong> = profit only (original bet removed). <strong>Payout</strong> = total return including your original bet. If you bet $100 at 2.0 decimal odds: winnings = $100, payout = $200.
               </p>
@@ -455,7 +492,7 @@ export default function BettingCalculator({
             <div>
               <h3 className="font-semibold text-base">What does +150 mean in American odds?</h3>
               <p className="mt-2 text-base text-[var(--foreground)]">
-                +150 means if you bet $100, you win $150 profit (total payout $250). Positive American odds show how much profit $100 will make. The higher the number, the more likely the bookmaker thinks you'll lose.
+                +150 means if you bet $100, you win $150 profit (total payout $250). Positive American odds show how much profit $100 will make. The higher the number, the more likely the bookmaker thinks you will lose.
               </p>
             </div>
             <div>
@@ -467,7 +504,7 @@ export default function BettingCalculator({
             <div>
               <h3 className="font-semibold text-base">What is implied probability?</h3>
               <p className="mt-2 text-base text-[var(--foreground)]">
-                Implied probability converts odds into the percentage chance the bookmaker thinks you have to win. A -110 American odds implies ~52.38% probability. It's what you should win if you bet the same odds 100 times.
+                Implied probability converts odds into the percentage chance the bookmaker thinks you have to win. A -110 American odds implies ~52.38% probability. It is what you should win if you bet the same odds 100 times.
               </p>
             </div>
           </div>

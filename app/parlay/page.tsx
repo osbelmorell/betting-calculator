@@ -1,13 +1,41 @@
 import type { Metadata } from 'next';
 import ParlayCalculator from '../components/ParlayCalculator';
 import { NAVIGATION_SEED_PARAM, PARLAY_STATE_PARAM } from '../components/calculatorState';
-import { getCanonicalUrl, parlayPageConfig, schemaOrgUrl } from '../siteConfig';
+import { getCanonicalUrl, schemaOrgUrl } from '../siteConfig';
+
+const metadataCopy = {
+  title: 'Parlay Calculator | Free Multi-Leg Betting Tool',
+  description:
+    'Build and calculate parlays with unlimited legs. Convert each leg odds format, calculate combined odds, payouts, and winning probability. Free parlay betting calculator.',
+  faq: [
+    {
+      question: 'How do parlay odds work?',
+      answer:
+        "Parlay odds multiply together. Each leg's decimal odds are multiplied by the next leg's odds to create the combined decimal odds. Your potential winnings multiply with each added leg.",
+    },
+    {
+      question: 'What happens if one leg of my parlay loses?',
+      answer:
+        'If any single leg loses, the entire parlay is lost and you forfeit your stake. This is why parlays carry higher risk but offer higher potential rewards.',
+    },
+    {
+      question: 'How many legs can I add to a parlay?',
+      answer:
+        'This calculator supports unlimited parlay legs. However, most sportsbooks limit parlays to 10-15 legs. The more legs you add, the harder it becomes to win, but the higher the potential payout.',
+    },
+  ],
+} as const;
 
 export const metadata: Metadata = {
-  title: parlayPageConfig.title,
-  description: parlayPageConfig.description,
+  title: metadataCopy.title,
+  description: metadataCopy.description,
   alternates: {
     canonical: getCanonicalUrl('/parlay'),
+    languages: {
+      en: getCanonicalUrl('/parlay'),
+      es: getCanonicalUrl('/es/parlay'),
+      'x-default': getCanonicalUrl('/parlay'),
+    },
   },
 };
 
@@ -24,36 +52,18 @@ export default async function ParlayPage(props: PageProps<'/parlay'>) {
           __html: JSON.stringify({
             '@context': schemaOrgUrl,
             '@type': 'FAQPage',
-            'mainEntity': [
-              {
-                '@type': 'Question',
-                'name': 'How do parlay odds work?',
-                'acceptedAnswer': {
-                  '@type': 'Answer',
-                  'text': 'Parlay odds multiply together. Each leg\'s decimal odds are multiplied by the next leg\'s odds to create the combined decimal odds. Your potential winnings multiply with each added leg.',
-                },
+            mainEntity: metadataCopy.faq.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
               },
-              {
-                '@type': 'Question',
-                'name': 'What happens if one leg of my parlay loses?',
-                'acceptedAnswer': {
-                  '@type': 'Answer',
-                  'text': 'If any single leg loses, the entire parlay is lost and you forfeit your stake. This is why parlays carry higher risk but offer higher potential rewards.',
-                },
-              },
-              {
-                '@type': 'Question',
-                'name': 'How many legs can I add to a parlay?',
-                'acceptedAnswer': {
-                  '@type': 'Answer',
-                  'text': 'This calculator supports unlimited parlay legs. However, most sportsbooks limit parlays to 10-15 legs. The more legs you add, the harder it becomes to win, but the higher the potential payout.',
-                },
-              },
-            ],
+            })),
           }),
         }}
       />
-      <ParlayCalculator initialSharedState={initialSharedState} incomingSeedState={incomingSeedState} />
+      <ParlayCalculator locale="en" initialSharedState={initialSharedState} incomingSeedState={incomingSeedState} />
     </>
   );
 }

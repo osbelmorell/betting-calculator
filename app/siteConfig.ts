@@ -1,3 +1,5 @@
+import { defaultLocale, isLocale, localizePath, type Locale } from './i18n';
+
 const FALLBACK_SITE_URL = 'https://calcmybets.com';
 const FALLBACK_SITE_NAME = 'Betting Calculator';
 const FALLBACK_DEFAULT_TITLE = 'Betting Calculator | Free Odds & Parlay Calculator';
@@ -51,11 +53,19 @@ export const parlayPageConfig = {
 } as const;
 
 export function getCanonicalUrl(pathname: string = '/'): string {
-  if (pathname === '/') {
-    return siteConfig.url;
+  return new URL(pathname, `${siteConfig.url}/`).toString();
+}
+
+export function getLocalizedCanonicalUrl(pathname: string, locale: Locale = defaultLocale): string {
+  return getCanonicalUrl(localizePath(pathname, locale));
+}
+
+export function resolveLocale(value: string | undefined): Locale {
+  if (value && isLocale(value)) {
+    return value;
   }
 
-  return new URL(pathname, `${siteConfig.url}/`).toString();
+  return defaultLocale;
 }
 
 export const siteTitleTemplate = `%s | ${siteConfig.name}`;

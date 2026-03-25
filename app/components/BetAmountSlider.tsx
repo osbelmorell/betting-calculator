@@ -1,11 +1,13 @@
 'use client';
 
 import { useMemo } from 'react';
+import type { Locale } from '../i18n';
 import { parseFormattedNumber } from './oddsUtils';
 
 type BetAmountSliderProps = {
   amount: string;
   onAmountChange: (value: string) => void;
+  locale?: Locale;
   min?: number;
   max?: number;
 };
@@ -33,9 +35,26 @@ function findNearestValue(values: number[], target: number): number {
 export default function BetAmountSlider({
   amount,
   onAmountChange,
+  locale = 'en',
   min = 0,
   max = 1000,
 }: BetAmountSliderProps) {
+  const copy = locale === 'es'
+    ? {
+      quickPresets: 'Montos rapidos de apuesta',
+      setBetAmount: 'Fijar monto de apuesta en',
+      dollars: 'dolares',
+      range: 'Rango',
+      slider: 'Control deslizante del monto de apuesta',
+    }
+    : {
+      quickPresets: 'Quick bet amount presets',
+      setBetAmount: 'Set bet amount to',
+      dollars: 'dollars',
+      range: 'Range',
+      slider: 'Bet amount slider',
+    };
+
   const quickAmounts = useMemo(() => {
     const candidates = [10, 25, 50, 100, 250, 500, 1000];
     return candidates.filter((value) => value >= min && value <= max);
@@ -90,14 +109,14 @@ export default function BetAmountSlider({
   return (
     <div className="flex flex-col gap-2">
       {quickAmounts.length > 0 ? (
-        <div className="flex flex-wrap gap-2" aria-label="Quick bet amount presets">
+        <div className="flex flex-wrap gap-2" aria-label={copy.quickPresets}>
           {quickAmounts.map((value) => (
             <button
               key={value}
               type="button"
               onClick={() => onAmountChange(formatSliderAmount(value))}
               className="btn btn-secondary btn-sm !min-h-8 !px-3"
-              aria-label={`Set bet amount to ${value.toLocaleString()} dollars`}
+              aria-label={`${copy.setBetAmount} ${value.toLocaleString()} ${copy.dollars}`}
             >
               ${value.toLocaleString()}
             </button>
@@ -105,7 +124,7 @@ export default function BetAmountSlider({
         </div>
       ) : null}
       <div className="flex items-center justify-between text-xs text-[var(--text-secondary)]">
-        <span className="uppercase tracking-widest">Range</span>
+        <span className="uppercase tracking-widest">{copy.range}</span>
         <span className="font-medium">${min.toLocaleString()} – ${max.toLocaleString()}</span>
       </div>
       <input
@@ -116,7 +135,7 @@ export default function BetAmountSlider({
         value={sliderValue}
         onChange={(event) => onSliderChange(event.target.value)}
         className="h-1.5 w-full cursor-pointer rounded-full bg-[var(--border-color)] appearance-none accent-[#0071e3]"
-        aria-label="Bet amount slider"
+        aria-label={copy.slider}
         style={{
           background: `linear-gradient(90deg, #0071e3 ${((sliderValue - min) / (max - min)) * 100}%, var(--border-color) ${((sliderValue - min) / (max - min)) * 100}%)`
         }}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Locale } from '../i18n';
 import { getStickyBarVariant, trackCalculatorEvent, type StickyBarVariant } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
@@ -37,14 +38,68 @@ import {
 } from './oddsUtils';
 
 type ParlayCalculatorProps = {
+  locale?: Locale;
   initialSharedState?: string;
   incomingSeedState?: string;
 };
 
 export default function ParlayCalculator({
+  locale = 'en',
   initialSharedState,
   incomingSeedState,
 }: ParlayCalculatorProps) {
+  const copy = locale === 'es'
+    ? {
+      title: 'Calculadora de Parlay',
+      subtitle: 'Construye parlays rapido: elige formato por pierna, ingresa una vez y obtiene pagos combinados en vivo.',
+      cardTitle: 'Apuesta y Piernas',
+      betAmount: 'Monto de Apuesta',
+      betAmountAria: 'Monto de apuesta parlay en dolares',
+      legs: 'Piernas del Parlay',
+      addLeg: '+ Agregar pierna',
+      addLegAria: 'Agregar una pierna al parlay',
+      remove: 'Eliminar',
+      removeAria: 'Eliminar',
+      label: 'Etiqueta',
+      projectedResults: 'Resultados Proyectados',
+      combined: 'Combinada',
+      winnings: 'Ganancias',
+      payout: 'Pago Total',
+      winPct: 'Prob. de acierto %',
+      reset: 'Reiniciar',
+      resetAria: 'Restablecer valores y piernas de la calculadora de parlay',
+      leg: 'Pierna',
+      legListAria: 'Lista de piernas del parlay',
+      howItWorks: 'Como funcionan las cuotas de parlay',
+      buildParlay: 'Como construir un parlay con esta calculadora',
+      faq: 'Preguntas frecuentes sobre parlays',
+    }
+    : {
+      title: 'Parlay Calculator',
+      subtitle: 'Build parlays fast: choose a format per leg, enter once, and get live combined payouts.',
+      cardTitle: 'Bet & Legs',
+      betAmount: 'Bet Amount',
+      betAmountAria: 'Parlay bet amount in dollars',
+      legs: 'Parlay Legs',
+      addLeg: '+ Add Leg',
+      addLegAria: 'Add a parlay leg',
+      remove: 'Remove',
+      removeAria: 'Remove',
+      label: 'Label',
+      projectedResults: 'Projected Results',
+      combined: 'Combined',
+      winnings: 'Winnings',
+      payout: 'Payout',
+      winPct: 'Win %',
+      reset: 'Reset',
+      resetAria: 'Reset parlay calculator values and legs',
+      leg: 'Leg',
+      legListAria: 'Parlay leg list',
+      howItWorks: 'How Parlay Odds Work',
+      buildParlay: 'How to Build a Parlay with This Calculator',
+      faq: 'Parlay Betting FAQs',
+    };
+
   const initialState = useMemo<ParlayCalculatorState>(() => {
     return decodeParlayState(initialSharedState) ?? createDefaultParlayState();
   }, [initialSharedState]);
@@ -52,13 +107,9 @@ export default function ParlayCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [legs, setLegs] = useState<ParlayLeg[]>(initialState.legs);
   const [hasHydrated, setHasHydrated] = useState(false);
-  const [stickyVariant, setStickyVariant] = useState<StickyBarVariant>('compact');
+  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
   const hasTrackedFirstInput = useRef(false);
   const hasTrackedFirstCalc = useRef(false);
-
-  useEffect(() => {
-    setStickyVariant(getStickyBarVariant());
-  }, []);
 
   useEffect(() => {
     const sharedState = decodeParlayState(initialSharedState);
@@ -333,10 +384,10 @@ export default function ParlayCalculator({
         {/* Hero Section */}
         <div className="space-y-4">
           <h1 id="parlay-calculator-title" className="text-hero">
-            Parlay Calculator
+            {copy.title}
           </h1>
           <p id="parlay-calculator-help" className="text-subtitle max-w-lg">
-            Build parlays fast: choose a format per leg, enter once, and get live combined payouts.
+            {copy.subtitle}
           </p>
         </div>
 
@@ -352,13 +403,13 @@ export default function ParlayCalculator({
             aria-describedby="parlay-calculator-help"
           >
             <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
-              <h2 className="text-card-title">Bet & Legs</h2>
+              <h2 className="text-card-title">{copy.cardTitle}</h2>
             </div>
 
           <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-8 sm:px-8">
             <div className="flex flex-col gap-3">
               <label htmlFor="parlay-bet-amount" className="text-sm font-medium">
-                Bet Amount
+                {copy.betAmount}
               </label>
               <div className="relative">
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]">
@@ -368,29 +419,29 @@ export default function ParlayCalculator({
                   id="parlay-bet-amount"
                   type="text"
                   inputMode="decimal"
-                  aria-label="Parlay bet amount in dollars"
+                  aria-label={copy.betAmountAria}
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
                   className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:border-[var(--brand)] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>
-              <BetAmountSlider amount={betAmount} onAmountChange={setBetAmount} max={1000} />
+              <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={setBetAmount} max={1000} />
             </div>
 
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold">Parlay Legs</h2>
+              <h2 className="text-sm font-semibold">{copy.legs}</h2>
               <button
                 type="button"
                 onClick={addLeg}
-                aria-label="Add a parlay leg"
+                aria-label={copy.addLegAria}
                 className="btn btn-primary btn-sm"
               >
-                + Add Leg
+                {copy.addLeg}
               </button>
             </div>
 
-            <div className="flex flex-col gap-4" role="list" aria-label="Parlay leg list">
+            <div className="flex flex-col gap-4" role="list" aria-label={copy.legListAria}>
               {legs.map((leg, index) => (
                 <section
                   key={leg.id}
@@ -398,21 +449,21 @@ export default function ParlayCalculator({
                   className="rounded-lg border border-[var(--border-color)] bg-[var(--surface-soft)] p-4"
                 >
                   <div className="mb-4 flex items-center justify-between">
-                    <h3 className="text-sm font-medium">{leg.label.trim() || `Leg ${index + 1}`}</h3>
+                    <h3 className="text-sm font-medium">{leg.label.trim() || `${copy.leg} ${index + 1}`}</h3>
                     <button
                       type="button"
                       onClick={() => removeLeg(leg.id)}
                       disabled={legs.length <= 1}
-                      aria-label={`Remove ${leg.label.trim() || `Leg ${index + 1}`}`}
+                      aria-label={`${copy.removeAria} ${leg.label.trim() || `${copy.leg} ${index + 1}`}`}
                       className="btn btn-danger btn-sm text-xs"
                     >
-                      Remove
+                      {copy.remove}
                     </button>
                   </div>
 
                   <div className="mb-4 flex flex-col gap-2">
                     <label htmlFor={`parlay-leg-label-${leg.id}`} className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)]">
-                      Label
+                      {copy.label}
                     </label>
                     <input
                       id={`parlay-leg-label-${leg.id}`}
@@ -420,14 +471,15 @@ export default function ParlayCalculator({
                       value={leg.label}
                       onChange={(event) => updateLegLabel(leg.id, event.target.value)}
                       className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:border-[var(--brand)] focus:outline-none"
-                      placeholder={`Leg ${index + 1} (Team, market, etc.)`}
-                      aria-label={`Label for leg ${index + 1}`}
+                      placeholder={`${copy.leg} ${index + 1} (Team, mercado, etc.)`}
+                      aria-label={`${copy.label} ${copy.leg.toLowerCase()} ${index + 1}`}
                     />
                   </div>
 
                   <OddsFields
                     idPrefix={`parlay-leg-${leg.id}`}
-                    contextLabel={leg.label.trim() || `Leg ${index + 1}`}
+                    locale={locale}
+                    contextLabel={leg.label.trim() || `${copy.leg} ${index + 1}`}
                     values={leg.odds}
                     onAmericanChange={(value) => onAmericanChange(leg.id, value)}
                     onFractionalChange={(value) => onFractionalChange(leg.id, value)}
@@ -446,32 +498,32 @@ export default function ParlayCalculator({
           >
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
-                Projected Results
+                {copy.projectedResults}
               </p>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">Combined</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{copy.combined}</p>
                   <p key={`parlay-combined-${combinedDecimal.toFixed(3)}`} className="calc-value-pop mt-2 truncate text-lg font-semibold">
                     {combinedDecimal > 1 ? decimalDisplay(combinedDecimal) : '0'}
                   </p>
                 </div>
 
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">Winnings</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{copy.winnings}</p>
                   <p key={`parlay-winnings-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-2 text-lg font-semibold">
                     <MoneyDisplay value={expectedWinnings} />
                   </p>
                 </div>
 
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">Payout</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{copy.payout}</p>
                   <p key={`parlay-payout-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-2 text-lg font-semibold">
                     <MoneyDisplay value={expectedPayout} />
                   </p>
                 </div>
 
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">Win %</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{copy.winPct}</p>
                   <p key={`parlay-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-2 truncate text-lg font-semibold">
                     {impliedWinningPercentage.toFixed(2)}%
                   </p>
@@ -483,12 +535,13 @@ export default function ParlayCalculator({
                 <button
                   type="button"
                   onClick={resetParlay}
-                  aria-label="Reset parlay calculator values and legs"
+                  aria-label={copy.resetAria}
                   className="btn btn-secondary btn-md flex-1 sm:flex-none"
                 >
-                  Reset
+                  {copy.reset}
                 </button>
                 <ShareLinkButton
+                  locale={locale}
                   className="btn btn-secondary btn-md flex-1 sm:flex-none"
                   onCopied={() => trackCalculatorEvent('parlay_share_copied', { betAmount, legCount: legs.length })}
                 />
@@ -505,20 +558,20 @@ export default function ParlayCalculator({
       >
         <div className={`grid gap-3 ${stickyVariant === 'expanded' ? 'grid-cols-3' : 'grid-cols-2'}`}>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Winnings</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
             <p key={`parlay-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedWinnings} />
             </p>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Payout</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.payout}</p>
             <p key={`parlay-sticky-pay-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedPayout} />
             </p>
           </div>
           {stickyVariant === 'expanded' ? (
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Win %</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winPct}</p>
               <p key={`parlay-sticky-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
                 {impliedWinningPercentage.toFixed(2)}%
               </p>
@@ -531,7 +584,7 @@ export default function ParlayCalculator({
       {/* Editorial Content Section */}
       <div className="w-full max-w-2xl space-y-8 px-6 py-16 md:py-20">
         <section className="space-y-6">
-          <h2 className="text-section-title">How Parlay Odds Work</h2>
+          <h2 className="text-section-title">{copy.howItWorks}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
             <p>
               A parlay combines multiple bets into one. All legs must win for the parlay to cash. The odds multiply together, meaning your potential payout grows exponentially—but so does the risk.
@@ -546,7 +599,7 @@ export default function ParlayCalculator({
         </section>
 
         <section className="space-y-6">
-          <h2 className="text-section-title">How to Build a Parlay with This Calculator</h2>
+          <h2 className="text-section-title">{copy.buildParlay}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
             <p>
               Building a parlay is simple:
@@ -554,7 +607,7 @@ export default function ParlayCalculator({
             <ol className="space-y-3 list-decimal list-inside">
               <li><strong>Enter your parlay bet amount</strong> — Your total stake across all legs</li>
               <li><strong>Add your first leg</strong> — Enter odds in any format; calculator converts automatically</li>
-              <li><strong>Click "+ Add Leg"</strong> — Keep adding as many legs as you want</li>
+              <li><strong>Click &quot;+ Add Leg&quot;</strong> — Keep adding as many legs as you want</li>
               <li><strong>Watch the combined odds multiply</strong> — Each leg multiplies the last, growing your potential payout</li>
               <li><strong>Remove any leg</strong> — If you change your mind, remove that leg (must have at least 1)</li>
               <li><strong>View your combined payout</strong> — See what you could win if all legs hit</li>
@@ -563,7 +616,7 @@ export default function ParlayCalculator({
         </section>
 
         <section className="space-y-6">
-          <h2 className="text-section-title">Parlay Betting FAQs</h2>
+          <h2 className="text-section-title">{copy.faq}</h2>
           <div className="space-y-6">
             <div>
               <h3 className="font-semibold text-base">What happens if one leg of my parlay loses?</h3>
@@ -578,7 +631,7 @@ export default function ParlayCalculator({
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-base">What's the difference between a parlay and a round-robin?</h3>
+              <h3 className="font-semibold text-base">What is the difference between a parlay and a round-robin?</h3>
               <p className="mt-2 text-base text-[var(--foreground)]">
                 A parlay combines all legs into one bet (all-or-nothing). A round-robin automatically creates multiple smaller parlays from your legs (2-leg combos, 3-leg combos, etc.), so you can cash even if some legs lose. Most sportsbooks handle round-robins; this calculator focuses on single parlays.
               </p>
@@ -592,7 +645,7 @@ export default function ParlayCalculator({
             <div>
               <h3 className="font-semibold text-base">Can I share or save my parlay?</h3>
               <p className="mt-2 text-base text-[var(--foreground)]">
-                Yes. Click the "Share" button to copy a shareable link with all your legs and odds encoded in the URL. You can send it to friends or save it for later. The calculator also saves your last parlay locally.
+                Yes. Click the &quot;Share&quot; button to copy a shareable link with all your legs and odds encoded in the URL. You can send it to friends or save it for later. The calculator also saves your last parlay locally.
               </p>
             </div>
           </div>
