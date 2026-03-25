@@ -523,6 +523,77 @@ export default function ParlayCalculator({
         </div>
       </aside>
       </div>
+
+      {/* Editorial Content Section */}
+      <div className="w-full max-w-2xl space-y-8 px-6 py-16 md:py-20">
+        <section className="space-y-6">
+          <h2 className="text-section-title">How Parlay Odds Work</h2>
+          <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
+            <p>
+              A parlay combines multiple bets into one. All legs must win for the parlay to cash. The odds multiply together, meaning your potential payout grows exponentially—but so does the risk.
+            </p>
+            <p>
+              <strong>Example:</strong> If you combine three legs with decimal odds of 2.0, 1.5, and 2.0, your combined decimal odds = 2.0 × 1.5 × 2.0 = 6.0. A $100 parlay wins $600 total ($500 profit).
+            </p>
+            <p>
+              The key advantage of parlays: one $100 bet can have the winning power of $600 (6x return). The key risk: if any single leg loses, the entire parlay loses—no partial payouts.
+            </p>
+          </div>
+        </section>
+
+        <section className="space-y-6">
+          <h2 className="text-section-title">How to Build a Parlay with This Calculator</h2>
+          <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
+            <p>
+              Building a parlay is simple:
+            </p>
+            <ol className="space-y-3 list-decimal list-inside">
+              <li><strong>Enter your parlay bet amount</strong> — Your total stake across all legs</li>
+              <li><strong>Add your first leg</strong> — Enter odds in any format; calculator converts automatically</li>
+              <li><strong>Click "+ Add Leg"</strong> — Keep adding as many legs as you want</li>
+              <li><strong>Watch the combined odds multiply</strong> — Each leg multiplies the last, growing your potential payout</li>
+              <li><strong>Remove any leg</strong> — If you change your mind, remove that leg (must have at least 1)</li>
+              <li><strong>View your combined payout</strong> — See what you could win if all legs hit</li>
+            </ol>
+          </div>
+        </section>
+
+        <section className="space-y-6">
+          <h2 className="text-section-title">Parlay Betting FAQs</h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-semibold text-base">What happens if one leg of my parlay loses?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                The entire parlay loses. There are no partial payouts in traditional parlays. If you hit 5 out of 6 legs, you get nothing. This is why parlays are high-risk, high-reward bets.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-base">How many legs can I add to a parlay?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                This calculator supports unlimited legs. Most sportsbooks limit parlays to 10–15 legs. The more legs you add, the lower your probability of cashing, but the higher your potential payout. A 10-leg parlay at 2.0 decimal odds would return 1024x your bet.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-base">What's the difference between a parlay and a round-robin?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                A parlay combines all legs into one bet (all-or-nothing). A round-robin automatically creates multiple smaller parlays from your legs (2-leg combos, 3-leg combos, etc.), so you can cash even if some legs lose. Most sportsbooks handle round-robins; this calculator focuses on single parlays.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-base">How do I calculate implied probability for a parlay?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                Convert your combined decimal odds to implied probability using: (1 ÷ combined decimal) × 100. If your combined odds are 6.0, your implied winning probability is (1 ÷ 6.0) × 100 = 16.67%. This calculator shows this automatically.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-base">Can I share or save my parlay?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                Yes. Click the "Share" button to copy a shareable link with all your legs and odds encoded in the URL. You can send it to friends or save it for later. The calculator also saves your last parlay locally.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

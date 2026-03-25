@@ -391,6 +391,84 @@ export default function BettingCalculator({
         </div>
       </aside>
       </div>
+
+      {/* Editorial Content Section */}
+      <div className="w-full max-w-2xl space-y-8 px-6 py-16 md:py-20">
+        <section className="space-y-6">
+          <h2 className="text-section-title">How to Use the Single Bet Calculator</h2>
+          <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
+            <p>
+              Our single bet calculator makes it easy to calculate your potential winnings and payout instantly. Whether you're betting on moneyline, spread, or totals, follow these simple steps:
+            </p>
+            <ol className="space-y-3 list-decimal list-inside">
+              <li><strong>Enter your bet amount</strong> — Type the amount you plan to wager in dollars</li>
+              <li><strong>Choose an odds format</strong> — Select from American, Decimal, Fractional, or Implied Probability</li>
+              <li><strong>Enter the odds</strong> — Input your odds in your chosen format</li>
+              <li><strong>View results instantly</strong> — See your potential winnings, total payout, and winning probability automatically</li>
+            </ol>
+            <p>
+              The calculator automatically converts your odds to all other formats, so you can see the full picture no matter which format your sportsbook uses.
+            </p>
+          </div>
+        </section>
+
+        <section className="space-y-6">
+          <h2 className="text-section-title">Understanding Betting Odds Formats</h2>
+          <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
+            <p>
+              Different sportsbooks and betting markets use different odds formats. Here's what each one means:
+            </p>
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold">American Odds (Moneyline)</h3>
+                <p>Shows how much you need to bet to win $100 (negative odds) or how much $100 wins (positive odds). Example: -150 means bet $150 to win $100; +150 means $100 wins $150.</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Decimal Odds</h3>
+                <p>Your total return for every $1 wagered, including your original stake. Example: 2.50 means a $100 bet returns $250 total ($150 profit).</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Fractional Odds</h3>
+                <p>Common in UK and European betting. Shows profit relative to stake. Example: 5/2 means a $2 bet wins $5 profit, returning $7 total.</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Implied Probability</h3>
+                <p>Expresses odds as a percentage likelihood of winning. Example: 52% implies you'll win about half of comparable 52% probability bets over time.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-6">
+          <h2 className="text-section-title">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-semibold text-base">What's the difference between payout and winnings?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                <strong>Winnings</strong> = profit only (original bet removed). <strong>Payout</strong> = total return including your original bet. If you bet $100 at 2.0 decimal odds: winnings = $100, payout = $200.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-base">What does +150 mean in American odds?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                +150 means if you bet $100, you win $150 profit (total payout $250). Positive American odds show how much profit $100 will make. The higher the number, the more likely the bookmaker thinks you'll lose.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-base">How do I convert American odds to decimal?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                For positive odds: (American ÷ 100) + 1. For negative odds: (100 ÷ |American|) + 1. Or just use this calculator—it converts instantly across all formats.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-base">What is implied probability?</h3>
+              <p className="mt-2 text-base text-[var(--foreground)]">
+                Implied probability converts odds into the percentage chance the bookmaker thinks you have to win. A -110 American odds implies ~52.38% probability. It's what you should win if you bet the same odds 100 times.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

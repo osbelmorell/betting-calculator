@@ -1,0 +1,9 @@
+# Betting Calculator - Search Engine Directives
+
+User-agent: *
+Allow: /
+Disallow: /.next/
+Disallow: /node_modules/
+
+# Sitemap location
+Sitemap: https://calcmybets.com/sitemap.xml
