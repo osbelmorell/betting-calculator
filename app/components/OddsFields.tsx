@@ -142,7 +142,7 @@ export default function OddsFields({
             aria-label={`${contextLabel} ${activeOption.label.toLowerCase()} odds`}
             value={activeValue}
             onChange={(event) => onActiveChange(event.target.value)}
-            className={`w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-3 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:outline-none ${activeOption.suffix ? 'pr-7' : ''}`}
+            className={`w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-3 text-base sm:text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:outline-none ${activeOption.suffix ? 'pr-7' : ''}`}
             placeholder={activeOption.placeholder}
           />
           {activeOption.suffix ? (
