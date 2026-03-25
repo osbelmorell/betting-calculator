@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from 'react';
 import AnalyticsDebugPanel from './components/AnalyticsDebugPanel';
 import GlobalCalcToggle from './components/GlobalCalcToggle';
+import { schemaOrgUrl, siteConfig, siteTitleTemplate } from './siteConfig';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,42 +17,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://calcmybets.com'),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'Betting Calculator | Free Odds & Parlay Calculator',
-    template: '%s | Betting Calculator',
+    default: siteConfig.defaultTitle,
+    template: siteTitleTemplate,
   },
-  description:
-    'Free betting calculator with live odds conversion. Calculate single bet payouts, parlays, and implied probability across American, fractional, decimal, and implied formats.',
-  keywords: [
-    'betting calculator',
-    'parlay calculator',
-    'american odds converter',
-    'decimal odds calculator',
-    'implied probability',
-    'sports betting calculator',
-    'odds converter',
-  ],
+  description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: 'https://calcmybets.com',
+    canonical: siteConfig.url,
   },
   openGraph: {
-    title: 'Betting Calculator | Free Odds & Parlay Calculator',
-    description:
-      'Free single bet and parlay calculator with real-time odds conversion and implied winning percentage.',
+    title: siteConfig.defaultTitle,
+    description: siteConfig.openGraphDescription,
     type: 'website',
-    siteName: 'Betting Calculator',
-    url: 'https://calcmybets.com',
+    siteName: siteConfig.name,
+    url: siteConfig.url,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Betting Calculator | Free Odds & Parlay Calculator',
-    description:
-      'Single and parlay payout calculator with American, decimal, fractional, and implied odds conversion.',
+    title: siteConfig.defaultTitle,
+    description: siteConfig.twitterDescription,
   },
 };
 
@@ -79,12 +69,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              '@context': 'https://schema.org',
+              '@context': schemaOrgUrl,
               '@type': 'WebApplication',
-              'name': 'Betting Calculator',
-              'url': 'https://calcmybets.com',
+              'name': siteConfig.name,
+              'url': siteConfig.url,
               'applicationCategory': 'UtilityApplication',
-              'description': 'Free betting calculator with live odds conversion. Calculate single bet payouts, parlays, and implied probability.',
+              'description': siteConfig.webApplicationDescription,
               'offers': {
                 '@type': 'Offer',
                 'price': '0',

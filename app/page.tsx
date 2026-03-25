@@ -2,13 +2,13 @@
 import type { Metadata } from 'next';
 import BettingCalculator from './components/BettingCalculator';
 import { NAVIGATION_SEED_PARAM, SINGLE_STATE_PARAM } from './components/calculatorState';
+import { getCanonicalUrl, schemaOrgUrl, singleBetPageConfig } from './siteConfig';
 
 export const metadata: Metadata = {
-  title: 'Single Bet Calculator | Free Odds Conversion Tool',
-  description:
-    'Fast, free single bet calculator. Calculate payouts, winnings, and implied probability instantly. Convert between American, fractional, decimal, and percentage odds formats.',
+  title: singleBetPageConfig.title,
+  description: singleBetPageConfig.description,
   alternates: {
-    canonical: 'https://calcmybets.com',
+    canonical: getCanonicalUrl('/'),
   },
 };
 
@@ -23,7 +23,7 @@ export default async function Home(props: PageProps<'/'>) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
+            '@context': schemaOrgUrl,
             '@type': 'FAQPage',
             'mainEntity': [
               {

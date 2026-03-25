@@ -4,6 +4,17 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 - Analytics event schema and integration guide: [ANALYTICS_EVENTS.md](ANALYTICS_EVENTS.md)
 
+## Environment Variables
+
+This app reads reusable public site metadata from `.env` or `.env.local`.
+
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_SITE_NAME`
+- `NEXT_PUBLIC_SITE_DEFAULT_TITLE`
+- `NEXT_PUBLIC_SITE_DESCRIPTION`
+
+The repository includes `.env.example` with the current defaults.
+
 ## Getting Started
 
 First, run the development server:

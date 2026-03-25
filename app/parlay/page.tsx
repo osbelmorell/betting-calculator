@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import ParlayCalculator from '../components/ParlayCalculator';
 import { NAVIGATION_SEED_PARAM, PARLAY_STATE_PARAM } from '../components/calculatorState';
+import { getCanonicalUrl, parlayPageConfig, schemaOrgUrl } from '../siteConfig';
 
 export const metadata: Metadata = {
-  title: 'Parlay Calculator | Free Multi-Leg Betting Tool',
-  description:
-    'Build and calculate parlays with unlimited legs. Convert each leg odds format, calculate combined odds, payouts, and winning probability. Free parlay betting calculator.',
+  title: parlayPageConfig.title,
+  description: parlayPageConfig.description,
   alternates: {
-    canonical: 'https://calcmybets.com/parlay',
+    canonical: getCanonicalUrl('/parlay'),
   },
 };
 
@@ -22,7 +22,7 @@ export default async function ParlayPage(props: PageProps<'/parlay'>) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
+            '@context': schemaOrgUrl,
             '@type': 'FAQPage',
             'mainEntity': [
               {
