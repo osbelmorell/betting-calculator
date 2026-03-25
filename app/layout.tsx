@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from 'react';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import AnalyticsDebugPanel from './components/AnalyticsDebugPanel';
 import GlobalCalcToggle from './components/GlobalCalcToggle';
 import { schemaOrgUrl, siteConfig, siteTitleTemplate } from './siteConfig';
@@ -39,6 +40,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   return (
     <html
       lang="en"
@@ -79,6 +82,7 @@ export default function RootLayout({
           {children}
         </div>
         <AnalyticsDebugPanel />
+        {gaMeasurementId ? <GoogleAnalytics gaId={gaMeasurementId} /> : null}
       </body>
     </html>
   );

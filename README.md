@@ -12,6 +12,7 @@ This app reads reusable public site metadata from `.env` or `.env.local`.
 - `NEXT_PUBLIC_SITE_NAME`
 - `NEXT_PUBLIC_SITE_DEFAULT_TITLE`
 - `NEXT_PUBLIC_SITE_DESCRIPTION`
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` (optional, e.g. `G-XXXXXXXXXX`)
 
 The repository includes `.env.example` with the current defaults.
 

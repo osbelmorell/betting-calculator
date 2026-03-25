@@ -21,6 +21,8 @@ Each event is sent to all available integrations:
 - gtag event (if present)
 - plausible event (if present)
 
+Google Analytics availability is provided via Next.js `GoogleAnalytics` in the root layout (`@next/third-parties/google`) when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured.
+
 ## Event Names
 
 Single calculator:
