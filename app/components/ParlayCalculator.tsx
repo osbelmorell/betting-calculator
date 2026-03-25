@@ -52,9 +52,13 @@ export default function ParlayCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [legs, setLegs] = useState<ParlayLeg[]>(initialState.legs);
   const [hasHydrated, setHasHydrated] = useState(false);
-  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
+  const [stickyVariant, setStickyVariant] = useState<StickyBarVariant>('compact');
   const hasTrackedFirstInput = useRef(false);
   const hasTrackedFirstCalc = useRef(false);
+
+  useEffect(() => {
+    setStickyVariant(getStickyBarVariant());
+  }, []);
 
   useEffect(() => {
     const sharedState = decodeParlayState(initialSharedState);

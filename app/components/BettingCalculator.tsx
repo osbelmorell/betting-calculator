@@ -49,9 +49,13 @@ export default function BettingCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [odds, setOdds] = useState<OddsValues>(initialState.odds);
   const [hasHydrated, setHasHydrated] = useState(false);
-  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
+  const [stickyVariant, setStickyVariant] = useState<StickyBarVariant>('compact');
   const hasTrackedFirstInput = useRef(false);
   const hasTrackedFirstCalc = useRef(false);
+
+  useEffect(() => {
+    setStickyVariant(getStickyBarVariant());
+  }, []);
 
   useEffect(() => {
     const sharedState = decodeSingleState(initialSharedState);
