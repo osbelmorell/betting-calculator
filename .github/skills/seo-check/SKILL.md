@@ -12,6 +12,7 @@ Use this skill when the user asks to run an SEO pass, improve discoverability, o
 
 - Always use [Project SEO Guidelines](../../../SEO.md) as the primary ruleset.
 - If a guideline in [Project SEO Guidelines](../../../SEO.md) conflicts with current app behavior, keep changes conservative and avoid breaking behavior.
+- Deployment target is Vercel; prefer Vercel-friendly defaults (static rendering/SSG, edge caching, and `next.config` redirects/headers over runtime middleware when equivalent).
 
 ## Required Workflow
 

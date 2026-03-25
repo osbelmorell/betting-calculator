@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { singleCalculatorContent } from './content/calculatorContent';
 import BettingCalculator from './components/BettingCalculator';
-import { NAVIGATION_SEED_PARAM, SINGLE_STATE_PARAM } from './components/calculatorState';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from './siteConfig';
 
 const metadataCopy = singleCalculatorContent.en.seo;
@@ -32,11 +31,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home(props: PageProps<'/'>) {
-  const searchParams = await props.searchParams;
-  const initialSharedState = typeof searchParams[SINGLE_STATE_PARAM] === 'string' ? searchParams[SINGLE_STATE_PARAM] : undefined;
-  const incomingSeedState = typeof searchParams[NAVIGATION_SEED_PARAM] === 'string' ? searchParams[NAVIGATION_SEED_PARAM] : undefined;
-
+export default function Home() {
   return (
     <>
       <script
@@ -56,7 +51,7 @@ export default async function Home(props: PageProps<'/'>) {
           }),
         }}
       />
-      <BettingCalculator locale="en" initialSharedState={initialSharedState} incomingSeedState={incomingSeedState} />
+      <BettingCalculator locale="en" />
     </>
   );
 }

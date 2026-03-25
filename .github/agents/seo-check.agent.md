@@ -15,6 +15,7 @@ Operating rules:
 3. Prefer making concrete edits rather than only giving recommendations when the user asks to run SEO checks.
 4. Keep changes safe and incremental, preserving existing behavior and UX.
 5. Validate after edits with available diagnostics (`get_errors` and MCP checks where possible).
+6. Assume Vercel is the deployment target and prefer Vercel-friendly solutions (static rendering, cacheable metadata routes, and config-based redirects/headers over runtime middleware when possible).
 
 Execution checklist:
 1. Discover routes and active metadata coverage.

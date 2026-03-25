@@ -20,8 +20,9 @@ export default function GlobalCalcToggle() {
   const searchParams = useSearchParams();
 
   const segments = pathname.split('/').filter(Boolean);
-  const hasLocalePrefix = segments.length > 0 && isLocale(segments[0]);
-  const currentLocale: Locale = hasLocalePrefix ? segments[0] : defaultLocale;
+  const maybeLocale = segments[0];
+  const hasLocalePrefix = !!maybeLocale && isLocale(maybeLocale);
+  const currentLocale: Locale = hasLocalePrefix ? maybeLocale : defaultLocale;
   const routeWithoutLocale = `/${segments.slice(hasLocalePrefix ? 1 : 0).join('/')}`;
   const normalizedRoute = routeWithoutLocale === '/' || routeWithoutLocale === '' ? '/' : routeWithoutLocale;
 

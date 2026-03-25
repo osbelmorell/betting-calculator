@@ -15,6 +15,7 @@ import {
   encodeParlayState,
   isDefaultParlayState,
   loadParlayStateFromStorage,
+  NAVIGATION_SEED_PARAM,
   PARLAY_STATE_PARAM,
   saveParlayStateToStorage,
   type ParlayCalculatorState,
@@ -63,9 +64,13 @@ export default function ParlayCalculator({
   const hasTrackedFirstCalc = useRef(false);
 
   useEffect(() => {
-    const sharedState = decodeParlayState(initialSharedState);
+    const params = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search);
+    const sharedFromUrl = decodeParlayState(params?.get(PARLAY_STATE_PARAM) ?? undefined);
+    const seedFromUrl = decodeSingleState(params?.get(NAVIGATION_SEED_PARAM) ?? undefined);
+
+    const sharedState = decodeParlayState(initialSharedState) ?? sharedFromUrl;
     const storedState = loadParlayStateFromStorage();
-    const seedState = decodeSingleState(incomingSeedState);
+    const seedState = decodeSingleState(incomingSeedState) ?? seedFromUrl;
 
     const nextState = sharedState ?? storedState ?? createDefaultParlayState();
     const resolvedState = applySingleSeedToParlayState(nextState, sharedState ? null : seedState);

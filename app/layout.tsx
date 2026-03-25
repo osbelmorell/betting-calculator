@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Suspense } from 'react';
-import { headers } from 'next/headers';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import AnalyticsDebugPanel from './components/AnalyticsDebugPanel';
 import GlobalCalcToggle from './components/GlobalCalcToggle';
 import { defaultLocale } from './i18n';
-import { getLocalizedCanonicalUrl, resolveLocale, schemaOrgUrl, siteConfig, siteTitleTemplate } from './siteConfig';
+import { getLocalizedCanonicalUrl, schemaOrgUrl, siteConfig, siteTitleTemplate } from './siteConfig';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -42,21 +41,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const requestHeaders = await headers();
-  const lang = resolveLocale(requestHeaders.get('x-locale') ?? undefined);
   const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-  const schemaDescription = lang === 'es'
-    ? 'Calculadora de apuestas gratis con conversion de cuotas en tiempo real. Calcula pagos de apuestas simples, parlays y probabilidad implicita.'
-    : siteConfig.webApplicationDescription;
+  const schemaDescription = siteConfig.webApplicationDescription;
 
   return (
     <html
-      lang={lang}
+      lang={defaultLocale}
       className="h-full antialiased"
     >
       <body

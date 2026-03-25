@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { parlayCalculatorContent } from '../../content/calculatorContent';
 import ParlayCalculator from '../../components/ParlayCalculator';
-import { NAVIGATION_SEED_PARAM, PARLAY_STATE_PARAM } from '../../components/calculatorState';
 import { defaultLocale, isLocale, localizePath } from '../../i18n';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
 
@@ -51,9 +50,6 @@ export default async function ParlayPage(props: PageProps<'/[lang]/parlay'>) {
     redirect('/parlay');
   }
 
-  const searchParams = await props.searchParams;
-  const initialSharedState = typeof searchParams[PARLAY_STATE_PARAM] === 'string' ? searchParams[PARLAY_STATE_PARAM] : undefined;
-  const incomingSeedState = typeof searchParams[NAVIGATION_SEED_PARAM] === 'string' ? searchParams[NAVIGATION_SEED_PARAM] : undefined;
   const localizedCopy = parlayCalculatorContent[lang].seo;
 
   return (
@@ -75,7 +71,7 @@ export default async function ParlayPage(props: PageProps<'/[lang]/parlay'>) {
           }),
         }}
       />
-      <ParlayCalculator locale={lang} initialSharedState={initialSharedState} incomingSeedState={incomingSeedState} />
+      <ParlayCalculator locale={lang} />
     </>
   );
 }

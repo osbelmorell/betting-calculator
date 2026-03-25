@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { singleCalculatorContent } from '../content/calculatorContent';
 import BettingCalculator from '../components/BettingCalculator';
-import { NAVIGATION_SEED_PARAM, SINGLE_STATE_PARAM } from '../components/calculatorState';
 import { defaultLocale, isLocale, localizePath } from '../i18n';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 
@@ -51,9 +50,6 @@ export default async function Home(props: PageProps<'/[lang]'>) {
     redirect('/');
   }
 
-  const searchParams = await props.searchParams;
-  const initialSharedState = typeof searchParams[SINGLE_STATE_PARAM] === 'string' ? searchParams[SINGLE_STATE_PARAM] : undefined;
-  const incomingSeedState = typeof searchParams[NAVIGATION_SEED_PARAM] === 'string' ? searchParams[NAVIGATION_SEED_PARAM] : undefined;
   const localizedCopy = singleCalculatorContent[lang].seo;
 
   return (
@@ -75,7 +71,7 @@ export default async function Home(props: PageProps<'/[lang]'>) {
           }),
         }}
       />
-      <BettingCalculator locale={lang} initialSharedState={initialSharedState} incomingSeedState={incomingSeedState} />
+      <BettingCalculator locale={lang} />
     </>
   );
 }

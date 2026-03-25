@@ -13,6 +13,7 @@ import {
   hasValidOdds,
   isDefaultSingleState,
   loadSingleStateFromStorage,
+  NAVIGATION_SEED_PARAM,
   saveSingleStateToStorage,
   SINGLE_STATE_PARAM,
   type SingleCalculatorState,
@@ -60,9 +61,13 @@ export default function BettingCalculator({
   const hasTrackedFirstCalc = useRef(false);
 
   useEffect(() => {
-    const sharedState = decodeSingleState(initialSharedState);
+    const params = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search);
+    const sharedFromUrl = decodeSingleState(params?.get(SINGLE_STATE_PARAM) ?? undefined);
+    const seedFromUrl = decodeSingleState(params?.get(NAVIGATION_SEED_PARAM) ?? undefined);
+
+    const sharedState = decodeSingleState(initialSharedState) ?? sharedFromUrl;
     const storedState = loadSingleStateFromStorage();
-    const seededState = decodeSingleState(incomingSeedState);
+    const seededState = decodeSingleState(incomingSeedState) ?? seedFromUrl;
 
     const nextState = sharedState ?? storedState ?? createDefaultSingleState();
     const resolvedState = !sharedState && seededState && hasValidOdds(seededState.odds) ? seededState : nextState;
