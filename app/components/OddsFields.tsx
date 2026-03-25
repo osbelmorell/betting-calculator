@@ -19,7 +19,7 @@ type FormatOption = {
   shortLabel: string;
   placeholder: string;
   type: 'text' | 'number';
-  inputMode?: 'numeric' | 'decimal';
+  pattern?: string;
   min?: string;
   max?: string;
   step?: string;
@@ -33,7 +33,7 @@ const formatOptions: FormatOption[] = [
     shortLabel: 'US',
     placeholder: '-110',
     type: 'text',
-    inputMode: 'decimal',
+    pattern: '-?[0-9]+',
   },
   {
     key: 'decimal',
@@ -135,7 +135,7 @@ export default function OddsFields({
           <input
             id={`${idPrefix}-${activeOption.key}-odds`}
             type={activeOption.type}
-            inputMode={activeOption.inputMode}
+            pattern={activeOption.pattern}
             min={activeOption.min}
             max={activeOption.max}
             step={activeOption.step}
