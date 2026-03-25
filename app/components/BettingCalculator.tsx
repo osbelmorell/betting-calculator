@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Locale } from '../i18n';
 import { singleCalculatorContent } from '../content/calculatorContent';
-import { getStickyBarVariant, trackCalculatorEvent, type StickyBarVariant } from './analytics';
+import { trackCalculatorEvent } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
   buildRouteWithState,
@@ -56,7 +56,6 @@ export default function BettingCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [odds, setOdds] = useState<OddsValues>(initialState.odds);
   const [hasHydrated, setHasHydrated] = useState(false);
-  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
   const hasTrackedFirstInput = useRef(false);
   const hasTrackedFirstCalc = useRef(false);
 
@@ -331,22 +330,22 @@ export default function BettingCalculator({
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
                 {copy.results}
               </p>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="result-stat">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                <div className="result-stat col-span-2 sm:col-span-1">
                   <p className="text-xs text-[var(--text-secondary)]">{copy.winnings}</p>
                   <p key={`single-winnings-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-2 text-xl font-semibold leading-tight">
                     <MoneyDisplay value={expectedWinnings} />
                   </p>
                 </div>
 
-                <div className="result-stat">
+                <div className="result-stat col-span-1">
                   <p className="text-xs text-[var(--text-secondary)]">{copy.payout}</p>
                   <p key={`single-payout-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-2 text-xl font-semibold leading-tight">
                     <MoneyDisplay value={expectedPayout} />
                   </p>
                 </div>
 
-                <div className="result-stat">
+                <div className="result-stat col-span-1">
                   <p className="text-xs text-[var(--text-secondary)]">{copy.winPct}</p>
                   <p key={`single-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-2 truncate text-xl font-semibold leading-tight">
                     {impliedWinningPercentage.toFixed(2)}%
@@ -355,18 +354,18 @@ export default function BettingCalculator({
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-3 max-sm:flex-col">
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={onReset}
                   aria-label={copy.resetAria}
-                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
+                  className="btn btn-secondary btn-md"
                 >
                   {copy.reset}
                 </button>
                 <ShareLinkButton
                   locale={locale}
-                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
+                  className="btn btn-secondary btn-md"
                   onCopied={() => trackCalculatorEvent('single_share_copied', { betAmount, legCount: 1 })}
                 />
               </div>
@@ -378,9 +377,15 @@ export default function BettingCalculator({
       <aside
         aria-live="polite"
         aria-atomic="true"
-        className={`fixed inset-x-4 bottom-4 z-30 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)]/95 shadow-[var(--shadow-lg)] backdrop-blur-md sm:hidden ${stickyVariant === 'expanded' ? 'p-5' : 'p-4'}`}
+        className={`fixed inset-x-4 bottom-4 z-30 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)]/95 shadow-[var(--shadow-lg)] backdrop-blur-md sm:hidden p-4`}
       >
-        <div className={`grid gap-3 ${stickyVariant === 'expanded' ? 'grid-cols-3' : 'grid-cols-2'}`}>
+        <div className="grid grid-cols-3 gap-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
+            <p key={`single-sticky-bet-${betAmount}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+              <MoneyDisplay value={parseFloat(betAmount) || 0} />
+            </p>
+          </div>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
             <p key={`single-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
@@ -393,20 +398,12 @@ export default function BettingCalculator({
               <MoneyDisplay value={expectedPayout} />
             </p>
           </div>
-          {stickyVariant === 'expanded' ? (
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winPct}</p>
-              <p key={`single-sticky-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
-                {impliedWinningPercentage.toFixed(2)}%
-              </p>
-            </div>
-          ) : null}
         </div>
       </aside>
       </div>
 
       {/* Editorial Content Section */}
-      <div className="w-full max-w-2xl space-y-8 px-6 py-16 md:py-20">
+      <div className="w-full max-w-2xl space-y-8 pt-10 pb-16 md:pt-12 md:pb-20">
         <section className="space-y-6">
           <h2 className="text-section-title">{copy.howToTitle}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">

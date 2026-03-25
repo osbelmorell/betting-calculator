@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Locale } from '../i18n';
 import { parlayCalculatorContent } from '../content/calculatorContent';
-import { getStickyBarVariant, trackCalculatorEvent, type StickyBarVariant } from './analytics';
+import { trackCalculatorEvent } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
   applySingleSeedToParlayState,
@@ -59,7 +59,6 @@ export default function ParlayCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [legs, setLegs] = useState<ParlayLeg[]>(initialState.legs);
   const [hasHydrated, setHasHydrated] = useState(false);
-  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
   const hasTrackedFirstInput = useRef(false);
   const hasTrackedFirstCalc = useRef(false);
 
@@ -487,18 +486,18 @@ export default function ParlayCalculator({
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-3 max-sm:flex-col">
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={resetParlay}
                   aria-label={copy.resetAria}
-                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
+                  className="btn btn-secondary btn-md"
                 >
                   {copy.reset}
                 </button>
                 <ShareLinkButton
                   locale={locale}
-                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
+                  className="btn btn-secondary btn-md"
                   onCopied={() => trackCalculatorEvent('parlay_share_copied', { betAmount, legCount: legs.length })}
                 />
               </div>
@@ -510,9 +509,15 @@ export default function ParlayCalculator({
       <aside
         aria-live="polite"
         aria-atomic="true"
-        className={`fixed inset-x-4 bottom-4 z-30 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)]/95 shadow-[var(--shadow-lg)] backdrop-blur-md sm:hidden ${stickyVariant === 'expanded' ? 'p-5' : 'p-4'}`}
+        className="fixed inset-x-4 bottom-4 z-30 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)]/95 shadow-[var(--shadow-lg)] backdrop-blur-md sm:hidden p-4"
       >
-        <div className={`grid gap-3 ${stickyVariant === 'expanded' ? 'grid-cols-3' : 'grid-cols-2'}`}>
+        <div className="grid grid-cols-3 gap-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
+            <p key={`parlay-sticky-bet-${betAmount}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+              <MoneyDisplay value={parseFloat(betAmount) || 0} />
+            </p>
+          </div>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
             <p key={`parlay-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
@@ -525,20 +530,12 @@ export default function ParlayCalculator({
               <MoneyDisplay value={expectedPayout} />
             </p>
           </div>
-          {stickyVariant === 'expanded' ? (
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winPct}</p>
-              <p key={`parlay-sticky-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
-                {impliedWinningPercentage.toFixed(2)}%
-              </p>
-            </div>
-          ) : null}
         </div>
       </aside>
       </div>
 
       {/* Editorial Content Section */}
-      <div className="w-full max-w-2xl space-y-8 px-6 py-16 md:py-20">
+      <div className="w-full max-w-2xl space-y-8 pt-10 pb-16 md:pt-12 md:pb-20">
         <section className="space-y-6">
           <h2 className="text-section-title">{copy.howItWorks}</h2>
           <div className="space-y-4 text-base leading-relaxed text-[var(--foreground)]">
