@@ -33,7 +33,7 @@ const formatOptions: FormatOption[] = [
     shortLabel: 'US',
     placeholder: '-110',
     type: 'text',
-    inputMode: 'numeric',
+    inputMode: 'decimal',
   },
   {
     key: 'decimal',
