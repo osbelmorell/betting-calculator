@@ -175,9 +175,6 @@ export default function BettingCalculator({
     };
   }, [betAmount, odds.decimal]);
 
-  const borderProgress = clampPercent(impliedWinningPercentage);
-  const progressDegrees = (borderProgress / 100) * 360;
-
   const state = useMemo<SingleCalculatorState>(() => ({ betAmount, odds }), [betAmount, odds]);
   const encodedShareState = useMemo(() => encodeSingleState(state), [state]);
   const isDefaultState = useMemo(() => isDefaultSingleState(state), [state]);
@@ -209,36 +206,35 @@ export default function BettingCalculator({
 
   return (
     <main
-      className="grid min-h-[calc(100dvh-var(--content-offset))] place-items-center p-6"
+      className="grid min-h-[calc(100dvh-var(--content-offset))] place-items-center px-6 py-8"
       aria-labelledby="single-calculator-title"
     >
       <div
-        className="progress-border max-h-[min(calc(100dvh-var(--content-offset)-3rem-4px),52rem)] w-full max-w-md rounded-lg p-[2px] transition-all duration-300"
+        className="w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] shadow-[var(--shadow-md)] transition-all duration-300"
         style={{
-          ['--progress-deg' as string]: `${progressDegrees.toFixed(2)}deg`,
-          background:
-            'conic-gradient(from -45deg, rgba(59, 130, 246, 1) 0deg var(--progress-deg, 0deg), rgba(59, 130, 246, 0.14) var(--progress-deg, 0deg) 360deg)',
+          maxHeight: "min(calc(100dvh-var(--content-offset)-3rem-4px),56rem)",
         }}
       >
         <section
-          className="flex max-h-[inherit] flex-col overflow-hidden rounded-[7px] bg-black shadow-md"
+          className="flex max-h-[inherit] flex-col overflow-hidden"
           aria-describedby="single-calculator-help"
         >
-          <div className="px-4 pt-4 sm:px-8 sm:pt-8">
-            <h1 id="single-calculator-title" className="text-lg font-semibold">
-              Single Bet Calculator
+          <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
+            <h1 id="single-calculator-title" className="text-2xl font-semibold tracking-tight">
+              Single Bet
             </h1>
+            <p id="single-calculator-help" className="mt-2 text-sm text-[var(--text-secondary)]">
+              Enter any odds format and the calculator will automatically convert the others.
+            </p>
           </div>
 
-          <p id="single-calculator-help" className="px-4 pt-1 text-sm text-gray-300 sm:px-8 sm:pt-2">
-            Enter any one odds format and the calculator will automatically convert the others.
-          </p>
-
-          <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3 sm:space-y-4 sm:px-8 sm:py-4">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="bet-amount">Bet Amount</label>
+          <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-8 sm:px-8">
+            <div className="flex flex-col gap-3">
+              <label htmlFor="bet-amount" className="text-sm font-medium">
+                Bet Amount
+              </label>
               <div className="relative">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]">
                   $
                 </span>
                 <input
@@ -248,7 +244,7 @@ export default function BettingCalculator({
                   aria-label="Single bet amount in dollars"
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
-                  className="w-full rounded-md border-2 border-gray-800 p-2 pl-7"
+                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[#0071e3] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>
@@ -269,51 +265,46 @@ export default function BettingCalculator({
           <footer
             aria-live="polite"
             aria-atomic="true"
-            className="space-y-3 border-t border-gray-800 px-4 py-3 sm:px-8 sm:py-4"
+            className="space-y-6 border-t border-[var(--border-color)] px-6 py-8 sm:px-8"
           >
-            <p className="text-xs uppercase tracking-wide text-gray-400">Projected Results</p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
-              <div className="grid min-w-0 grid-rows-[auto_auto] gap-1">
-                <p className="truncate whitespace-nowrap text-[11px] text-gray-400" title="Expected Winnings">
-                  Expected Winnings
-                </p>
-                <p className="min-w-0 text-2xl font-bold leading-tight tabular-nums">
-                  <MoneyDisplay value={expectedWinnings} />
-                </p>
-              </div>
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
+                Projected Results
+              </p>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <p className="text-xs text-[var(--text-secondary)]">Winnings</p>
+                  <p className="mt-2 text-xl font-semibold leading-tight">
+                    <MoneyDisplay value={expectedWinnings} />
+                  </p>
+                </div>
 
-              <div className="grid min-w-0 grid-rows-[auto_auto] gap-1">
-                <p className="truncate whitespace-nowrap text-[11px] text-gray-400" title="Expected Payout">
-                  Expected Payout
-                </p>
-                <p className="min-w-0 text-2xl font-bold leading-tight tabular-nums">
-                  <MoneyDisplay value={expectedPayout} />
-                </p>
-              </div>
+                <div>
+                  <p className="text-xs text-[var(--text-secondary)]">Payout</p>
+                  <p className="mt-2 text-xl font-semibold leading-tight">
+                    <MoneyDisplay value={expectedPayout} />
+                  </p>
+                </div>
 
-              <div className="grid min-w-0 grid-rows-[auto_auto] gap-1">
-                <p
-                  className="truncate whitespace-nowrap text-[11px] text-gray-400"
-                  title="Implied Winning Percentage"
-                >
-                  Implied Win %
-                </p>
-                <p className="min-w-0 truncate text-2xl font-bold leading-tight tabular-nums">
-                  {impliedWinningPercentage.toFixed(2)}%
-                </p>
+                <div>
+                  <p className="text-xs text-[var(--text-secondary)]">Win %</p>
+                  <p className="mt-2 truncate text-xl font-semibold leading-tight">
+                    {impliedWinningPercentage.toFixed(2)}%
+                  </p>
+                </div>
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-2 max-sm:flex-wrap">
+              <div className="flex items-center gap-3 max-sm:flex-col">
                 <button
                   type="button"
                   onClick={onReset}
                   aria-label="Reset single bet calculator values"
-                  className="btn btn-secondary btn-md"
+                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
                 >
-                  Reset Bet
+                  Reset
                 </button>
-                <ShareLinkButton className="btn btn-secondary btn-md" />
+                <ShareLinkButton className="btn btn-secondary btn-md flex-1 sm:flex-none" />
               </div>
             </div>
           </footer>

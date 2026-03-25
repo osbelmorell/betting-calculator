@@ -84,9 +84,9 @@ export default function BetAmountSlider({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between text-xs text-gray-400">
-        <span>Slider Range</span>
-        <span>$0 - $1,000</span>
+      <div className="flex items-center justify-between text-xs text-[var(--text-secondary)]">
+        <span className="uppercase tracking-widest">Range</span>
+        <span className="font-medium">${min.toLocaleString()} – ${max.toLocaleString()}</span>
       </div>
       <input
         type="range"
@@ -95,8 +95,11 @@ export default function BetAmountSlider({
         step={0.25}
         value={sliderValue}
         onChange={(event) => onSliderChange(event.target.value)}
-        className="w-full accent-blue-500"
+        className="h-1.5 w-full cursor-pointer rounded-full bg-[var(--border-color)] appearance-none accent-[#0071e3]"
         aria-label="Bet amount slider"
+        style={{
+          background: `linear-gradient(90deg, #0071e3 ${((sliderValue - min) / (max - min)) * 100}%, var(--border-color) ${((sliderValue - min) / (max - min)) * 100}%)`
+        }}
       />
     </div>
   );

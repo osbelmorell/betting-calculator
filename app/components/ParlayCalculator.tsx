@@ -245,9 +245,6 @@ export default function ParlayCalculator({
     };
   }, [legs, betAmount]);
 
-  const borderProgress = clampPercent(impliedWinningPercentage);
-  const progressDegrees = (borderProgress / 100) * 360;
-
   const state = useMemo<ParlayCalculatorState>(() => ({ betAmount, legs }), [betAmount, legs]);
   const encodedShareState = useMemo(() => encodeParlayState(state), [state]);
   const isDefaultState = useMemo(() => isDefaultParlayState(state), [state]);
@@ -279,36 +276,35 @@ export default function ParlayCalculator({
 
   return (
     <main
-      className="grid min-h-[calc(100dvh-var(--content-offset))] place-items-center p-6"
+      className="grid min-h-[calc(100dvh-var(--content-offset))] place-items-center px-6 py-8"
       aria-labelledby="parlay-calculator-title"
     >
       <div
-        className="progress-border max-h-[min(calc(100dvh-var(--content-offset)-3rem-4px),58rem)] w-full max-w-4xl rounded-lg p-[2px] transition-all duration-300"
+        className="w-full max-w-2xl overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] shadow-[var(--shadow-md)] transition-all duration-300"
         style={{
-          ['--progress-deg' as string]: `${progressDegrees.toFixed(2)}deg`,
-          background:
-            'conic-gradient(from -45deg, rgba(59, 130, 246, 1) 0deg var(--progress-deg, 0deg), rgba(59, 130, 246, 0.14) var(--progress-deg, 0deg) 360deg)',
+          maxHeight: "min(calc(100dvh-var(--content-offset)-3rem-4px),70rem)",
         }}
       >
         <section
-          className="flex max-h-[inherit] flex-col overflow-hidden rounded-[7px] bg-black shadow-md"
+          className="flex max-h-[inherit] flex-col overflow-hidden"
           aria-describedby="parlay-calculator-help"
         >
-          <div className="px-4 pt-4 sm:px-8 sm:pt-8">
-            <h1 id="parlay-calculator-title" className="text-lg font-semibold">
-              Parlay Calculator
+          <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
+            <h1 id="parlay-calculator-title" className="text-2xl font-semibold tracking-tight">
+              Parlay
             </h1>
+            <p id="parlay-calculator-help" className="mt-2 text-sm text-[var(--text-secondary)]">
+              Add parlay legs and the calculator multiplies all decimal odds to project total payout.
+            </p>
           </div>
 
-          <p id="parlay-calculator-help" className="px-4 pt-1 text-sm text-gray-300 sm:px-8 sm:pt-2">
-            Add one odds line per leg. The calculator multiplies all leg decimals to project payout.
-          </p>
-
-          <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3 sm:space-y-4 sm:px-8 sm:py-4">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="parlay-bet-amount">Bet Amount</label>
+          <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-8 sm:px-8">
+            <div className="flex flex-col gap-3">
+              <label htmlFor="parlay-bet-amount" className="text-sm font-medium">
+                Bet Amount
+              </label>
               <div className="relative">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]">
                   $
                 </span>
                 <input
@@ -318,7 +314,7 @@ export default function ParlayCalculator({
                   aria-label="Parlay bet amount in dollars"
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
-                  className="w-full rounded-md border-2 border-gray-800 p-2 pl-7"
+                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[#0071e3] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>
@@ -326,21 +322,25 @@ export default function ParlayCalculator({
             </div>
 
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-medium text-gray-200">Parlay Legs</h2>
+              <h2 className="text-sm font-semibold">Parlay Legs</h2>
               <button
                 type="button"
                 onClick={addLeg}
                 aria-label="Add a parlay leg"
                 className="btn btn-primary btn-sm"
               >
-                Add Leg
+                + Add Leg
               </button>
             </div>
 
             <div className="flex flex-col gap-4" role="list" aria-label="Parlay leg list">
               {legs.map((leg, index) => (
-                <section key={leg.id} role="listitem" className="rounded-md border border-gray-800 p-3 sm:p-4">
-                  <div className="mb-3 flex items-center justify-between">
+                <section
+                  key={leg.id}
+                  role="listitem"
+                  className="rounded-lg border border-[var(--border-color)] bg-[var(--background)] p-4"
+                >
+                  <div className="mb-4 flex items-center justify-between">
                     <h3 className="text-sm font-medium">{leg.label.trim() || `Leg ${index + 1}`}</h3>
                     <button
                       type="button"
@@ -353,14 +353,16 @@ export default function ParlayCalculator({
                     </button>
                   </div>
 
-                  <div className="mb-3 flex flex-col gap-2">
-                    <label htmlFor={`parlay-leg-label-${leg.id}`}>Leg Label</label>
+                  <div className="mb-4 flex flex-col gap-2">
+                    <label htmlFor={`parlay-leg-label-${leg.id}`} className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)]">
+                      Label
+                    </label>
                     <input
                       id={`parlay-leg-label-${leg.id}`}
                       type="text"
                       value={leg.label}
                       onChange={(event) => updateLegLabel(leg.id, event.target.value)}
-                      className="rounded-md border-2 border-gray-800 p-2"
+                      className="rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3 py-2 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[#0071e3] focus:outline-none"
                       placeholder={`Leg ${index + 1} (Team, market, etc.)`}
                       aria-label={`Label for leg ${index + 1}`}
                     />
@@ -383,59 +385,54 @@ export default function ParlayCalculator({
           <footer
             aria-live="polite"
             aria-atomic="true"
-            className="shrink-0 space-y-3 rounded-b-[7px] border-t border-gray-800 bg-black px-4 py-3 sm:px-8 sm:py-4"
+            className="shrink-0 space-y-6 border-t border-[var(--border-color)] px-6 py-8 sm:px-8"
           >
-            <p className="text-xs uppercase tracking-wide text-gray-400">Projected Results</p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-              <div className="grid min-w-0 grid-rows-[auto_auto] gap-1">
-                <p className="truncate whitespace-nowrap text-[11px] text-gray-400" title="Combined Decimal Odds">
-                  Combined Decimal
-                </p>
-                <p className="min-w-0 truncate text-2xl font-bold leading-tight tabular-nums">
-                  {combinedDecimal > 1 ? decimalDisplay(combinedDecimal) : '0'}
-                </p>
-              </div>
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
+                Projected Results
+              </p>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div>
+                  <p className="text-xs text-[var(--text-secondary)]">Combined</p>
+                  <p className="mt-2 truncate text-lg font-semibold">
+                    {combinedDecimal > 1 ? decimalDisplay(combinedDecimal) : '0'}
+                  </p>
+                </div>
 
-              <div className="grid min-w-0 grid-rows-[auto_auto] gap-1">
-                <p className="truncate whitespace-nowrap text-[11px] text-gray-400" title="Expected Winnings">
-                  Expected Winnings
-                </p>
-                <p className="min-w-0 text-2xl font-bold leading-tight tabular-nums">
-                  <MoneyDisplay value={expectedWinnings} />
-                </p>
-              </div>
+                <div>
+                  <p className="text-xs text-[var(--text-secondary)]">Winnings</p>
+                  <p className="mt-2 text-lg font-semibold">
+                    <MoneyDisplay value={expectedWinnings} />
+                  </p>
+                </div>
 
-              <div className="grid min-w-0 grid-rows-[auto_auto] gap-1">
-                <p className="truncate whitespace-nowrap text-[11px] text-gray-400" title="Expected Payout">
-                  Expected Payout
-                </p>
-                <p className="min-w-0 text-2xl font-bold leading-tight tabular-nums">
-                  <MoneyDisplay value={expectedPayout} />
-                </p>
-              </div>
+                <div>
+                  <p className="text-xs text-[var(--text-secondary)]">Payout</p>
+                  <p className="mt-2 text-lg font-semibold">
+                    <MoneyDisplay value={expectedPayout} />
+                  </p>
+                </div>
 
-              <div className="grid min-w-0 grid-rows-[auto_auto] gap-1">
-                <p
-                  className="truncate whitespace-nowrap text-[11px] text-gray-400"
-                  title="Implied Winning Percentage"
-                >
-                  Implied Win %
-                </p>
-                <p className="min-w-0 truncate text-2xl font-bold leading-tight tabular-nums">
-                  {impliedWinningPercentage.toFixed(2)}%
-                </p>
+                <div>
+                  <p className="text-xs text-[var(--text-secondary)]">Win %</p>
+                  <p className="mt-2 truncate text-lg font-semibold">
+                    {impliedWinningPercentage.toFixed(2)}%
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 max-sm:flex-wrap">
-              <button
-                type="button"
-                onClick={resetParlay}
-                aria-label="Reset parlay calculator values and legs"
-                className="btn btn-secondary btn-md"
-              >
-                Reset Parlay
-              </button>
-              <ShareLinkButton className="btn btn-secondary btn-md" />
+            <div>
+              <div className="flex items-center gap-3 max-sm:flex-col">
+                <button
+                  type="button"
+                  onClick={resetParlay}
+                  aria-label="Reset parlay calculator values and legs"
+                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
+                >
+                  Reset
+                </button>
+                <ShareLinkButton className="btn btn-secondary btn-md flex-1 sm:flex-none" />
+              </div>
             </div>
           </footer>
         </section>
