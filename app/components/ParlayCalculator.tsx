@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { getStickyBarVariant, trackCalculatorEvent, type StickyBarVariant } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
   applySingleSeedToParlayState,
@@ -51,6 +52,9 @@ export default function ParlayCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [legs, setLegs] = useState<ParlayLeg[]>(initialState.legs);
   const [hasHydrated, setHasHydrated] = useState(false);
+  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
+  const hasTrackedFirstInput = useRef(false);
+  const hasTrackedFirstCalc = useRef(false);
 
   useEffect(() => {
     const sharedState = decodeParlayState(initialSharedState);
@@ -70,6 +74,11 @@ export default function ParlayCalculator({
   }, [incomingSeedState, initialSharedState]);
 
   const onBetAmountChange = (value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('parlay_first_input', { source: 'bet_amount', betAmount, legCount: legs.length });
+    }
+
     const formatted = formatBetAmountInput(value);
 
     if (formatted === null) {
@@ -135,6 +144,11 @@ export default function ParlayCalculator({
   };
 
   const onAmericanChange = (legId: number, value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('parlay_first_input', { source: 'american', betAmount, legCount: legs.length });
+    }
+
     if (!/^-?\d*$/.test(value)) {
       return;
     }
@@ -149,6 +163,11 @@ export default function ParlayCalculator({
   };
 
   const onDecimalChange = (legId: number, value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('parlay_first_input', { source: 'decimal', betAmount, legCount: legs.length });
+    }
+
     updateLegOdds(legId, { decimal: value });
     const parsed = Number(value);
     if (!Number.isFinite(parsed) || parsed <= 1) {
@@ -159,6 +178,11 @@ export default function ParlayCalculator({
   };
 
   const onFractionalChange = (legId: number, value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('parlay_first_input', { source: 'fractional', betAmount, legCount: legs.length });
+    }
+
     updateLegOdds(legId, { fractional: value });
     const parsed = parseFractional(value);
     if (parsed === null || parsed <= 1) {
@@ -169,6 +193,11 @@ export default function ParlayCalculator({
   };
 
   const onImpliedChange = (legId: number, value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('parlay_first_input', { source: 'implied', betAmount, legCount: legs.length });
+    }
+
     if (value === '') {
       updateLegOdds(legId, { implied: '' });
       return;
@@ -191,6 +220,7 @@ export default function ParlayCalculator({
   };
 
   const addLeg = () => {
+    trackCalculatorEvent('parlay_leg_added', { betAmount, legCount: legs.length + 1 });
     setLegs((prev) => {
       const nextId = prev.length === 0 ? 1 : Math.max(...prev.map((leg) => leg.id)) + 1;
       return [...prev, createLeg(nextId)];
@@ -198,6 +228,10 @@ export default function ParlayCalculator({
   };
 
   const removeLeg = (legId: number) => {
+    if (legs.length > 1) {
+      trackCalculatorEvent('parlay_leg_removed', { betAmount, legCount: legs.length - 1 });
+    }
+
     setLegs((prev) => {
       if (prev.length <= 1) {
         return prev;
@@ -245,6 +279,17 @@ export default function ParlayCalculator({
     };
   }, [legs, betAmount]);
 
+  useEffect(() => {
+    if (!hasTrackedFirstCalc.current && expectedPayout > 0) {
+      hasTrackedFirstCalc.current = true;
+      trackCalculatorEvent('parlay_first_calc', {
+        payoutBucket: Math.floor(expectedPayout),
+        betAmount,
+        legCount: legs.length,
+      });
+    }
+  }, [betAmount, expectedPayout, legs.length]);
+
   const state = useMemo<ParlayCalculatorState>(() => ({ betAmount, legs }), [betAmount, legs]);
   const encodedShareState = useMemo(() => encodeParlayState(state), [state]);
   const isDefaultState = useMemo(() => isDefaultParlayState(state), [state]);
@@ -268,6 +313,7 @@ export default function ParlayCalculator({
   }, [encodedShareState, hasHydrated, isDefaultState, state]);
 
   const resetParlay = () => {
+    trackCalculatorEvent('parlay_reset', { betAmount, legCount: legs.length });
     const resetState = createDefaultParlayState();
 
     setBetAmount(resetState.betAmount);
@@ -276,7 +322,7 @@ export default function ParlayCalculator({
 
   return (
     <main
-      className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 sm:py-16 md:py-20"
+      className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 pb-36 sm:py-16 sm:pb-16 md:py-20"
       aria-labelledby="parlay-calculator-title"
     >
       <div className="w-full max-w-2xl space-y-12 md:space-y-16">
@@ -286,13 +332,13 @@ export default function ParlayCalculator({
             Parlay Calculator
           </h1>
           <p id="parlay-calculator-help" className="text-subtitle max-w-lg">
-            Build multi-leg parlays and see your combined decimal odds and potential payout calculated in real time.
+            Build parlays fast: choose a format per leg, enter once, and get live combined payouts.
           </p>
         </div>
 
         {/* Calculator Card */}
         <div
-          className="w-full overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] shadow-[var(--shadow-md)] transition-all duration-300"
+          className="calculator-surface w-full overflow-hidden rounded-2xl transition-all duration-300"
           style={{
             maxHeight: "min(calc(100dvh-var(--content-offset)-12rem-4px),70rem)",
           }}
@@ -321,7 +367,7 @@ export default function ParlayCalculator({
                   aria-label="Parlay bet amount in dollars"
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
-                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[#0071e3] focus:outline-none"
+                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[var(--brand)] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>
@@ -345,7 +391,7 @@ export default function ParlayCalculator({
                 <section
                   key={leg.id}
                   role="listitem"
-                  className="rounded-lg border border-[var(--border-color)] bg-[var(--background)] p-4"
+                  className="rounded-lg border border-[var(--border-color)] bg-[var(--surface-soft)] p-4"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <h3 className="text-sm font-medium">{leg.label.trim() || `Leg ${index + 1}`}</h3>
@@ -369,7 +415,7 @@ export default function ParlayCalculator({
                       type="text"
                       value={leg.label}
                       onChange={(event) => updateLegLabel(leg.id, event.target.value)}
-                      className="rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3 py-2 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[#0071e3] focus:outline-none"
+                      className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[var(--brand)] focus:outline-none"
                       placeholder={`Leg ${index + 1} (Team, market, etc.)`}
                       aria-label={`Label for leg ${index + 1}`}
                     />
@@ -392,37 +438,37 @@ export default function ParlayCalculator({
           <footer
             aria-live="polite"
             aria-atomic="true"
-            className="shrink-0 space-y-6 border-t border-[var(--border-color)] px-6 py-8 sm:px-8"
+            className="results-shell shrink-0 space-y-6 px-6 py-8 sm:px-8"
           >
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
                 Projected Results
               </p>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div>
+                <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">Combined</p>
-                  <p className="mt-2 truncate text-lg font-semibold">
+                  <p key={`parlay-combined-${combinedDecimal.toFixed(3)}`} className="calc-value-pop mt-2 truncate text-lg font-semibold">
                     {combinedDecimal > 1 ? decimalDisplay(combinedDecimal) : '0'}
                   </p>
                 </div>
 
-                <div>
+                <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">Winnings</p>
-                  <p className="mt-2 text-lg font-semibold">
+                  <p key={`parlay-winnings-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-2 text-lg font-semibold">
                     <MoneyDisplay value={expectedWinnings} />
                   </p>
                 </div>
 
-                <div>
+                <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">Payout</p>
-                  <p className="mt-2 text-lg font-semibold">
+                  <p key={`parlay-payout-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-2 text-lg font-semibold">
                     <MoneyDisplay value={expectedPayout} />
                   </p>
                 </div>
 
-                <div>
+                <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">Win %</p>
-                  <p className="mt-2 truncate text-lg font-semibold">
+                  <p key={`parlay-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-2 truncate text-lg font-semibold">
                     {impliedWinningPercentage.toFixed(2)}%
                   </p>
                 </div>
@@ -438,12 +484,44 @@ export default function ParlayCalculator({
                 >
                   Reset
                 </button>
-                <ShareLinkButton className="btn btn-secondary btn-md flex-1 sm:flex-none" />
+                <ShareLinkButton
+                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
+                  onCopied={() => trackCalculatorEvent('parlay_share_copied', { betAmount, legCount: legs.length })}
+                />
               </div>
             </div>
           </footer>
         </section>
       </div>
+
+      <aside
+        aria-live="polite"
+        aria-atomic="true"
+        className={`fixed inset-x-4 bottom-4 z-30 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)]/95 shadow-[var(--shadow-lg)] backdrop-blur-md sm:hidden ${stickyVariant === 'expanded' ? 'p-5' : 'p-4'}`}
+      >
+        <div className={`grid gap-3 ${stickyVariant === 'expanded' ? 'grid-cols-3' : 'grid-cols-2'}`}>
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Winnings</p>
+            <p key={`parlay-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+              <MoneyDisplay value={expectedWinnings} />
+            </p>
+          </div>
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Payout</p>
+            <p key={`parlay-sticky-pay-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+              <MoneyDisplay value={expectedPayout} />
+            </p>
+          </div>
+          {stickyVariant === 'expanded' ? (
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Win %</p>
+              <p key={`parlay-sticky-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+                {impliedWinningPercentage.toFixed(2)}%
+              </p>
+            </div>
+          ) : null}
+        </div>
+      </aside>
       </div>
     </main>
   );

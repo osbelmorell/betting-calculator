@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from 'react';
+import AnalyticsDebugPanel from './components/AnalyticsDebugPanel';
 import GlobalCalcToggle from './components/GlobalCalcToggle';
 import "./globals.css";
 
@@ -68,10 +70,13 @@ export default function RootLayout({
           } as React.CSSProperties
         }
       >
-        <GlobalCalcToggle />
+        <Suspense fallback={<div className="h-[var(--content-offset)]" aria-hidden="true" />}>
+          <GlobalCalcToggle />
+        </Suspense>
         <div className="flex-1 pt-[var(--content-offset)]">
           {children}
         </div>
+        <AnalyticsDebugPanel />
       </body>
     </html>
   );

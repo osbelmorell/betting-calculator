@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Betting Calculator Docs
+
+- Analytics event schema and integration guide: [ANALYTICS_EVENTS.md](ANALYTICS_EVENTS.md)
+
 ## Getting Started
 
 First, run the development server:

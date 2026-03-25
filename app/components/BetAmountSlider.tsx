@@ -36,6 +36,11 @@ export default function BetAmountSlider({
   min = 0,
   max = 1000,
 }: BetAmountSliderProps) {
+  const quickAmounts = useMemo(() => {
+    const candidates = [10, 25, 50, 100, 250, 500, 1000];
+    return candidates.filter((value) => value >= min && value <= max);
+  }, [min, max]);
+
   const allowedValues = useMemo(() => {
     const values = new Set<number>([min, max]);
     const initialSteps = [0.25, 0.5, 1, 5, 10];
@@ -84,6 +89,21 @@ export default function BetAmountSlider({
 
   return (
     <div className="flex flex-col gap-2">
+      {quickAmounts.length > 0 ? (
+        <div className="flex flex-wrap gap-2" aria-label="Quick bet amount presets">
+          {quickAmounts.map((value) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => onAmountChange(formatSliderAmount(value))}
+              className="btn btn-secondary btn-sm !min-h-8 !px-3"
+              aria-label={`Set bet amount to ${value.toLocaleString()} dollars`}
+            >
+              ${value.toLocaleString()}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div className="flex items-center justify-between text-xs text-[var(--text-secondary)]">
         <span className="uppercase tracking-widest">Range</span>
         <span className="font-medium">${min.toLocaleString()} – ${max.toLocaleString()}</span>

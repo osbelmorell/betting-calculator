@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { getStickyBarVariant, trackCalculatorEvent, type StickyBarVariant } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
   buildRouteWithState,
@@ -48,6 +49,9 @@ export default function BettingCalculator({
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [odds, setOdds] = useState<OddsValues>(initialState.odds);
   const [hasHydrated, setHasHydrated] = useState(false);
+  const [stickyVariant] = useState<StickyBarVariant>(() => getStickyBarVariant());
+  const hasTrackedFirstInput = useRef(false);
+  const hasTrackedFirstCalc = useRef(false);
 
   useEffect(() => {
     const sharedState = decodeSingleState(initialSharedState);
@@ -67,6 +71,11 @@ export default function BettingCalculator({
   }, [incomingSeedState, initialSharedState]);
 
   const onBetAmountChange = (value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('single_first_input', { source: 'bet_amount', betAmount, legCount: 1 });
+    }
+
     const formatted = formatBetAmountInput(value);
 
     if (formatted === null) {
@@ -90,6 +99,11 @@ export default function BettingCalculator({
   };
 
   const onAmericanChange = (value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('single_first_input', { source: 'american', betAmount, legCount: 1 });
+    }
+
     if (!/^-?\d*$/.test(value)) {
       return;
     }
@@ -104,6 +118,11 @@ export default function BettingCalculator({
   };
 
   const onDecimalChange = (value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('single_first_input', { source: 'decimal', betAmount, legCount: 1 });
+    }
+
     setOdds((prev) => ({ ...prev, decimal: value }));
     const parsed = Number(value);
     if (!Number.isFinite(parsed) || parsed <= 1) {
@@ -114,6 +133,11 @@ export default function BettingCalculator({
   };
 
   const onFractionalChange = (value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('single_first_input', { source: 'fractional', betAmount, legCount: 1 });
+    }
+
     setOdds((prev) => ({ ...prev, fractional: value }));
     const parsed = parseFractional(value);
     if (parsed === null || parsed <= 1) {
@@ -124,6 +148,11 @@ export default function BettingCalculator({
   };
 
   const onImpliedChange = (value: string) => {
+    if (!hasTrackedFirstInput.current) {
+      hasTrackedFirstInput.current = true;
+      trackCalculatorEvent('single_first_input', { source: 'implied', betAmount, legCount: 1 });
+    }
+
     if (value === '') {
       setOdds((prev) => ({ ...prev, implied: '' }));
       return;
@@ -175,6 +204,17 @@ export default function BettingCalculator({
     };
   }, [betAmount, odds.decimal]);
 
+  useEffect(() => {
+    if (!hasTrackedFirstCalc.current && expectedPayout > 0) {
+      hasTrackedFirstCalc.current = true;
+      trackCalculatorEvent('single_first_calc', {
+        payoutBucket: Math.floor(expectedPayout),
+        betAmount,
+        legCount: 1,
+      });
+    }
+  }, [betAmount, expectedPayout]);
+
   const state = useMemo<SingleCalculatorState>(() => ({ betAmount, odds }), [betAmount, odds]);
   const encodedShareState = useMemo(() => encodeSingleState(state), [state]);
   const isDefaultState = useMemo(() => isDefaultSingleState(state), [state]);
@@ -198,6 +238,7 @@ export default function BettingCalculator({
   }, [encodedShareState, hasHydrated, isDefaultState, state]);
 
   const onReset = () => {
+    trackCalculatorEvent('single_reset', { betAmount, legCount: 1 });
     const resetState = createDefaultSingleState();
 
     setBetAmount(resetState.betAmount);
@@ -206,7 +247,7 @@ export default function BettingCalculator({
 
   return (
     <main
-      className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 sm:py-16 md:py-20"
+      className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 pb-36 sm:py-16 sm:pb-16 md:py-20"
       aria-labelledby="single-calculator-title"
     >
       <div className="w-full max-w-2xl space-y-12 md:space-y-16">
@@ -216,13 +257,13 @@ export default function BettingCalculator({
             Single Bet Calculator
           </h1>
           <p id="single-calculator-help" className="text-subtitle max-w-lg">
-            Enter any odds format and the calculator will automatically convert the others for you.
+            Pick one odds format, enter once, and see every other format convert instantly.
           </p>
         </div>
 
         {/* Calculator Card */}
         <div
-          className="w-full overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] shadow-[var(--shadow-md)] transition-all duration-300"
+          className="calculator-surface w-full overflow-hidden rounded-2xl transition-all duration-300"
           style={{
             maxHeight: "min(calc(100dvh-var(--content-offset)-12rem-4px),56rem)",
           }}
@@ -251,7 +292,7 @@ export default function BettingCalculator({
                   aria-label="Single bet amount in dollars"
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
-                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[#0071e3] focus:outline-none"
+                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[var(--brand)] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>
@@ -272,30 +313,30 @@ export default function BettingCalculator({
           <footer
             aria-live="polite"
             aria-atomic="true"
-            className="space-y-6 border-t border-[var(--border-color)] px-6 py-8 sm:px-8"
+            className="results-shell space-y-6 px-6 py-8 sm:px-8"
           >
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
                 Projected Results
               </p>
               <div className="grid grid-cols-3 gap-4">
-                <div>
+                <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">Winnings</p>
-                  <p className="mt-2 text-xl font-semibold leading-tight">
+                  <p key={`single-winnings-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-2 text-xl font-semibold leading-tight">
                     <MoneyDisplay value={expectedWinnings} />
                   </p>
                 </div>
 
-                <div>
+                <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">Payout</p>
-                  <p className="mt-2 text-xl font-semibold leading-tight">
+                  <p key={`single-payout-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-2 text-xl font-semibold leading-tight">
                     <MoneyDisplay value={expectedPayout} />
                   </p>
                 </div>
 
-                <div>
+                <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">Win %</p>
-                  <p className="mt-2 truncate text-xl font-semibold leading-tight">
+                  <p key={`single-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-2 truncate text-xl font-semibold leading-tight">
                     {impliedWinningPercentage.toFixed(2)}%
                   </p>
                 </div>
@@ -311,12 +352,44 @@ export default function BettingCalculator({
                 >
                   Reset
                 </button>
-                <ShareLinkButton className="btn btn-secondary btn-md flex-1 sm:flex-none" />
+                <ShareLinkButton
+                  className="btn btn-secondary btn-md flex-1 sm:flex-none"
+                  onCopied={() => trackCalculatorEvent('single_share_copied', { betAmount, legCount: 1 })}
+                />
               </div>
             </div>
           </footer>
         </section>
       </div>
+
+      <aside
+        aria-live="polite"
+        aria-atomic="true"
+        className={`fixed inset-x-4 bottom-4 z-30 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)]/95 shadow-[var(--shadow-lg)] backdrop-blur-md sm:hidden ${stickyVariant === 'expanded' ? 'p-5' : 'p-4'}`}
+      >
+        <div className={`grid gap-3 ${stickyVariant === 'expanded' ? 'grid-cols-3' : 'grid-cols-2'}`}>
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Winnings</p>
+            <p key={`single-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+              <MoneyDisplay value={expectedWinnings} />
+            </p>
+          </div>
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Payout</p>
+            <p key={`single-sticky-pay-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+              <MoneyDisplay value={expectedPayout} />
+            </p>
+          </div>
+          {stickyVariant === 'expanded' ? (
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Win %</p>
+              <p key={`single-sticky-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+                {impliedWinningPercentage.toFixed(2)}%
+              </p>
+            </div>
+          ) : null}
+        </div>
+      </aside>
       </div>
     </main>
   );

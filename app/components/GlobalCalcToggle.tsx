@@ -37,7 +37,7 @@ export default function GlobalCalcToggle() {
       <div
         role="tablist"
         aria-label="Calculator type"
-        className="pointer-events-auto inline-flex h-[var(--toggle-height)] items-center gap-0.5 rounded-full border border-[var(--border-color)] bg-[var(--background)]/80 p-1 shadow-[var(--shadow-md)] backdrop-blur-md"
+        className="pointer-events-auto inline-flex h-[var(--toggle-height)] items-center gap-0.5 rounded-full border border-[var(--border-color)] bg-[var(--surface)] p-1 shadow-[var(--shadow-md)] backdrop-blur-md"
       >
         {tabs.map((tab) => {
           const isActive = pathname === tab.route;
@@ -50,8 +50,8 @@ export default function GlobalCalcToggle() {
               aria-selected={isActive}
               className={`flex min-w-20 items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? 'bg-[var(--foreground)] text-[var(--background)]'
-                  : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40'
+                  ? 'bg-[var(--brand)] text-white shadow-sm'
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--surface-soft)] hover:text-[var(--foreground)]'
               }`}
             >
               {tab.label}

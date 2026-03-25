@@ -4,9 +4,10 @@ import { useState } from 'react';
 
 type ShareLinkButtonProps = {
   className?: string;
+  onCopied?: () => void;
 };
 
-export default function ShareLinkButton({ className }: ShareLinkButtonProps) {
+export default function ShareLinkButton({ className, onCopied }: ShareLinkButtonProps) {
   const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle');
 
   const tooltipMessage =
@@ -24,6 +25,7 @@ export default function ShareLinkButton({ className }: ShareLinkButtonProps) {
     try {
       await navigator.clipboard.writeText(window.location.href);
       setStatus('copied');
+      onCopied?.();
       window.setTimeout(() => setStatus('idle'), 2000);
     } catch {
       setStatus('error');
