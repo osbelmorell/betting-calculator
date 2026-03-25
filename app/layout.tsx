@@ -69,7 +69,9 @@ export default function RootLayout({
         }
       >
         <GlobalCalcToggle />
-        <div className="flex-1 pt-[var(--content-offset)]">{children}</div>
+        <div className="flex-1 pt-[var(--content-offset)]">
+          {children}
+        </div>
       </body>
     </html>
   );

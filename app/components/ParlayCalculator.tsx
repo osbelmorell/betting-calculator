@@ -276,27 +276,34 @@ export default function ParlayCalculator({
 
   return (
     <main
-      className="grid min-h-[calc(100dvh-var(--content-offset))] place-items-center px-6 py-8"
+      className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 sm:py-16 md:py-20"
       aria-labelledby="parlay-calculator-title"
     >
-      <div
-        className="w-full max-w-2xl overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] shadow-[var(--shadow-md)] transition-all duration-300"
-        style={{
-          maxHeight: "min(calc(100dvh-var(--content-offset)-3rem-4px),70rem)",
-        }}
-      >
-        <section
-          className="flex max-h-[inherit] flex-col overflow-hidden"
-          aria-describedby="parlay-calculator-help"
+      <div className="w-full max-w-2xl space-y-12 md:space-y-16">
+        {/* Hero Section */}
+        <div className="space-y-4">
+          <h1 id="parlay-calculator-title" className="text-hero">
+            Parlay Calculator
+          </h1>
+          <p id="parlay-calculator-help" className="text-subtitle max-w-lg">
+            Build multi-leg parlays and see your combined decimal odds and potential payout calculated in real time.
+          </p>
+        </div>
+
+        {/* Calculator Card */}
+        <div
+          className="w-full overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] shadow-[var(--shadow-md)] transition-all duration-300"
+          style={{
+            maxHeight: "min(calc(100dvh-var(--content-offset)-12rem-4px),70rem)",
+          }}
         >
-          <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
-            <h1 id="parlay-calculator-title" className="text-2xl font-semibold tracking-tight">
-              Parlay
-            </h1>
-            <p id="parlay-calculator-help" className="mt-2 text-sm text-[var(--text-secondary)]">
-              Add parlay legs and the calculator multiplies all decimal odds to project total payout.
-            </p>
-          </div>
+          <section
+            className="flex max-h-[inherit] flex-col overflow-hidden"
+            aria-describedby="parlay-calculator-help"
+          >
+            <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
+              <h2 className="text-card-title">Bet & Legs</h2>
+            </div>
 
           <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-8 sm:px-8">
             <div className="flex flex-col gap-3">
@@ -436,6 +443,7 @@ export default function ParlayCalculator({
             </div>
           </footer>
         </section>
+      </div>
       </div>
     </main>
   );
