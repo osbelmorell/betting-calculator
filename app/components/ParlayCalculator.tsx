@@ -283,7 +283,7 @@ export default function ParlayCalculator({
       aria-labelledby="parlay-calculator-title"
     >
       <div
-        className="progress-border max-h-[min(calc(100dvh-var(--content-offset)-3rem),58rem)] w-full max-w-4xl rounded-lg p-[2px] transition-all duration-300"
+        className="progress-border max-h-[min(calc(100dvh-var(--content-offset)-3rem-4px),58rem)] w-full max-w-4xl rounded-lg p-[2px] transition-all duration-300"
         style={{
           ['--progress-deg' as string]: `${progressDegrees.toFixed(2)}deg`,
           background:

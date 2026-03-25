@@ -213,7 +213,7 @@ export default function BettingCalculator({
       aria-labelledby="single-calculator-title"
     >
       <div
-        className="progress-border max-h-[min(calc(100dvh-var(--content-offset)-3rem),52rem)] w-full max-w-md rounded-lg p-[2px] transition-all duration-300"
+        className="progress-border max-h-[min(calc(100dvh-var(--content-offset)-3rem-4px),52rem)] w-full max-w-md rounded-lg p-[2px] transition-all duration-300"
         style={{
           ['--progress-deg' as string]: `${progressDegrees.toFixed(2)}deg`,
           background:
