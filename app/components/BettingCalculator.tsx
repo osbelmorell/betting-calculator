@@ -292,7 +292,7 @@ export default function BettingCalculator({
                   aria-label="Single bet amount in dollars"
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
-                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[var(--brand)] focus:outline-none"
+                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:border-[var(--brand)] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>

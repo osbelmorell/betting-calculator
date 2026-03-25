@@ -50,7 +50,7 @@ export default function GlobalCalcToggle() {
               aria-selected={isActive}
               className={`flex min-w-20 items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? 'bg-[var(--brand)] text-white shadow-sm'
+                  ? 'bg-[var(--brand)] text-[var(--brand-foreground)] shadow-sm'
                   : 'text-[var(--text-secondary)] hover:bg-[var(--surface-soft)] hover:text-[var(--foreground)]'
               }`}
             >

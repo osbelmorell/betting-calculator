@@ -367,7 +367,7 @@ export default function ParlayCalculator({
                   aria-label="Parlay bet amount in dollars"
                   value={betAmount}
                   onChange={(event) => onBetAmountChange(event.target.value)}
-                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[var(--brand)] focus:outline-none"
+                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 pl-8 text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:border-[var(--brand)] focus:outline-none"
                   placeholder="100.00"
                 />
               </div>
@@ -415,7 +415,7 @@ export default function ParlayCalculator({
                       type="text"
                       value={leg.label}
                       onChange={(event) => updateLegLabel(leg.id, event.target.value)}
-                      className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:border-[var(--brand)] focus:outline-none"
+                      className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:border-[var(--brand)] focus:outline-none"
                       placeholder={`Leg ${index + 1} (Team, market, etc.)`}
                       aria-label={`Label for leg ${index + 1}`}
                     />

@@ -115,7 +115,7 @@ export default function OddsFields({
                 onClick={() => setActiveFormat(option.key)}
                 className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors sm:text-sm ${
                   isActive
-                    ? 'bg-[var(--brand)] text-white'
+                    ? 'bg-[var(--brand)] text-[var(--brand-foreground)]'
                     : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
                 }`}
               >
@@ -142,7 +142,7 @@ export default function OddsFields({
             aria-label={`${contextLabel} ${activeOption.label.toLowerCase()} odds`}
             value={activeValue}
             onChange={(event) => onActiveChange(event.target.value)}
-            className={`w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-3 text-base sm:text-sm transition-colors placeholder:text-[var(--text-secondary)] focus:outline-none ${activeOption.suffix ? 'pr-7' : ''}`}
+            className={`w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-3 text-base sm:text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:outline-none ${activeOption.suffix ? 'pr-7' : ''}`}
             placeholder={activeOption.placeholder}
           />
           {activeOption.suffix ? (
