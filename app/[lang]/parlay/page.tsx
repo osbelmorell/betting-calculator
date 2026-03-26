@@ -68,7 +68,7 @@ export default async function ParlayPage(props: PageProps<'/[lang]/parlay'>) {
                 text: item.answer,
               },
             })),
-          }),
+          }).replace(/</g, '\\u003c'),
         }}
       />
       <ParlayCalculator locale={lang} />

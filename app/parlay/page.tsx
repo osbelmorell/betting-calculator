@@ -48,7 +48,7 @@ export default function ParlayPage() {
                 text: item.answer,
               },
             })),
-          }),
+          }).replace(/</g, '\\u003c'),
         }}
       />
       <ParlayCalculator locale="en" />

@@ -68,7 +68,7 @@ export default async function Home(props: PageProps<'/[lang]'>) {
                 text: item.answer,
               },
             })),
-          }),
+          }).replace(/</g, '\\u003c'),
         }}
       />
       <BettingCalculator locale={lang} />

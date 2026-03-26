@@ -48,6 +48,7 @@ export default function RootLayout({
 }>) {
   const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   const schemaDescription = siteConfig.webApplicationDescription;
+  const siteSearchTarget = `${siteConfig.url}/?q={search_term_string}`;
 
   return (
     <html
@@ -69,17 +70,42 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': schemaOrgUrl,
-              '@type': 'WebApplication',
-              'name': siteConfig.name,
-              'url': siteConfig.url,
-              'applicationCategory': 'UtilityApplication',
-              'description': schemaDescription,
-              'offers': {
-                '@type': 'Offer',
-                'price': '0',
-                'priceCurrency': 'USD',
-              },
-            }),
+              '@graph': [
+                {
+                  '@type': 'Organization',
+                  '@id': `${siteConfig.url}#organization`,
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': `${siteConfig.url}#website`,
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                  publisher: {
+                    '@id': `${siteConfig.url}#organization`,
+                  },
+                  potentialAction: {
+                    '@type': 'SearchAction',
+                    target: siteSearchTarget,
+                    'query-input': 'required name=search_term_string',
+                  },
+                },
+                {
+                  '@type': 'WebApplication',
+                  '@id': `${siteConfig.url}#webapp`,
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                  applicationCategory: 'UtilityApplication',
+                  description: schemaDescription,
+                  offers: {
+                    '@type': 'Offer',
+                    price: '0',
+                    priceCurrency: 'USD',
+                  },
+                },
+              ],
+            }).replace(/</g, '\\u003c'),
           }}
         />
         <Suspense fallback={<div className="h-[var(--content-offset)]" aria-hidden="true" />}>

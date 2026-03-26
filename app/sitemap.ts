@@ -12,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: locale === 'en' ? 1.0 : 0.95,
     },
     {
+      url: getCanonicalUrl(localizePath('/odds-converter', locale)),
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: locale === 'en' ? 0.92 : 0.87,
+    },
+    {
       url: getCanonicalUrl(localizePath('/parlay', locale)),
       lastModified,
       changeFrequency: 'weekly' as const,
