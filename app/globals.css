@@ -405,6 +405,13 @@ input[type="range"]::-webkit-slider-runnable-track {
   }
 }
 
+/* Prevent auto-zoom on iOS and ensure readability — inputs never below 1rem */
+input:not([type="range"]),
+select,
+textarea {
+  font-size: 1rem;
+}
+
 /* Apple-style focus ring */
 input:not([type="range"]):focus {
   outline: none;
