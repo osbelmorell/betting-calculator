@@ -192,7 +192,7 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
       title: 'Calculadora de Apuesta Simple',
       subtitle: 'Elige un formato de apuestas, introduce un valor y mira como se convierten las demás al instante.',
       cardTitle: 'Apuesta y Líneas',
-      betAmount: 'Monto de la Apuesta',
+      betAmount: 'Apuesta',
       betAmountAria: 'Monto de apuesta simple en dólares',
       results: 'Resultados Proyectados',
       winnings: 'Ganancias',
