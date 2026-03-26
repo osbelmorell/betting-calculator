@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Locale } from '../i18n';
 import { parlayCalculatorContent } from '../content/calculatorContent';
 import { trackCalculatorEvent } from './analytics';
@@ -13,7 +13,6 @@ import {
   decodeParlayState,
   decodeSingleState,
   encodeParlayState,
-  isDefaultParlayState,
   loadParlayStateFromStorage,
   NAVIGATION_SEED_PARAM,
   PARLAY_STATE_PARAM,
@@ -83,7 +82,7 @@ export default function ParlayCalculator({
     return () => window.cancelAnimationFrame(frameId);
   }, [incomingSeedState, initialSharedState]);
 
-  const onBetAmountChange = (value: string) => {
+  const onBetAmountChange = useCallback((value: string) => {
     if (!hasTrackedFirstInput.current) {
       hasTrackedFirstInput.current = true;
       trackCalculatorEvent('parlay_first_input', { source: 'bet_amount', betAmount, legCount: legs.length });
@@ -96,7 +95,7 @@ export default function ParlayCalculator({
     }
 
     setBetAmount(formatted);
-  };
+  }, [betAmount, legs.length]);
 
   const updateLegOdds = (legId: number, updates: Partial<OddsValues>) => {
     setLegs((prev) =>
@@ -301,8 +300,6 @@ export default function ParlayCalculator({
   }, [betAmount, expectedPayout, legs.length]);
 
   const state = useMemo<ParlayCalculatorState>(() => ({ betAmount, legs }), [betAmount, legs]);
-  const encodedShareState = useMemo(() => encodeParlayState(state), [state]);
-  const isDefaultState = useMemo(() => isDefaultParlayState(state), [state]);
 
   useEffect(() => {
     if (!hasHydrated || typeof window === 'undefined') {
@@ -310,17 +307,17 @@ export default function ParlayCalculator({
     }
 
     saveParlayStateToStorage(state);
+  }, [hasHydrated, state]);
 
-    const nextUrl = buildRouteWithState(
-      window.location.pathname,
-      PARLAY_STATE_PARAM,
-      isDefaultState ? undefined : encodedShareState,
-    );
-
-    if (`${window.location.pathname}${window.location.search}` !== nextUrl) {
-      window.history.replaceState(window.history.state, '', nextUrl);
+  const getShareUrl = useCallback(() => {
+    if (typeof window === 'undefined') {
+      return '';
     }
-  }, [encodedShareState, hasHydrated, isDefaultState, state]);
+
+    const encodedShareState = encodeParlayState(state);
+
+    return `${window.location.origin}${buildRouteWithState(window.location.pathname, PARLAY_STATE_PARAM, encodedShareState)}`;
+  }, [state]);
 
   const resetParlay = () => {
     trackCalculatorEvent('parlay_reset', { betAmount, legCount: legs.length });
@@ -381,7 +378,7 @@ export default function ParlayCalculator({
                   placeholder="100.00"
                 />
               </div>
-              <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={setBetAmount} max={1000} />
+              <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={onBetAmountChange} max={1000} />
             </div>
 
             <div className="flex items-center justify-between">
@@ -498,6 +495,7 @@ export default function ParlayCalculator({
                 <ShareLinkButton
                   locale={locale}
                   className="btn btn-secondary btn-md"
+                  getShareUrl={getShareUrl}
                   onCopied={() => trackCalculatorEvent('parlay_share_copied', { betAmount, legCount: legs.length })}
                 />
               </div>
@@ -513,7 +511,7 @@ export default function ParlayCalculator({
       >
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{locale === 'es' ? 'Apuestas' : copy.betAmount}</p>
             <p key={`parlay-sticky-bet-${betAmount}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={parseFloat(betAmount) || 0} />
             </p>

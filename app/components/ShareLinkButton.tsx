@@ -8,9 +8,10 @@ type ShareLinkButtonProps = {
   className?: string;
   locale?: Locale;
   onCopied?: () => void;
+  getShareUrl?: () => string;
 };
 
-export default function ShareLinkButton({ className, locale = 'en', onCopied }: ShareLinkButtonProps) {
+export default function ShareLinkButton({ className, locale = 'en', onCopied, getShareUrl }: ShareLinkButtonProps) {
   const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle');
   const copy = shareLinkButtonContent[locale];
 
@@ -27,7 +28,8 @@ export default function ShareLinkButton({ className, locale = 'en', onCopied }: 
     }
 
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      const shareUrl = getShareUrl?.() ?? window.location.href;
+      await navigator.clipboard.writeText(shareUrl);
       setStatus('copied');
       onCopied?.();
       window.setTimeout(() => setStatus('idle'), 2000);

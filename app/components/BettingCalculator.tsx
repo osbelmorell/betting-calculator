@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Locale } from '../i18n';
 import { singleCalculatorContent } from '../content/calculatorContent';
 import { trackCalculatorEvent } from './analytics';
@@ -11,7 +11,6 @@ import {
   decodeSingleState,
   encodeSingleState,
   hasValidOdds,
-  isDefaultSingleState,
   loadSingleStateFromStorage,
   NAVIGATION_SEED_PARAM,
   saveSingleStateToStorage,
@@ -80,7 +79,7 @@ export default function BettingCalculator({
     return () => window.cancelAnimationFrame(frameId);
   }, [incomingSeedState, initialSharedState]);
 
-  const onBetAmountChange = (value: string) => {
+  const onBetAmountChange = useCallback((value: string) => {
     if (!hasTrackedFirstInput.current) {
       hasTrackedFirstInput.current = true;
       trackCalculatorEvent('single_first_input', { source: 'bet_amount', betAmount, legCount: 1 });
@@ -93,7 +92,7 @@ export default function BettingCalculator({
     }
 
     setBetAmount(formatted);
-  };
+  }, [betAmount]);
 
   const applyFromDecimal = (decimal: number, sourceField?: OddsField) => {
     if (!Number.isFinite(decimal) || decimal <= 1) {
@@ -226,8 +225,6 @@ export default function BettingCalculator({
   }, [betAmount, expectedPayout]);
 
   const state = useMemo<SingleCalculatorState>(() => ({ betAmount, odds }), [betAmount, odds]);
-  const encodedShareState = useMemo(() => encodeSingleState(state), [state]);
-  const isDefaultState = useMemo(() => isDefaultSingleState(state), [state]);
 
   useEffect(() => {
     if (!hasHydrated || typeof window === 'undefined') {
@@ -235,17 +232,17 @@ export default function BettingCalculator({
     }
 
     saveSingleStateToStorage(state);
+  }, [hasHydrated, state]);
 
-    const nextUrl = buildRouteWithState(
-      window.location.pathname,
-      SINGLE_STATE_PARAM,
-      isDefaultState ? undefined : encodedShareState,
-    );
-
-    if (`${window.location.pathname}${window.location.search}` !== nextUrl) {
-      window.history.replaceState(window.history.state, '', nextUrl);
+  const getShareUrl = useCallback(() => {
+    if (typeof window === 'undefined') {
+      return '';
     }
-  }, [encodedShareState, hasHydrated, isDefaultState, state]);
+
+    const encodedShareState = encodeSingleState(state);
+
+    return `${window.location.origin}${buildRouteWithState(window.location.pathname, SINGLE_STATE_PARAM, encodedShareState)}`;
+  }, [state]);
 
   const onReset = () => {
     trackCalculatorEvent('single_reset', { betAmount, legCount: 1 });
@@ -306,7 +303,7 @@ export default function BettingCalculator({
                   placeholder="100.00"
                 />
               </div>
-              <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={setBetAmount} max={1000} />
+              <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={onBetAmountChange} max={1000} />
             </div>
 
             <OddsFields
@@ -366,6 +363,7 @@ export default function BettingCalculator({
                 <ShareLinkButton
                   locale={locale}
                   className="btn btn-secondary btn-md"
+                  getShareUrl={getShareUrl}
                   onCopied={() => trackCalculatorEvent('single_share_copied', { betAmount, legCount: 1 })}
                 />
               </div>

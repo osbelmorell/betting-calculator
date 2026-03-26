@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { betAmountSliderContent } from '../content/calculatorContent';
 import type { Locale } from '../i18n';
 import { parseFormattedNumber } from './oddsUtils';
@@ -33,7 +33,7 @@ function findNearestValue(values: number[], target: number): number {
   return nearest;
 }
 
-export default function BetAmountSlider({
+function BetAmountSlider({
   amount,
   onAmountChange,
   locale = 'en',
@@ -83,15 +83,35 @@ export default function BetAmountSlider({
     return findNearestValue(allowedValues, numericAmount);
   }, [amount, min, max, allowedValues]);
 
-  const onSliderChange = (value: string) => {
+  const onSliderChange = useCallback((value: string) => {
     const numericValue = Number(value);
     if (!Number.isFinite(numericValue)) {
       return;
     }
 
     const snapped = findNearestValue(allowedValues, numericValue);
-    onAmountChange(formatSliderAmount(snapped));
-  };
+    const nextAmount = formatSliderAmount(snapped);
+
+    if (nextAmount !== amount) {
+      onAmountChange(nextAmount);
+    }
+  }, [allowedValues, amount, onAmountChange]);
+
+  const progressPercent = useMemo(() => {
+    if (max <= min) {
+      return 0;
+    }
+
+    return ((sliderValue - min) / (max - min)) * 100;
+  }, [max, min, sliderValue]);
+
+  const onQuickAmountClick = useCallback((value: number) => {
+    const nextAmount = formatSliderAmount(value);
+
+    if (nextAmount !== amount) {
+      onAmountChange(nextAmount);
+    }
+  }, [amount, onAmountChange]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -101,7 +121,7 @@ export default function BetAmountSlider({
             <button
               key={value}
               type="button"
-              onClick={() => onAmountChange(formatSliderAmount(value))}
+              onClick={() => onQuickAmountClick(value)}
               className="btn btn-secondary btn-sm !min-h-8 !px-3"
               aria-label={`${copy.setBetAmount} ${value.toLocaleString()} ${copy.dollars}`}
             >
@@ -124,9 +144,11 @@ export default function BetAmountSlider({
         className="h-1.5 w-full cursor-pointer rounded-full bg-[var(--border-color)] appearance-none accent-[#0071e3]"
         aria-label={copy.slider}
         style={{
-          background: `linear-gradient(90deg, #0071e3 ${((sliderValue - min) / (max - min)) * 100}%, var(--border-color) ${((sliderValue - min) / (max - min)) * 100}%)`
+          background: `linear-gradient(90deg, #0071e3 ${progressPercent}%, var(--border-color) ${progressPercent}%)`
         }}
       />
     </div>
   );
 }
+
+export default memo(BetAmountSlider);
