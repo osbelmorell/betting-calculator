@@ -62,8 +62,9 @@ export default function GlobalCalcToggle() {
       aria-label={labelCopy.nav}
       className="pointer-events-none fixed left-0 right-0 top-0 z-40 sm:left-1/2 sm:right-auto sm:top-[var(--toggle-top)] sm:-translate-x-1/2"
     >
-      <div className="hide-touch-scrollbar pointer-events-auto flex w-full items-center gap-1 overflow-x-auto border-b border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 backdrop-blur-md sm:inline-flex sm:w-auto sm:overflow-visible sm:rounded-full sm:border sm:p-1 sm:shadow-[var(--shadow-md)]">
-        <div role="tablist" aria-label={labelCopy.calcType} className="inline-flex min-w-max items-center gap-0.5 sm:flex-none sm:rounded-full sm:bg-[var(--surface)] sm:p-0.5">
+      <div className="pointer-events-auto flex w-full items-center gap-2 border-b border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 backdrop-blur-md sm:inline-flex sm:w-auto sm:gap-1 sm:rounded-full sm:border sm:p-1 sm:shadow-[var(--shadow-md)]">
+        <div className="hide-touch-scrollbar min-w-0 flex-1 overflow-x-auto sm:overflow-visible">
+          <div role="tablist" aria-label={labelCopy.calcType} className="inline-flex min-w-max items-center gap-0.5 sm:flex-none sm:rounded-full sm:bg-[var(--surface)] sm:p-0.5">
           {tabs.map((tab) => {
             const isActive = tab.route === '/'
               ? normalizedRoute === '/'
@@ -85,9 +86,10 @@ export default function GlobalCalcToggle() {
               </Link>
             );
           })}
+          </div>
         </div>
 
-        <div role="group" aria-label={labelCopy.language} className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[var(--border-color)] bg-[var(--surface-soft)] p-0.5">
+        <div role="group" aria-label={labelCopy.language} className="ml-auto inline-flex shrink-0 items-center gap-1 rounded-full border border-[var(--border-color)] bg-[var(--surface-soft)] p-0.5 sm:ml-0">
           {supportedLocales.map((locale) => {
             const isActive = locale === currentLocale;
 
