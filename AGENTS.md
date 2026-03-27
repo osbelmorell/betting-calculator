@@ -32,4 +32,18 @@ This requirement applies to:
 When implementation reveals a better repeatable approach, update the skill docs in the same change:
 - [.github/skills/page-content-quality/SKILL.md](.github/skills/page-content-quality/SKILL.md)
 - [.github/skills/page-content-quality/SEO_RULES.md](.github/skills/page-content-quality/SEO_RULES.md)
+
+## Mandatory Calculator Alignment Skill
+
+For any task that creates or significantly updates a calculator route, calculator component, or calculator copy, invoke and follow:
+- [Calculator Content Alignment Skill](.github/skills/calculator-content-alignment/SKILL.md)
+
+This requirement applies to:
+- New calculator pages/routes.
+- New calculator variants or major UI changes.
+- Changes to calculator labels, helper text, related tools copy, or localized calculator content keys.
+
+When implementation introduces a better repeatable calculator pattern, update these in the same change:
+- [.github/skills/calculator-content-alignment/SKILL.md](.github/skills/calculator-content-alignment/SKILL.md)
+- [.github/skills/calculator-content-alignment/CALCULATOR_CONTENT_CONTRACT.md](.github/skills/calculator-content-alignment/CALCULATOR_CONTENT_CONTRACT.md)
 <!-- END:nextjs-agent-rules -->
