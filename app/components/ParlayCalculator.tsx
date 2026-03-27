@@ -381,17 +381,7 @@ export default function ParlayCalculator({
               <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={onBetAmountChange} max={1000} />
             </div>
 
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold">{copy.legs}</h2>
-              <button
-                type="button"
-                onClick={addLeg}
-                aria-label={copy.addLegAria}
-                className="btn btn-primary btn-sm"
-              >
-                {copy.addLeg}
-              </button>
-            </div>
+            <h2 className="text-sm font-semibold">{copy.legs}</h2>
 
             <div className="flex flex-col gap-4" role="list" aria-label={copy.legListAria}>
               {legs.map((leg, index) => (
@@ -440,6 +430,17 @@ export default function ParlayCalculator({
                   />
                 </section>
               ))}
+            </div>
+
+            <div className="flex justify-start">
+              <button
+                type="button"
+                onClick={addLeg}
+                aria-label={copy.addLegAria}
+                className="btn btn-primary btn-sm"
+              >
+                {copy.addLeg}
+              </button>
             </div>
           </div>
 

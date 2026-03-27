@@ -107,7 +107,7 @@ h1, .text-hero {
   line-height: 1.04;
   font-weight: 680;
   letter-spacing: -0.03em;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 h2, .text-section-title {
@@ -115,6 +115,7 @@ h2, .text-section-title {
   line-height: 1.12;
   font-weight: 650;
   letter-spacing: -0.02em;
+  text-wrap: pretty;
 }
 
 h3, .text-card-title {
@@ -122,6 +123,7 @@ h3, .text-card-title {
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.015em;
+  text-wrap: pretty;
 }
 
 .text-subtitle {
