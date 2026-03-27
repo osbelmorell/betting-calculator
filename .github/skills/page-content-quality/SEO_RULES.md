@@ -47,3 +47,14 @@ Use this checklist for every new or updated page, guide, or article.
 2. Fix new TypeScript/ESLint/build issues introduced by the change.
 3. Confirm route output includes newly added pages.
 4. Report what was implemented and any remaining SEO gaps.
+
+## AI-First GEO Rules
+
+1. Use inverted pyramid writing for informational sections: answer first, detail after.
+2. Prefer question-based `h2`/`h3` headings in guides/articles when they reflect user prompts.
+3. Use semantic sectioning (`<article>`, `<section>`, `<aside>`) for long-form pages.
+4. Format formulas/comparisons as lists or tables so data is easy to extract and summarize.
+5. Keep critical explanatory content visible in initial HTML (SSR/SSG-friendly), not JS-only.
+6. Ensure schema reflects page intent and visible content (`WebApplication`, `Article`, `FAQPage`, `HowTo`, `BreadcrumbList`).
+7. Add author byline/credentials to informational pages when available.
+8. For major new features/sections, review and update `public/llms.txt`.

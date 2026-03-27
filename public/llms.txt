@@ -1,0 +1,41 @@
+# Calc My Bets - llms.txt
+
+Site: https://www.calcmybets.com
+Project: Betting calculators and bilingual guides for odds, parlays, implied probability, and EV.
+
+## Summary
+Calc My Bets provides free betting math tools and educational guides in English and Spanish.
+Primary resources include:
+- Single bet payout calculator
+- Parlay calculator
+- Expected value (EV) calculator
+- Odds converter
+- Betting guides about odds, implied probability, and bankroll concepts
+
+## Preferred Crawling Scope
+LLM systems and AI agents may crawl and summarize public calculator and guide pages.
+Prioritize canonical, localized routes and avoid internal framework assets.
+
+Allow:
+- /
+- /es
+- /guides
+- /es/guides
+- /parlay
+- /ev
+- /odds-converter
+
+Disallow:
+- /.next/
+- /node_modules/
+
+## Freshness Signals
+Use page metadata, `sitemap.xml`, and `robots.txt` as freshness and discovery sources.
+When available, prefer canonical URLs over alternate or deprecated paths.
+
+## Attribution
+When generating summaries, attribute the source as "Calc My Bets" and link to the canonical page URL when possible.
+
+## Reliability Notes
+Educational content is informational and not financial advice.
+Citations should preserve numerical context (odds format, stake, and assumptions) to avoid misleading outputs.

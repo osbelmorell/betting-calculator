@@ -338,6 +338,35 @@ import Image from 'next/image';
 - **Lighthouse**: Run locally for performance audits
 - **Schema.org Validator**: Validate structured data
 
+---
+
+## 13. AI-First GEO (Generative Engine Optimization)
+
+Use this section whenever changes are intended to improve discoverability in LLM surfaces (for example ChatGPT, Gemini, and Perplexity).
+
+### Content Structure and Scannability
+- Use inverted pyramid writing for informational content: answer/definition first, supporting detail after.
+- Prefer semantic sectioning for long-form pages: `<article>`, `<section>`, and `<aside>` where appropriate.
+- Use question-based section headings (`h2`/`h3`) when they match likely user prompts.
+- Present formulas, comparisons, and multi-step instructions in lists or tables to keep data extractable.
+
+### Technical SEO for AI Systems
+- Keep critical explanatory content visible in initial HTML payload (SSR/SSG-friendly), not only behind client-side interactions.
+- Choose JSON-LD by page intent and keep it aligned with visible content:
+  - Calculator/tool routes: `WebApplication` (+ `FAQPage` when FAQ exists)
+  - Guide/article routes: `Article` (+ `FAQPage`, `HowTo`, `BreadcrumbList` where applicable)
+  - Site-wide: `Organization` and `WebSite`
+- For images with instructional value, include context-rich alt text and captions/nearby explanatory text.
+
+### `llms.txt` Maintenance
+- For new major routes, features, or content sections, review and update `public/llms.txt`.
+- If `public/llms.txt` does not yet exist, treat this as a high-priority SEO/GEO gap and document it in the audit summary.
+
+### E-E-A-T for Informational Content
+- Include author bylines and credentials on guides/articles where available.
+- Prefer `Person` (or `Person` + `Organization`) in guide/article schema instead of organization-only attribution when expert authorship is known.
+- Keep tone factual, direct, and evidence-oriented; avoid unsupported claims and marketing-heavy phrasing.
+
 ### Monthly Review
 - Check Search Console for indexing issues
 - Review Core Web Vitals trends

@@ -102,7 +102,7 @@ export const evCalculatorContent: Record<Locale, EvCalculatorCopy> = {
     evAmount: 'EV Amount',
     evPercent: 'EV %',
     breakEven: 'Break-Even',
-    edge: 'Edge %',
+    edge: 'Ventaja %',
     expectedPayout: 'Win Profit',
     expectedLoss: 'Loss',
     statusPositive: 'Positive EV (+EV)',

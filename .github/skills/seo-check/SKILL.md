@@ -1,7 +1,7 @@
 ---
 name: seo-check
 description: Audit and apply SEO best practices across all pages in this repository using the project SEO guidelines. Use this for requests like SEO audit, metadata improvements, schema updates, canonical fixes, sitemap and robots validation, and route-level SEO cleanup.
-argument-hint: "[scope: all-pages|route] [focus: metadata|schema|content|technical]"
+argument-hint: "[scope: all-pages|route] [focus: metadata|schema|content|technical|geo]"
 ---
 
 # SEO Check Skill
@@ -11,6 +11,7 @@ Use this skill when the user asks to run an SEO pass, improve discoverability, o
 ## Source of Truth
 
 - Always use [Project SEO Guidelines](../../../SEO.md) as the primary ruleset.
+- For AI discovery policy and maintenance, use `public/llms.txt` when present.
 - Always align recommendations with Google's [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), especially for crawlability, people-first content, title/snippet quality, descriptive links, and duplicate URL control.
 - If a guideline in [Project SEO Guidelines](../../../SEO.md) conflicts with current app behavior, keep changes conservative and avoid breaking behavior.
 - If a guideline in [Project SEO Guidelines](../../../SEO.md) conflicts with the SEO Starter Guide, prioritize Google guidance and note the conflict in your summary.
@@ -48,7 +49,10 @@ For each route in scope, assess all categories below:
 	- Optional structured data only when valid and useful.
 - Content usefulness and readability
 	- Satisfies user intent for the route type (tool, guide hub, guide detail).
+	- For guides/articles, apply inverted pyramid writing: answer/definition first, then detail.
 	- Readable structure with clear headings and scannable sections.
+	- Prefer question-based `h2`/`h3` headings for guide/article sections when it improves intent matching.
+	- Use extractable formatting (lists/tables) for formulas, comparisons, and multi-step instructions.
 	- Avoid thin, stale, or near-duplicate content.
 	- Add helpful context, examples, and supporting references where needed.
 - Links and navigation signals
@@ -57,11 +61,25 @@ For each route in scope, assess all categories below:
 	- Outbound links are trustworthy and contextual.
 - Media SEO
 	- Images are high-quality, near relevant text, and have descriptive alt text.
+	- Add captions/context for non-decorative images when meaning is not obvious from nearby text.
 	- Video pages include descriptive titles/text and standalone discoverable URLs where applicable.
 - Localization and canonical parity
 	- EN/ES versions maintain equivalent metadata quality.
 	- hreflang/canonical relationships are coherent.
 	- No broken localized internal links.
+- Structured data completeness
+	- Keep root Organization/WebSite schema and add route-intent schema (`WebApplication`, `Article`, `FAQPage`, `BreadcrumbList`, `HowTo` where applicable).
+	- Ensure JSON-LD only contains claims visible on-page.
+	- Serialize JSON-LD safely (`replace(/</g, '\\u003c')`) when injecting script content.
+- Rendering visibility (AI-first)
+	- Ensure critical explanatory content is available in initial HTML (SSR/SSG-friendly), not JS-only.
+	- Avoid hiding key route value behind client-only interactions.
+- AI crawler policy (`llms.txt`)
+	- For new major routes/features/sections, verify `public/llms.txt` reflects the new capability.
+	- If `llms.txt` is missing, call it out as a high-priority gap in the audit summary.
+- E-E-A-T signals for informational content
+	- Guides/articles should include author attribution and credentials where available.
+	- Prefer `Person` (or `Person` + `Organization`) author schema over organization-only attribution for expert guides.
 
 ## What Not to Prioritize
 
@@ -89,6 +107,8 @@ Do not spend sprint time on low-value or outdated tactics unless a user explicit
 - Localization parity: verify EN/ES pages have equivalent metadata quality and working hreflang/canonical mapping.
 - Technical SEO: sitemap coverage, robots rules, canonical consistency, duplicate URL controls.
 - Content usefulness: intent coverage, readability, freshness, and uniqueness.
+- GEO coverage: inverted pyramid intro, semantic sectioning, question-led headings (when useful), extractable list/table formatting, initial HTML visibility, and byline/credentials for guide intent.
+- AI policy coverage: confirm whether `public/llms.txt` needs updating for the requested change.
 
 3. Apply fixes route-by-route.
 - Prefer Next.js Metadata API (`metadata` or `generateMetadata`).
@@ -98,6 +118,10 @@ Do not spend sprint time on low-value or outdated tactics unless a user explicit
 - Ensure indexability intent is explicit (`index,follow` for public pages; intentional exclusions documented).
 - For article/guide detail routes, include breadcrumb navigation and `BreadcrumbList` JSON-LD when missing.
 - For hub/index routes, add contextual internal link modules (for example, related tools) when navigation is sparse.
+- For guide/article routes, make sure the first paragraph contains a direct answer/summary and headings support natural-language discovery.
+- Add/repair page-intent JSON-LD and ensure schema claims match visible content.
+- For informational content, add byline/author metadata and credentials if available.
+- When major features/sections ship, update `public/llms.txt` or explicitly log why no update is required.
 - Improve or remove weak/duplicative sections when content quality is the primary gap.
 - Do not spend effort on `meta keywords`; prioritize crawlability, title links, snippets, internal links, media context, and content usefulness.
 
@@ -105,6 +129,8 @@ Do not spend sprint time on low-value or outdated tactics unless a user explicit
 - Re-run diagnostics (`get_errors` / workspace errors).
 - Re-check route metadata where possible with MCP.
 - Run `npm run build` for route generation and static output validation.
+- Confirm GEO checks were addressed (intro quality, heading clarity, schema fit, and initial HTML visibility).
+- Confirm `llms.txt` handling (updated, unchanged with reason, or missing and reported).
 - Summarize changes by route and call out residual SEO gaps.
 - Include an expectations note: measurable impact may take several weeks.
 
@@ -155,6 +181,7 @@ When this skill is invoked, provide:
 
 1. Short audit summary by route.
 2. Concrete fixes applied (or proposed if no edits requested).
-3. Remaining recommendations ranked by impact.
+3. GEO coverage summary (scannability, schema, initial HTML visibility, llms.txt, and E-E-A-T).
 4. Explicit note when MCP was unavailable and code inspection fallback was used.
 5. A short timeline expectation for impact (for example, "reassess in 2-6 weeks").
+6. Remaining recommendations ranked by impact.

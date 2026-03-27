@@ -33,6 +33,20 @@ When implementation reveals a better repeatable approach, update the skill docs 
 - [.github/skills/page-content-quality/SKILL.md](.github/skills/page-content-quality/SKILL.md)
 - [.github/skills/page-content-quality/SEO_RULES.md](.github/skills/page-content-quality/SEO_RULES.md)
 
+## Mandatory SEO Check Skill
+
+For any task that requests an SEO audit, metadata/schema improvements, canonical/hreflang updates, sitemap/robots changes, or AI-first discoverability (GEO), invoke and follow:
+- [SEO Check Skill](.github/skills/seo-check/SKILL.md)
+
+This requirement applies to:
+- SEO audits for a route or the full site.
+- Changes involving metadata quality, structured data, internal linking, and indexability controls.
+- Requests focused on LLM discoverability, scannability improvements, `llms.txt`, or E-E-A-T enhancements.
+
+When implementation reveals a better repeatable SEO/GEO pattern, update these in the same change:
+- [.github/skills/seo-check/SKILL.md](.github/skills/seo-check/SKILL.md)
+- [SEO.md](SEO.md)
+
 ## Mandatory Calculator Alignment Skill
 
 For any task that creates or significantly updates a calculator route, calculator component, or calculator copy, invoke and follow:
