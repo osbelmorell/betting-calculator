@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import SavedGuidesPanel from '../components/SavedGuidesPanel';
 import { getGuideSummaries } from './registry';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 
@@ -65,11 +66,15 @@ export default async function GuidesIndexPage() {
         Step-by-step explainers to help you understand odds, probability, and payout math before you place a bet.
       </p>
 
-      <section className="mt-12 border-y border-[var(--border-color)]">
+      <div className="mt-10">
+        <SavedGuidesPanel lang="en" />
+      </div>
+
+      <section className="mt-2 border-y border-[var(--border-color)]">
         {guides.map((guide) => (
           <article key={guide.slug} className="py-6 first:pt-5 last:pb-5">
             <h2 className="text-xl font-semibold leading-tight">
-              <Link href={`/guides/${guide.slug}`} className="text-[var(--foreground)] transition-colors hover:text-[var(--brand)]">
+              <Link href={`/guides/${guide.slug}`} className="text-[var(--foreground)] transition-colors hover:text-[var(--brand-strong)]">
                 {guide.meta.title}
               </Link>
             </h2>

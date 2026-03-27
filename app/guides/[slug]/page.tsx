@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import GuideSectionNav from '../../components/GuideSectionNav';
-import ListenButton from '../../components/ListenButton';
+import GuideActionsBar from '../../components/GuideActionsBar';
 import { getGuide, getGuideSlugs, getGuideSummaries } from '../registry';
 import { mapGuideSlug } from '../slugMap';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
@@ -231,7 +231,11 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
               <time dateTime={guide.meta.updatedAt}>Updated {guide.meta.updatedAt}</time>
               <span>{guide.meta.readingTimeMinutes ?? 1} min read</span>
             </div>
-            <ListenButton contentSelector="#guide-content" lang="en" />
+            <GuideActionsBar
+              contentSelector="#guide-content"
+              lang="en"
+              title={guide.meta.title}
+            />
           </header>
 
           <div id="guide-content" className="pt-8">

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import GuideSectionNav from '../../../components/GuideSectionNav';
-import ListenButton from '../../../components/ListenButton';
+import GuideActionsBar from '../../../components/GuideActionsBar';
 import { defaultLocale, isLocale, localizePath, prefixedLocales } from '../../../i18n';
 import { getGuide, getGuideSlugs, getGuideSummaries } from '../../../guides/registry';
 import { mapGuideSlug } from '../../../guides/slugMap';
@@ -257,7 +257,11 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
                 {guide.meta.readingTimeMinutes ?? 1} {lang === 'es' ? 'min de lectura' : 'min read'}
               </span>
             </div>
-            <ListenButton contentSelector="#guide-content" lang={lang} />
+            <GuideActionsBar
+              contentSelector="#guide-content"
+              lang={lang}
+              title={guide.meta.title}
+            />
           </header>
 
           <div id="guide-content" className="pt-8">

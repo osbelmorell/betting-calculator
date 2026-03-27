@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
+import SavedGuidesPanel from '../../components/SavedGuidesPanel';
 import { defaultLocale, isLocale, localizePath } from '../../i18n';
 import { getGuideSummaries } from '../../guides/registry';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
@@ -98,13 +99,17 @@ export default async function LocalizedGuidesIndexPage(props: PageProps<'/[lang]
         Explicaciones paso a paso para entender líneas, probabilidad y cálculos de pago antes de apostar.
       </p>
 
-      <section className="mt-12 border-y border-[var(--border-color)]">
+      <div className="mt-10">
+        <SavedGuidesPanel lang={lang} />
+      </div>
+
+      <section className="mt-2 border-y border-[var(--border-color)]">
         {guides.map((guide) => (
           <article key={guide.slug} className="py-6 first:pt-5 last:pb-5">
             <h2 className="text-xl font-semibold leading-tight">
               <Link
                 href={localizePath(`/guides/${guide.slug}`, lang)}
-                className="text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
+                className="text-[var(--foreground)] transition-colors hover:text-[var(--brand-strong)]"
               >
                 {guide.meta.title}
               </Link>

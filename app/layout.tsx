@@ -111,7 +111,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <GlobalCalcToggle />
         </Suspense>
-        <div className="flex-1 pt-[var(--content-offset)]">
+        <div className="flex-1 pt-12 sm:pt-[var(--content-offset)]">
           {children}
         </div>
         <AnalyticsDebugPanel />
