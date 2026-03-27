@@ -97,6 +97,7 @@ export default function RootLayout({
                   name: siteConfig.name,
                   url: siteConfig.url,
                   applicationCategory: 'UtilityApplication',
+                  operatingSystem: 'Any',
                   description: schemaDescription,
                   offers: {
                     '@type': 'Offer',
