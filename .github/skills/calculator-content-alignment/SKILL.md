@@ -21,7 +21,7 @@ Invoke this skill when any task includes:
 - EV content: [app/ev/content.ts](../../../app/ev/content.ts)
 - Odds converter content: [app/odds-converter/content.ts](../../../app/odds-converter/content.ts)
 - Auto-generated contract: [CALCULATOR_CONTENT_CONTRACT.md](./CALCULATOR_CONTENT_CONTRACT.md)
-- Contract sync script: [scripts/sync-calculator-content-contract.mjs](../../../scripts/sync-calculator-content-contract.mjs)
+- Contract sync script: scripts/sync-calculator-content-contract.mjs
 
 ## Required Workflow
 
