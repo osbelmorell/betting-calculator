@@ -41,7 +41,7 @@ function createHeading(level: 2 | 3) {
 
     if (level === 2) {
       return (
-        <h2 id={headingId} className="group mt-12 scroll-mt-28 text-3xl font-semibold tracking-tight" {...props}>
+        <h2 id={headingId} className="group mt-12 scroll-mt-[var(--anchor-offset)] text-3xl font-semibold tracking-tight" {...props}>
           <a href={`#${headingId}`} className="no-underline">
             {children}
             <span className="ml-2 text-[var(--text-secondary)] opacity-0 transition-opacity group-hover:opacity-100">#</span>
@@ -51,7 +51,7 @@ function createHeading(level: 2 | 3) {
     }
 
     return (
-      <h3 id={headingId} className="group mt-9 scroll-mt-28 text-2xl font-semibold tracking-tight" {...props}>
+      <h3 id={headingId} className="group mt-9 scroll-mt-[var(--anchor-offset)] text-2xl font-semibold tracking-tight" {...props}>
         <a href={`#${headingId}`} className="no-underline">
           {children}
           <span className="ml-2 text-[var(--text-secondary)] opacity-0 transition-opacity group-hover:opacity-100">#</span>

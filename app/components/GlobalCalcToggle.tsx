@@ -65,7 +65,9 @@ export default function GlobalCalcToggle() {
       <div className="pointer-events-auto inline-flex items-center gap-1 rounded-full border border-[var(--border-color)] bg-[var(--surface)] p-1 shadow-[var(--shadow-md)] backdrop-blur-md">
         <div role="tablist" aria-label={labelCopy.calcType} className="inline-flex items-center gap-0.5 rounded-full bg-[var(--surface)] p-0.5">
           {tabs.map((tab) => {
-            const isActive = normalizedRoute === tab.route;
+            const isActive = tab.route === '/'
+              ? normalizedRoute === '/'
+              : normalizedRoute === tab.route || normalizedRoute.startsWith(tab.route + '/');
 
             return (
               <Link

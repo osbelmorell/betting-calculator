@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getGuide, getGuideSlugs } from '../registry';
+import GuideSectionNav from '../../components/GuideSectionNav';
+import { getGuide, getGuideSlugs, getGuideSummaries } from '../registry';
 import { mapGuideSlug } from '../slugMap';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
 
@@ -52,6 +53,7 @@ export async function generateMetadata(props: PageProps<'/guides/[slug]'>): Prom
 export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
   const { slug } = await props.params;
   const guide = await getGuide('en', slug);
+  const allGuides = await getGuideSummaries('en');
 
   if (!guide) {
     notFound();
@@ -115,19 +117,73 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
         />
       ) : null}
 
-      <div id="overview" className="border-b border-[var(--border-color)] pb-8">
-        <p className="text-sm font-medium uppercase tracking-[0.14em] text-[var(--text-secondary)]">Guides</p>
-        <h1 className="mt-3 max-w-4xl text-hero">{guide.meta.title}</h1>
-        <p className="mt-4 max-w-3xl text-subtitle">{guide.meta.description}</p>
-        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--text-secondary)]">
-          <span>Published {guide.meta.publishedAt}</span>
-          <span>Updated {guide.meta.updatedAt}</span>
-        </div>
-      </div>
+      <details className="mt-6 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-4 lg:hidden">
+        <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">
+          All Articles
+        </summary>
+        <nav className="mt-3 space-y-1 border-t border-[var(--border-color)] pt-3">
+          {allGuides.map((item) => {
+            const isActive = item.slug === slug;
 
-      <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,1fr)_260px]">
-        <article id="guide-content" className="min-w-0 pb-4">
-          <Guide />
+            return (
+              <Link
+                key={item.slug}
+                href={`/guides/${item.slug}`}
+                className={`block rounded px-2 py-1.5 text-sm transition-colors ${
+                  isActive
+                    ? 'bg-[var(--surface-soft)] font-medium text-[var(--foreground)]'
+                    : 'text-[var(--text-secondary)] hover:bg-[var(--surface-soft)] hover:text-[var(--foreground)]'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {item.meta.title}
+              </Link>
+            );
+          })}
+        </nav>
+      </details>
+
+      <div className="mt-8 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)_220px]">
+        <aside className="hidden lg:block">
+          <div className="sticky top-28">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">All Articles</p>
+            <nav className="mt-3 space-y-1">
+              {allGuides.map((item) => {
+                const isActive = item.slug === slug;
+
+                return (
+                  <Link
+                    key={item.slug}
+                    href={`/guides/${item.slug}`}
+                    className={`block rounded px-2 py-1.5 text-sm transition-colors ${
+                      isActive
+                        ? 'bg-[var(--surface-soft)] font-medium text-[var(--foreground)]'
+                        : 'text-[var(--text-secondary)] hover:bg-[var(--surface-soft)] hover:text-[var(--foreground)]'
+                    }`}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {item.meta.title}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        </aside>
+
+        <article className="min-w-0 pb-4">
+          <header id="overview" className="border-b border-[var(--border-color)] pb-8">
+            <p className="text-sm font-medium uppercase tracking-[0.14em] text-[var(--text-secondary)]">Guides</p>
+            <h1 className="mt-3 max-w-4xl text-hero">{guide.meta.title}</h1>
+            <p className="mt-4 max-w-3xl text-subtitle">{guide.meta.description}</p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--text-secondary)]">
+              <span>Published {guide.meta.publishedAt}</span>
+              <span>Updated {guide.meta.updatedAt}</span>
+            </div>
+          </header>
+
+          <div id="guide-content" className="pt-8">
+            <Guide />
+          </div>
 
           {guide.meta.faq?.length ? (
             <section id="common-questions" className="mt-14 border-t border-[var(--border-color)] pt-10">
@@ -154,20 +210,7 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
         </article>
 
         <aside className="hidden lg:block">
-          <div className="sticky top-28 rounded-xl border border-[var(--border-color)] bg-[var(--surface)] p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">On this page</p>
-            <nav className="mt-3 space-y-1">
-              {sections.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="block rounded px-2 py-1.5 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-soft)] hover:text-[var(--foreground)]"
-                >
-                  {section.label}
-                </a>
-              ))}
-            </nav>
-          </div>
+          <GuideSectionNav title="On this page" sections={sections} />
         </aside>
       </div>
     </main>

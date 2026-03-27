@@ -31,6 +31,7 @@ Use this checklist for every new or updated page, guide, or article.
 3. Add concise internal links to related calculators/guides.
 4. Keep copy specific and actionable; avoid filler content.
 5. For translated pages, localize terminology consistently.
+6. Ensure hash/anchor navigation accounts for fixed headers (set `scroll-margin-top` / `scroll-padding-top` so targets are not hidden).
 
 ## Technical SEO Rules
 
