@@ -54,6 +54,24 @@ export default async function GuidesIndexPage() {
       name: guide.meta.title,
     })),
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: getCanonicalUrl('/'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Guides',
+        item: getCanonicalUrl('/guides'),
+      },
+    ],
+  };
 
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-16">
@@ -61,6 +79,12 @@ export default async function GuidesIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(guideItemList).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <h1 className="text-hero">Sports Betting Guides</h1>

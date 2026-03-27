@@ -92,6 +92,24 @@ export default async function LocalizedGuidesIndexPage(props: PageProps<'/[lang]
       name: guide.meta.title,
     })),
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: lang === 'es' ? 'Inicio' : 'Home',
+        item: getCanonicalUrl(localizePath('/', lang)),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: lang === 'es' ? 'Guías' : 'Guides',
+        item: getCanonicalUrl(localizePath('/guides', lang)),
+      },
+    ],
+  };
 
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-16">
@@ -99,6 +117,12 @@ export default async function LocalizedGuidesIndexPage(props: PageProps<'/[lang]
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(guideItemList).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <h1 className="text-hero">Guías de Apuestas</h1>
