@@ -499,29 +499,29 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
                 </p>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                   <div className="result-stat">
-                    <p className="text-xs text-[var(--text-secondary)]">{copy.evAmount}</p>
+                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.evAmount}</p>
                     <p className={`mt-2 text-xl font-semibold leading-tight ${outcomeToneClass}`}>
                       <MoneyDisplay value={expectedValueAmount} />
                     </p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-xs text-[var(--text-secondary)]">{copy.evPercent}</p>
+                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.evPercent}</p>
                     <p className={`mt-2 text-xl font-semibold leading-tight ${outcomeToneClass}`}>{expectedValuePercent.toFixed(2)}%</p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-xs text-[var(--text-secondary)]">{copy.breakEven}</p>
+                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.breakEven}</p>
                     <p className="mt-2 text-xl font-semibold leading-tight">{breakEvenProbability.toFixed(2)}%</p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-xs text-[var(--text-secondary)]">{copy.edge}</p>
+                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.edge}</p>
                     <p className={`mt-2 text-xl font-semibold leading-tight ${outcomeToneClass}`}>{edgePercent.toFixed(2)}%</p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-xs text-[var(--text-secondary)]">{copy.expectedPayout}</p>
+                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.expectedPayout}</p>
                     <p className="mt-2 text-xl font-semibold leading-tight"><MoneyDisplay value={expectedProfitIfWin} /></p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-xs text-[var(--text-secondary)]">{copy.expectedLoss}</p>
+                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.expectedLoss}</p>
                     <p className="mt-2 text-xl font-semibold leading-tight"><MoneyDisplay value={-expectedLossIfLose} /></p>
                   </div>
                 </div>
@@ -546,6 +546,33 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
             </footer>
           </section>
         </div>
+
+        <aside
+          aria-live="polite"
+          aria-atomic="true"
+          className="fixed inset-x-4 bottom-4 z-30 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)]/95 p-4 shadow-[var(--shadow-lg)] backdrop-blur-md sm:hidden"
+        >
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
+              <p key={`ev-sticky-bet-${betAmount}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
+                <MoneyDisplay value={parseFloat(betAmount) || 0} />
+              </p>
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.evAmount}</p>
+              <p key={`ev-sticky-amount-${expectedValueAmount.toFixed(2)}`} className={`calc-value-pop mt-1 text-base font-semibold leading-tight ${outcomeToneClass}`}>
+                <MoneyDisplay value={expectedValueAmount} />
+              </p>
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.edge}</p>
+              <p key={`ev-sticky-edge-${edgePercent.toFixed(2)}`} className={`calc-value-pop mt-1 text-base font-semibold leading-tight ${outcomeToneClass}`}>
+                {edgePercent.toFixed(2)}%
+              </p>
+            </div>
+          </div>
+        </aside>
 
         <section className="space-y-4">
           <h2 className="text-section-title">{copy.howToTitle}</h2>
