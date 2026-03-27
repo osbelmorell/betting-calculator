@@ -1,0 +1,47 @@
+export const meta = {
+  title: 'Cómo Calcular Probabilidad Implícita en Apuestas Deportivas',
+  description: 'Entiende cómo convertir líneas a probabilidad implícita para comparar precios de la casa con tu propia estimación.',
+  publishedAt: '2026-03-26',
+  updatedAt: '2026-03-26',
+  keywords: ['probabilidad implícita', 'probabilidad en apuestas', 'matemática de apuestas'],
+  faq: [
+    {
+      question: '¿Qué es la probabilidad implícita?',
+      answer: 'Es el porcentaje de acierto sugerido por la línea de apuesta.',
+    },
+    {
+      question: '¿Cómo se calcula desde formato decimal?',
+      answer: 'Usa 1 / cuota decimal y multiplica por 100 para obtener porcentaje.',
+    },
+  ],
+};
+
+# Cómo Calcular Probabilidad Implícita en Apuestas Deportivas
+
+La probabilidad implícita convierte líneas en porcentaje. Eso te permite comparar el precio del mercado con tu proyección.
+
+## Desde Línea Decimal
+
+Usa:
+
+- Probabilidad = (1 / Decimal) * 100
+
+Ejemplo con 2.00:
+
+- (1 / 2.00) * 100 = 50%
+
+## Desde Línea Americana
+
+Para líneas positivas:
+
+- Probabilidad = 100 / (Americana + 100)
+
+Para líneas negativas:
+
+- Probabilidad = |Americana| / (|Americana| + 100)
+
+Ejemplo con -110:
+
+- 110 / (110 + 100) = 52.38%
+
+Usa [Calculadora Simple](/es) y [Conversor de Líneas](/es/odds-converter) para comparar precio y valor en segundos.

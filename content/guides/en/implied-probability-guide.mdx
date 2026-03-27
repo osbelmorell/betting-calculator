@@ -1,0 +1,51 @@
+export const meta = {
+  title: 'How to Calculate Implied Probability in Sports Betting',
+  description: 'Understand implied probability from American and decimal odds so you can compare bookmaker pricing with your own projection.',
+  publishedAt: '2026-03-26',
+  updatedAt: '2026-03-26',
+  keywords: ['implied probability', 'betting odds probability', 'sports betting math'],
+  faq: [
+    {
+      question: 'What is implied probability?',
+      answer: 'Implied probability is the win rate suggested by the odds, expressed as a percentage.',
+    },
+    {
+      question: 'How do you get implied probability from decimal odds?',
+      answer: 'Use 1 / decimal odds, then multiply by 100 for percentage.',
+    },
+  ],
+};
+
+# How to Calculate Implied Probability in Sports Betting
+
+Implied probability translates odds into a percentage chance. This lets you compare bookmaker pricing against your own model.
+
+## From Decimal Odds
+
+Use:
+
+- Probability = (1 / Decimal) * 100
+
+Example for 2.00 decimal:
+
+- (1 / 2.00) * 100 = 50%
+
+## From American Odds
+
+For positive odds:
+
+- Probability = 100 / (American + 100)
+
+For negative odds:
+
+- Probability = |American| / (|American| + 100)
+
+Example for -110:
+
+- 110 / (110 + 100) = 52.38%
+
+## Why It Matters
+
+A bet only has value when your estimated probability is higher than implied probability.
+
+Use the [Single Bet Calculator](/) and [Odds Converter](/odds-converter) together to compare prices quickly.

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { globalCalcToggleContent } from '../content/calculatorContent';
 import { defaultLocale, isLocale, localizePath, supportedLocales, type Locale } from '../i18n';
+import { mapGuideSlug } from '../guides/slugMap';
 import {
   buildSeededRoute,
   decodeParlayState,
@@ -36,6 +37,13 @@ export default function GlobalCalcToggle() {
   const search = searchParams.toString();
 
   const localeHref = (locale: Locale): string => {
+    if (normalizedRoute.startsWith('/guides/')) {
+      const currentSlug = normalizedRoute.slice('/guides/'.length);
+      const mappedSlug = mapGuideSlug(currentSlug, currentLocale, locale) ?? currentSlug;
+      const nextPath = localizePath(`/guides/${mappedSlug}`, locale);
+      return search ? `${nextPath}?${search}` : nextPath;
+    }
+
     const nextPath = localizePath(normalizedRoute, locale);
     return search ? `${nextPath}?${search}` : nextPath;
   };
@@ -46,6 +54,7 @@ export default function GlobalCalcToggle() {
     { href: buildSeededRoute(localizePath('/', currentLocale), singleSeed), route: '/', label: labelCopy.single },
     { href: buildSeededRoute(localizePath('/parlay', currentLocale), parlaySeed), route: '/parlay', label: labelCopy.parlay },
     { href: localizePath('/odds-converter', currentLocale), route: '/odds-converter', label: labelCopy.odds },
+    { href: localizePath('/guides', currentLocale), route: '/guides', label: labelCopy.guides },
   ] as const;
 
   return (

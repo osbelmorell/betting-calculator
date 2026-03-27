@@ -123,6 +123,7 @@ type GlobalCalcToggleCopy = {
   single: string;
   parlay: string;
   odds: string;
+  guides: string;
   nav: string;
   calcType: string;
   language: string;
@@ -453,8 +454,9 @@ export const globalCalcToggleContent: Record<Locale, GlobalCalcToggleCopy> = {
     single: 'Single',
     parlay: 'Parlay',
     odds: 'Odds',
+    guides: 'Guides',
     nav: 'Calculator navigation',
-    calcType: 'Calculator type',
+    calcType: 'Site section',
     language: 'Language',
     localeNames: {
       en: 'English',
@@ -465,8 +467,9 @@ export const globalCalcToggleContent: Record<Locale, GlobalCalcToggleCopy> = {
     single: 'Simple',
     parlay: 'Parlay',
     odds: 'Líneas',
+    guides: 'Guías',
     nav: 'Navegación de calculadora',
-    calcType: 'Tipo de calculadora',
+    calcType: 'Sección del sitio',
     language: 'Idioma',
     localeNames: {
       en: 'Inglés',

@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { localizePath, supportedLocales } from './i18n';
+import { getGuideSlugs } from './guides/registry';
 import { getCanonicalUrl } from './siteConfig';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -23,7 +24,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: locale === 'en' ? 0.9 : 0.85,
     },
+    {
+      url: getCanonicalUrl(localizePath('/guides', locale)),
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: locale === 'en' ? 0.88 : 0.83,
+    },
   ]);
 
-  return localizedRoutes;
+  const localizedGuides = supportedLocales.flatMap((locale) =>
+    getGuideSlugs(locale).map((slug) => ({
+      url: getCanonicalUrl(localizePath(`/guides/${slug}`, locale)),
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: locale === 'en' ? 0.82 : 0.78,
+    })),
+  );
+
+  return [...localizedRoutes, ...localizedGuides];
 }

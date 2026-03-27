@@ -1,0 +1,53 @@
+export const meta = {
+  title: 'Parlay Odds Formula Explained With Examples',
+  description: 'Learn the exact parlay formula, from converting legs to decimal odds through total payout and implied win probability.',
+  publishedAt: '2026-03-26',
+  updatedAt: '2026-03-26',
+  keywords: ['parlay odds formula', 'parlay payout calculator', 'parlay math'],
+  faq: [
+    {
+      question: 'How are parlay odds calculated?',
+      answer: 'Convert each leg to decimal odds, multiply all decimal odds together, then multiply by stake for total payout.',
+    },
+    {
+      question: 'What happens if one parlay leg loses?',
+      answer: 'In a standard parlay, one losing leg means the full parlay loses.',
+    },
+  ],
+};
+
+# Parlay Odds Formula Explained With Examples
+
+Parlay math is straightforward once every leg is in decimal format.
+
+## Step 1: Convert Each Leg to Decimal
+
+If your book shows American odds, convert each leg first.
+
+## Step 2: Multiply Decimal Legs
+
+- Combined Decimal = Leg1 * Leg2 * Leg3 ...
+
+Example:
+
+- 1.91 * 1.80 * 2.10 = 7.22
+
+## Step 3: Calculate Payout and Profit
+
+- Payout = Stake * Combined Decimal
+- Profit = Payout - Stake
+
+For $100 stake at 7.22 decimal:
+
+- Payout = $722
+- Profit = $622
+
+## Step 4: Get Implied Probability
+
+- Probability = (1 / Combined Decimal) * 100
+
+For 7.22 decimal:
+
+- 13.85%
+
+Use the [Parlay Calculator](/parlay) for instant combined odds and payout projections.
