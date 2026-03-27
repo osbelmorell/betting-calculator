@@ -108,7 +108,7 @@ export default function RootLayout({
             }).replace(/</g, '\\u003c'),
           }}
         />
-        <Suspense fallback={<div className="h-[var(--content-offset)]" aria-hidden="true" />}>
+        <Suspense fallback={null}>
           <GlobalCalcToggle />
         </Suspense>
         <div className="flex-1 pt-[var(--content-offset)]">
