@@ -81,16 +81,18 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
     '@type': 'Article',
     headline: guide.meta.title,
     description: guide.meta.description,
-    datePublished: guide.meta.publishedAt,
-    dateModified: guide.meta.updatedAt,
+    datePublished: `${guide.meta.publishedAt}T00:00:00Z`,
+    dateModified: `${guide.meta.updatedAt}T00:00:00Z`,
     mainEntityOfPage: getCanonicalUrl(localizePath(`/guides/${slug}`, lang)),
     author: {
       '@type': 'Organization',
       name: siteConfig.name,
+      url: siteConfig.url,
     },
     publisher: {
       '@type': 'Organization',
       name: siteConfig.name,
+      url: siteConfig.url,
     },
   };
 
@@ -196,8 +198,8 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
             <h1 className="mt-3 max-w-4xl text-hero">{guide.meta.title}</h1>
             <p className="mt-4 max-w-3xl text-subtitle">{guide.meta.description}</p>
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--text-secondary)]">
-              <span>{lang === 'es' ? 'Publicado' : 'Published'} {guide.meta.publishedAt}</span>
-              <span>{lang === 'es' ? 'Actualizado' : 'Updated'} {guide.meta.updatedAt}</span>
+              <time dateTime={guide.meta.publishedAt}>{lang === 'es' ? 'Publicado' : 'Published'} {guide.meta.publishedAt}</time>
+              <time dateTime={guide.meta.updatedAt}>{lang === 'es' ? 'Actualizado' : 'Updated'} {guide.meta.updatedAt}</time>
             </div>
           </header>
 

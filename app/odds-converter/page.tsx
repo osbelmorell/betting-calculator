@@ -6,7 +6,7 @@ import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 const metadataCopy = oddsConverterSeo.en;
 
 export const metadata: Metadata = {
-  title: metadataCopy.title,
+  title: { absolute: metadataCopy.title },
   description: metadataCopy.description,
   alternates: {
     canonical: getCanonicalUrl('/odds-converter'),

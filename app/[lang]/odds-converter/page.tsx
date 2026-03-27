@@ -15,7 +15,7 @@ export async function generateMetadata(props: PageProps<'/[lang]/odds-converter'
   const localizedCopy = oddsConverterSeo[lang];
 
   return {
-    title: localizedCopy.title,
+    title: { absolute: localizedCopy.title },
     description: localizedCopy.description,
     alternates: {
       canonical: getCanonicalUrl(localizePath('/odds-converter', lang)),

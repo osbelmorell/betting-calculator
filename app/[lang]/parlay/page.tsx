@@ -14,7 +14,7 @@ export async function generateMetadata(props: PageProps<'/[lang]/parlay'>): Prom
   const localizedCopy = parlayCalculatorContent[lang].seo;
 
   return {
-    title: localizedCopy.title,
+    title: { absolute: localizedCopy.title },
     description: localizedCopy.description,
     alternates: {
       canonical: getCanonicalUrl(localizePath('/parlay', lang)),

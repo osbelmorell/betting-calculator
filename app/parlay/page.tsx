@@ -6,7 +6,7 @@ import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 const metadataCopy = parlayCalculatorContent.en.seo;
 
 export const metadata: Metadata = {
-  title: metadataCopy.title,
+  title: { absolute: metadataCopy.title },
   description: metadataCopy.description,
   alternates: {
     canonical: getCanonicalUrl('/parlay'),

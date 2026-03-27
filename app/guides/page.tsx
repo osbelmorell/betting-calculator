@@ -4,7 +4,7 @@ import { getGuideSummaries } from './registry';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 
 export const metadata: Metadata = {
-  title: 'Sports Betting Guides | Odds, Parlay, and Probability Explained',
+  title: 'Sports Betting Guides',
   description:
     'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and value betting decisions.',
   alternates: {

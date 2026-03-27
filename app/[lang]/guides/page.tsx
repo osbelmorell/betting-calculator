@@ -19,7 +19,7 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides'>): Prom
       : 'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and value betting decisions.';
 
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: {
       canonical: getCanonicalUrl(localizePath('/guides', lang)),
