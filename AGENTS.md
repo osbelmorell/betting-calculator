@@ -18,4 +18,18 @@ When making architecture or performance decisions, default to Vercel best practi
 - Avoid middleware/proxy unless strictly needed.
 - Use `next.config` redirects/headers over runtime request handling where equivalent.
 - Keep metadata routes (like `sitemap.xml` and `robots.txt`) cache-friendly.
+
+## Mandatory Page Quality Skill
+
+For any task that creates or significantly updates a page, guide, or article, invoke and follow:
+- [Page Content Quality Skill](.github/skills/page-content-quality/SKILL.md)
+
+This requirement applies to:
+- New routes and page files.
+- Guide/article content creation or major updates.
+- Changes involving metadata, canonical/hreflang, slug mapping, structured data, sitemap, or internal linking.
+
+When implementation reveals a better repeatable approach, update the skill docs in the same change:
+- [.github/skills/page-content-quality/SKILL.md](.github/skills/page-content-quality/SKILL.md)
+- [.github/skills/page-content-quality/SEO_RULES.md](.github/skills/page-content-quality/SEO_RULES.md)
 <!-- END:nextjs-agent-rules -->
