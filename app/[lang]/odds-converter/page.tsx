@@ -53,9 +53,31 @@ export default async function OddsConverterPage(props: PageProps<'/[lang]/odds-c
   }
 
   const localizedCopy = oddsConverterSeo[lang];
+  const webApplicationJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'WebApplication',
+    name: localizedCopy.title,
+    description: localizedCopy.description,
+    url: getCanonicalUrl(localizePath('/odds-converter', lang)),
+    applicationCategory: 'FinanceApplication',
+    applicationSubCategory: 'Odds Converter',
+    inLanguage: lang,
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

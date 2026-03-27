@@ -51,9 +51,31 @@ export default async function ParlayPage(props: PageProps<'/[lang]/parlay'>) {
   }
 
   const localizedCopy = parlayCalculatorContent[lang].seo;
+  const webApplicationJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'WebApplication',
+    name: localizedCopy.title,
+    description: localizedCopy.description,
+    url: getCanonicalUrl(localizePath('/parlay', lang)),
+    applicationCategory: 'FinanceApplication',
+    applicationSubCategory: 'Parlay Calculator',
+    inLanguage: lang,
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

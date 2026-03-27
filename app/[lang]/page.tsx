@@ -51,9 +51,31 @@ export default async function Home(props: PageProps<'/[lang]'>) {
   }
 
   const localizedCopy = singleCalculatorContent[lang].seo;
+  const webApplicationJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'WebApplication',
+    name: localizedCopy.title,
+    description: localizedCopy.description,
+    url: getCanonicalUrl(localizePath('/', lang)),
+    applicationCategory: 'FinanceApplication',
+    applicationSubCategory: 'Sports Betting Calculator',
+    inLanguage: lang,
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

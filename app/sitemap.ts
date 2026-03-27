@@ -1,28 +1,50 @@
 import { MetadataRoute } from 'next';
 import { localizePath, supportedLocales } from './i18n';
 import { getGuideSummaries } from './guides/registry';
+import { mapGuideSlug } from './guides/slugMap';
 import { getCanonicalUrl } from './siteConfig';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const buildTime = new Date();
-  const localizedRoutes = supportedLocales.flatMap((locale) => [
-    {
-      url: getCanonicalUrl(localizePath('/', locale)),
-      lastModified: buildTime,
-    },
-    {
-      url: getCanonicalUrl(localizePath('/odds-converter', locale)),
-      lastModified: buildTime,
-    },
-    {
-      url: getCanonicalUrl(localizePath('/parlay', locale)),
-      lastModified: buildTime,
-    },
-    {
-      url: getCanonicalUrl(localizePath('/guides', locale)),
-      lastModified: buildTime,
-    },
-  ]);
+  const localizeLanguages = (pathname: string) => ({
+    en: getCanonicalUrl(localizePath(pathname, 'en')),
+    es: getCanonicalUrl(localizePath(pathname, 'es')),
+  });
+
+  const localizedRoutes = supportedLocales.flatMap((locale) => {
+    const localizedUrl = (pathname: string) => getCanonicalUrl(localizePath(pathname, locale));
+
+    return [
+      {
+        url: localizedUrl('/'),
+        lastModified: buildTime,
+        alternates: {
+          languages: localizeLanguages('/'),
+        },
+      },
+      {
+        url: localizedUrl('/odds-converter'),
+        lastModified: buildTime,
+        alternates: {
+          languages: localizeLanguages('/odds-converter'),
+        },
+      },
+      {
+        url: localizedUrl('/parlay'),
+        lastModified: buildTime,
+        alternates: {
+          languages: localizeLanguages('/parlay'),
+        },
+      },
+      {
+        url: localizedUrl('/guides'),
+        lastModified: buildTime,
+        alternates: {
+          languages: localizeLanguages('/guides'),
+        },
+      },
+    ];
+  });
 
   const localizedGuides = (
     await Promise.all(
@@ -31,6 +53,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return guides.map((guide) => ({
           url: getCanonicalUrl(localizePath(`/guides/${guide.slug}`, locale)),
           lastModified: new Date(guide.meta.updatedAt),
+          alternates: {
+            languages: {
+              en: getCanonicalUrl(
+                localizePath(`/guides/${mapGuideSlug(guide.slug, locale, 'en') ?? guide.slug}`, 'en'),
+              ),
+              es: getCanonicalUrl(
+                localizePath(`/guides/${mapGuideSlug(guide.slug, locale, 'es') ?? guide.slug}`, 'es'),
+              ),
+            },
+          },
         }));
       }),
     )

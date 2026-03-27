@@ -32,8 +32,31 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const webApplicationJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'WebApplication',
+    name: metadataCopy.title,
+    description: metadataCopy.description,
+    url: getCanonicalUrl('/'),
+    applicationCategory: 'FinanceApplication',
+    applicationSubCategory: 'Sports Betting Calculator',
+    inLanguage: 'en',
+    isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

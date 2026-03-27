@@ -128,7 +128,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
       {
         '@type': 'ListItem',
         position: 2,
-        name: lang === 'es' ? 'Guias' : 'Guides',
+        name: lang === 'es' ? 'Guías' : 'Guides',
         item: guidesIndexUrl,
       },
       {
@@ -142,7 +142,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
 
   const sections = [
     { id: 'overview', label: lang === 'es' ? 'Resumen' : 'Overview' },
-    { id: 'guide-content', label: lang === 'es' ? 'Guia' : 'Guide' },
+    { id: 'guide-content', label: lang === 'es' ? 'Guía' : 'Guide' },
     ...(guide.meta.faq?.length ? [{ id: 'common-questions', label: lang === 'es' ? 'Preguntas comunes' : 'Common Questions' }] : []),
     { id: 'tools', label: lang === 'es' ? 'Herramientas' : 'Tools' },
   ];
@@ -180,7 +180,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
           <li aria-hidden="true">/</li>
           <li>
             <Link href={localizePath('/guides', lang)} className="hover:text-[var(--foreground)]">
-              {lang === 'es' ? 'Guias' : 'Guides'}
+              {lang === 'es' ? 'Guías' : 'Guides'}
             </Link>
           </li>
           <li aria-hidden="true">/</li>
@@ -190,7 +190,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
 
       <details className="mt-6 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-4 lg:hidden">
         <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">
-          {lang === 'es' ? 'Todos los articulos' : 'All Articles'}
+          {lang === 'es' ? 'Todos los artículos' : 'All Articles'}
         </summary>
         <nav className="mt-3 space-y-1 border-t border-[var(--border-color)] pt-3">
           {allGuides.map((item) => {
@@ -218,7 +218,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
         <aside className="hidden lg:block">
           <div className="sticky top-28">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">
-              {lang === 'es' ? 'Todos los articulos' : 'All Articles'}
+              {lang === 'es' ? 'Todos los artículos' : 'All Articles'}
             </p>
             <nav className="mt-3 space-y-1">
               {allGuides.map((item) => {
@@ -246,7 +246,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
         <article className="min-w-0 pb-4">
           <header id="overview" className="border-b border-[var(--border-color)] pb-8">
             <p className="text-sm font-medium uppercase tracking-[0.14em] text-[var(--text-secondary)]">
-              {lang === 'es' ? 'Guias' : 'Guides'}
+              {lang === 'es' ? 'Guías' : 'Guides'}
             </p>
             <h1 className="mt-3 max-w-4xl text-hero">{guide.meta.title}</h1>
             <p className="mt-4 max-w-3xl text-subtitle">{guide.meta.description}</p>
@@ -303,7 +303,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
         </article>
 
         <aside className="hidden lg:block">
-          <GuideSectionNav title={lang === 'es' ? 'En esta pagina' : 'On this page'} sections={sections} />
+          <GuideSectionNav title={lang === 'es' ? 'En esta página' : 'On this page'} sections={sections} />
         </aside>
       </div>
     </main>

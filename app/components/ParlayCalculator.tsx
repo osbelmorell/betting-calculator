@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Locale } from '../i18n';
 import { parlayCalculatorContent } from '../content/calculatorContent';
@@ -553,6 +554,26 @@ export default function ParlayCalculator({
                 <li key={title}><strong>{title}</strong> — {description}</li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-section-title">{locale === 'es' ? 'Herramientas y guías relacionadas' : 'Related tools and guides'}</h2>
+          <p className="text-base leading-relaxed text-[var(--foreground)]">
+            {locale === 'es'
+              ? 'Valida cada tramo con el conversor de líneas y compáralo con una apuesta simple para medir riesgo y retorno.'
+              : 'Validate each leg with the odds converter and compare against a single bet to weigh risk and return.'}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href={locale === 'es' ? '/es' : '/'} className="btn btn-secondary btn-md">
+              {locale === 'es' ? 'Calculadora Simple' : 'Single Bet Calculator'}
+            </Link>
+            <Link href={locale === 'es' ? '/es/odds-converter' : '/odds-converter'} className="btn btn-secondary btn-md">
+              {locale === 'es' ? 'Conversor de Líneas' : 'Odds Converter'}
+            </Link>
+            <Link href={locale === 'es' ? '/es/guides' : '/guides'} className="btn btn-secondary btn-md">
+              {locale === 'es' ? 'Guías de Apuestas' : 'Betting Guides'}
+            </Link>
           </div>
         </section>
 
