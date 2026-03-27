@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: 'Sports Betting Guides',
   description:
     'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and value betting decisions.',
+  keywords: [
+    'sports betting guides',
+    'betting odds explained',
+    'implied probability guide',
+    'parlay odds formula',
+    'value betting guide',
+  ],
   alternates: {
     canonical: getCanonicalUrl('/guides'),
     languages: {
@@ -69,6 +76,18 @@ export default async function GuidesIndexPage() {
             <p className="mt-2 text-base text-[var(--text-secondary)]">{guide.meta.description}</p>
           </article>
         ))}
+      </section>
+
+      <section className="mt-10 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-5">
+        <h2 className="text-xl font-semibold tracking-tight">Related Betting Tools</h2>
+        <p className="mt-2 text-[var(--text-secondary)]">
+          Apply each guide with live examples using the calculators below.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/" className="btn btn-secondary btn-md">Single Bet Calculator</Link>
+          <Link href="/parlay" className="btn btn-secondary btn-md">Parlay Calculator</Link>
+          <Link href="/odds-converter" className="btn btn-secondary btn-md">Odds Converter</Link>
+        </div>
       </section>
     </main>
   );

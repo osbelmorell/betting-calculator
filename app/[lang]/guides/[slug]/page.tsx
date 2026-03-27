@@ -31,6 +31,7 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides/[slug]'>
   return {
     title: guide.meta.title,
     description: guide.meta.description,
+    keywords: guide.meta.keywords,
     alternates: {
       canonical: getCanonicalUrl(localizePath(`/guides/${slug}`, lang)),
       languages: {
@@ -76,6 +77,8 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
   }
 
   const Guide = guide.default;
+  const canonicalUrl = getCanonicalUrl(localizePath(`/guides/${slug}`, lang));
+  const guidesIndexUrl = getCanonicalUrl(localizePath('/guides', lang));
   const articleJsonLd = {
     '@context': schemaOrgUrl,
     '@type': 'Article',
@@ -83,7 +86,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
     description: guide.meta.description,
     datePublished: `${guide.meta.publishedAt}T00:00:00Z`,
     dateModified: `${guide.meta.updatedAt}T00:00:00Z`,
-    mainEntityOfPage: getCanonicalUrl(localizePath(`/guides/${slug}`, lang)),
+    mainEntityOfPage: canonicalUrl,
     author: {
       '@type': 'Organization',
       name: siteConfig.name,
@@ -111,6 +114,31 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
       }
     : null;
 
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: lang === 'es' ? 'Inicio' : 'Home',
+        item: getCanonicalUrl(localizePath('/', lang)),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: lang === 'es' ? 'Guias' : 'Guides',
+        item: guidesIndexUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: guide.meta.title,
+        item: canonicalUrl,
+      },
+    ],
+  };
+
   const sections = [
     { id: 'overview', label: lang === 'es' ? 'Resumen' : 'Overview' },
     { id: 'guide-content', label: lang === 'es' ? 'Guia' : 'Guide' },
@@ -134,6 +162,30 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
           }}
         />
       ) : null}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-[var(--text-secondary)]">
+        <ol className="flex flex-wrap items-center gap-2">
+          <li>
+            <Link href={localizePath('/', lang)} className="hover:text-[var(--foreground)]">
+              {lang === 'es' ? 'Inicio' : 'Home'}
+            </Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <Link href={localizePath('/guides', lang)} className="hover:text-[var(--foreground)]">
+              {lang === 'es' ? 'Guias' : 'Guides'}
+            </Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li className="text-[var(--foreground)]">{guide.meta.title}</li>
+        </ol>
+      </nav>
 
       <details className="mt-6 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-4 lg:hidden">
         <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">
@@ -228,9 +280,15 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
               {lang === 'es' ? 'Prueba las calculadoras' : 'Try the Calculators'}
             </h2>
             <div className="mt-5 flex flex-wrap gap-3">
-              <Link href={localizePath('/', lang)} className="btn btn-secondary btn-md">Calculadora Simple</Link>
-              <Link href={localizePath('/parlay', lang)} className="btn btn-secondary btn-md">Calculadora Parlay</Link>
-              <Link href={localizePath('/odds-converter', lang)} className="btn btn-secondary btn-md">Conversor de Líneas</Link>
+              <Link href={localizePath('/', lang)} className="btn btn-secondary btn-md">
+                {lang === 'es' ? 'Calculadora Simple' : 'Single Calculator'}
+              </Link>
+              <Link href={localizePath('/parlay', lang)} className="btn btn-secondary btn-md">
+                {lang === 'es' ? 'Calculadora Parlay' : 'Parlay Calculator'}
+              </Link>
+              <Link href={localizePath('/odds-converter', lang)} className="btn btn-secondary btn-md">
+                {lang === 'es' ? 'Conversor de Líneas' : 'Odds Converter'}
+              </Link>
             </div>
           </section>
         </article>

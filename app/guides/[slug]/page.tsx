@@ -24,6 +24,7 @@ export async function generateMetadata(props: PageProps<'/guides/[slug]'>): Prom
   return {
     title: guide.meta.title,
     description: guide.meta.description,
+    keywords: guide.meta.keywords,
     alternates: {
       canonical: getCanonicalUrl(`/guides/${slug}`),
       languages: {
@@ -60,6 +61,8 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
   }
 
   const Guide = guide.default;
+  const canonicalUrl = getCanonicalUrl(`/guides/${slug}`);
+  const guidesIndexUrl = getCanonicalUrl('/guides');
   const articleJsonLd = {
     '@context': schemaOrgUrl,
     '@type': 'Article',
@@ -67,7 +70,7 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
     description: guide.meta.description,
     datePublished: `${guide.meta.publishedAt}T00:00:00Z`,
     dateModified: `${guide.meta.updatedAt}T00:00:00Z`,
-    mainEntityOfPage: getCanonicalUrl(`/guides/${slug}`),
+    mainEntityOfPage: canonicalUrl,
     author: {
       '@type': 'Organization',
       name: siteConfig.name,
@@ -95,6 +98,31 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
       }
     : null;
 
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: getCanonicalUrl('/'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Guides',
+        item: guidesIndexUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: guide.meta.title,
+        item: canonicalUrl,
+      },
+    ],
+  };
+
   const sections = [
     { id: 'overview', label: 'Overview' },
     { id: 'guide-content', label: 'Guide' },
@@ -118,6 +146,26 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
           }}
         />
       ) : null}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-[var(--text-secondary)]">
+        <ol className="flex flex-wrap items-center gap-2">
+          <li>
+            <Link href="/" className="hover:text-[var(--foreground)]">Home</Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <Link href="/guides" className="hover:text-[var(--foreground)]">Guides</Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li className="text-[var(--foreground)]">{guide.meta.title}</li>
+        </ol>
+      </nav>
 
       <details className="mt-6 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-4 lg:hidden">
         <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)]">
