@@ -5,7 +5,7 @@ import { getGuideSummaries } from './registry';
 import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 
 export const metadata: Metadata = {
-  title: 'Sports Betting Guides',
+  title: 'Sports Betting Guides | Odds, Parlay, and +EV',
   description:
     'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and +EV decision making.',
   keywords: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Sports Betting Guides',
+    title: 'Sports Betting Guides | Odds, Parlay, and +EV',
     description:
       'Learn odds conversion, implied probability, parlay calculations, and betting value with practical examples.',
     url: getCanonicalUrl('/guides'),
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sports Betting Guides',
+    title: 'Sports Betting Guides | Odds, Parlay, and +EV',
     description:
       'Learn odds conversion, implied probability, parlay calculations, and betting value with practical examples.',
   },

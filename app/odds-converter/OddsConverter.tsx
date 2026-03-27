@@ -177,6 +177,9 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
             <Link href={locale === 'es' ? '/es/ev' : '/ev'} className="btn btn-secondary btn-md">
               {locale === 'es' ? 'Calculadora +EV' : '+EV Calculator'}
             </Link>
+            <Link href={locale === 'es' ? '/es/guides' : '/guides'} className="btn btn-secondary btn-md">
+              {copy.relatedGuides}
+            </Link>
           </div>
         </section>
 

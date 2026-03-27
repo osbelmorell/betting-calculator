@@ -13,7 +13,10 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides'>): Prom
     return {};
   }
 
-  const title = lang === 'es' ? 'Guías de Apuestas | Cuotas, Parlay y Probabilidad' : 'Sports Betting Guides';
+  const title =
+    lang === 'es'
+      ? 'Guías de Apuestas | Cuotas, Parlay y +EV'
+      : 'Sports Betting Guides | Odds, Parlay, and +EV';
   const description =
     lang === 'es'
       ? 'Guías prácticas para entender conversión de líneas, probabilidad implícita, fórmula de parlay y decisiones +EV en apuestas deportivas.'

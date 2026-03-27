@@ -29,6 +29,7 @@ type OddsConverterCopy = {
   relatedToolsTitle: string;
   relatedSingle: string;
   relatedParlay: string;
+  relatedGuides: string;
   faqTitle: string;
   faq: ReadonlyArray<FaqItem>;
 };
@@ -109,6 +110,7 @@ export const oddsConverterContent: Record<Locale, OddsConverterCopy> = {
     relatedToolsTitle: 'Related Betting Tools',
     relatedSingle: 'Single Bet Calculator',
     relatedParlay: 'Parlay Calculator',
+    relatedGuides: 'Betting Guides',
     faqTitle: 'Odds Converter FAQs',
     faq: oddsConverterSeo.en.faq,
   },
@@ -140,6 +142,7 @@ export const oddsConverterContent: Record<Locale, OddsConverterCopy> = {
     relatedToolsTitle: 'Herramientas Relacionadas',
     relatedSingle: 'Calculadora de Apuesta Simple',
     relatedParlay: 'Calculadora de Parlay',
+    relatedGuides: 'Guias de Apuestas',
     faqTitle: 'Preguntas Frecuentes del Conversor',
     faq: oddsConverterSeo.es.faq,
   },

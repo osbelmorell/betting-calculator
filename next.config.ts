@@ -54,6 +54,16 @@ const nextConfig: NextConfig = {
         destination: '/es/guides/parlay-vs-apuesta-simple',
         permanent: true,
       },
+      {
+        source: '/es/guides/positive-ev-betting-formula',
+        destination: '/es/guides/formula-apuestas-ev-positivo',
+        permanent: true,
+      },
+      {
+        source: '/es/guides/how-to-use-ev-calculator',
+        destination: '/es/guides/como-usar-calculadora-ev',
+        permanent: true,
+      },
     ];
   },
   async headers() {
