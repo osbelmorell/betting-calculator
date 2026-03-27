@@ -1,6 +1,6 @@
 import { defaultLocale, isLocale, localizePath, type Locale } from './i18n';
 
-const FALLBACK_SITE_URL = 'https://calcmybets.com';
+const FALLBACK_SITE_URL = 'https://www.calcmybets.com';
 const FALLBACK_SITE_NAME = 'Betting Calculator';
 const FALLBACK_DEFAULT_TITLE = 'Betting Calculator | Free Odds & Parlay Calculator';
 const FALLBACK_SITE_DESCRIPTION =
@@ -13,7 +13,19 @@ function readPublicEnv(value: string | undefined, fallback: string): string {
 
 function normalizeSiteUrl(value: string | undefined): string {
   const siteUrl = readPublicEnv(value, FALLBACK_SITE_URL);
-  return siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+  const trimmedSiteUrl = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+
+  try {
+    const parsedUrl = new URL(trimmedSiteUrl);
+
+    if (parsedUrl.hostname === 'calcmybets.com') {
+      parsedUrl.hostname = 'www.calcmybets.com';
+    }
+
+    return parsedUrl.origin;
+  } catch {
+    return trimmedSiteUrl;
+  }
 }
 
 export const schemaOrgUrl = 'https://schema.org';
