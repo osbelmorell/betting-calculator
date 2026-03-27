@@ -109,6 +109,9 @@ export default async function LocalizedGuidesIndexPage(props: PageProps<'/[lang]
                 {guide.meta.title}
               </Link>
             </h2>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">
+              {guide.meta.readingTimeMinutes ?? 1} {lang === 'es' ? 'min de lectura' : 'min read'}
+            </p>
             <p className="mt-2 text-base text-[var(--text-secondary)]">{guide.meta.description}</p>
           </article>
         ))}

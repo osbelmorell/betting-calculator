@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import GuideSectionNav from '../../../components/GuideSectionNav';
+import ListenButton from '../../../components/ListenButton';
 import { defaultLocale, isLocale, localizePath, prefixedLocales } from '../../../i18n';
 import { getGuide, getGuideSlugs, getGuideSummaries } from '../../../guides/registry';
 import { mapGuideSlug } from '../../../guides/slugMap';
@@ -252,7 +253,11 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--text-secondary)]">
               <time dateTime={guide.meta.publishedAt}>{lang === 'es' ? 'Publicado' : 'Published'} {guide.meta.publishedAt}</time>
               <time dateTime={guide.meta.updatedAt}>{lang === 'es' ? 'Actualizado' : 'Updated'} {guide.meta.updatedAt}</time>
+              <span>
+                {guide.meta.readingTimeMinutes ?? 1} {lang === 'es' ? 'min de lectura' : 'min read'}
+              </span>
             </div>
+            <ListenButton contentSelector="#guide-content" lang={lang} />
           </header>
 
           <div id="guide-content" className="pt-8">
