@@ -8,7 +8,11 @@ export type CalculatorEventName =
   | 'parlay_reset'
   | 'parlay_leg_added'
   | 'parlay_leg_removed'
-  | 'parlay_share_copied';
+  | 'parlay_share_copied'
+  | 'ev_first_input'
+  | 'ev_first_calc'
+  | 'ev_reset'
+  | 'ev_share_copied';
 
 export type StickyBarVariant = 'compact' | 'expanded';
 
@@ -79,7 +83,11 @@ function normalizePayload(eventName: CalculatorEventName, payload: RawPayload): 
     normalized[key] = value;
   }
 
-  const calculator = eventName.startsWith('single_') ? 'single' : 'parlay';
+  const calculator = eventName.startsWith('single_')
+    ? 'single'
+    : eventName.startsWith('parlay_')
+      ? 'parlay'
+      : 'ev';
   const source = normalized.source;
   const betAmount = parseBetAmount(payload.betAmount);
   const legCount = typeof payload.legCount === 'number' ? payload.legCount : undefined;

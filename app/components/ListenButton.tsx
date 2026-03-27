@@ -16,13 +16,14 @@ interface Props {
 
 export default function ListenButton({ contentSelector, lang }: Props) {
   const [state, setState] = useState<State>('idle');
-  const [supported, setSupported] = useState(false);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const supported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
   useEffect(() => {
-    setSupported(typeof window !== 'undefined' && 'speechSynthesis' in window);
     return () => {
-      window.speechSynthesis?.cancel();
+      if (typeof window !== 'undefined') {
+        window.speechSynthesis?.cancel();
+      }
     };
   }, []);
 

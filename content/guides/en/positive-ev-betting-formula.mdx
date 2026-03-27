@@ -1,0 +1,62 @@
+export const meta = {
+  title: 'Positive EV Betting Formula Explained',
+  description: 'Learn the +EV formula, break-even probability, and how to measure edge before placing a sports bet.',
+  publishedAt: '2026-03-27',
+  updatedAt: '2026-03-27',
+  keywords: ['positive ev betting', 'expected value formula', 'break-even probability betting'],
+  faq: [
+    {
+      question: 'What is the expected value formula in betting?',
+      answer: 'Expected value is (win probability x profit if win) - (lose probability x stake). A positive result indicates a +EV bet.',
+    },
+    {
+      question: 'How do I know if a bet is +EV?',
+      answer: 'Compare your estimated probability to the break-even probability from the market odds. If your estimate is higher, the bet can be +EV.',
+    },
+  ],
+};
+
+Expected value tells you whether a price is profitable over the long run, not whether one ticket wins tonight.
+
+## The Core +EV Formula
+
+Use this formula:
+
+- EV = (Win Probability x Profit if Win) - (Lose Probability x Stake)
+
+Where:
+
+- Win Probability is your own projected percentage converted to decimal.
+- Lose Probability = 1 - Win Probability.
+- Profit if Win depends on the market odds and your stake.
+
+## Break-Even Probability
+
+Every market price has a minimum required win rate.
+
+- Break-Even % = (1 / Decimal Odds) x 100
+
+If your projection is above break-even, your edge is positive.
+
+## Quick Example
+
+- Stake: $100
+- Market odds: 2.10 decimal
+- Your projected win probability: 52%
+
+Math:
+
+- Profit if win = $110
+- EV = (0.52 x 110) - (0.48 x 100) = 57.2 - 48 = +$9.20
+- EV% = 9.20%
+
+This is a positive expected value setup.
+
+## Practical Workflow
+
+1. Convert the market odds to implied and break-even percentage.
+2. Build your own win probability estimate.
+3. Compute EV and edge.
+4. Only consider bets with meaningful positive EV.
+
+Use the [+EV Calculator](/ev) for the full EV output, the [Odds Converter](/odds-converter) for fast format conversion, and the [How to Use the +EV Calculator](/guides/how-to-use-ev-calculator) guide for a step-by-step workflow.

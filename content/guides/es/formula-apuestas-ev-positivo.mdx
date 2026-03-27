@@ -1,0 +1,62 @@
+export const meta = {
+  title: 'Formula de Apuestas +EV Explicada',
+  description: 'Aprende la formula de valor esperado, la probabilidad de equilibrio y como medir tu edge antes de apostar.',
+  publishedAt: '2026-03-27',
+  updatedAt: '2026-03-27',
+  keywords: ['formula ev apuestas', 'valor esperado positivo', 'probabilidad de equilibrio apuestas'],
+  faq: [
+    {
+      question: 'Cual es la formula de valor esperado en apuestas?',
+      answer: 'Valor esperado = (probabilidad de ganar x ganancia si acierta) - (probabilidad de perder x monto apostado). Si el resultado es positivo, la apuesta es +EV.',
+    },
+    {
+      question: 'Como saber si una apuesta es +EV?',
+      answer: 'Compara tu probabilidad estimada con la probabilidad de equilibrio que implican las cuotas. Si tu estimacion es mayor, la jugada puede ser +EV.',
+    },
+  ],
+};
+
+El valor esperado te dice si un precio es rentable a largo plazo, no si un boleto individual ganara hoy.
+
+## Formula Base de +EV
+
+Usa esta formula:
+
+- EV = (Probabilidad de Ganar x Ganancia si Acierta) - (Probabilidad de Perder x Monto Apostado)
+
+Donde:
+
+- Probabilidad de ganar es tu proyeccion propia convertida a decimal.
+- Probabilidad de perder = 1 - probabilidad de ganar.
+- Ganancia si acierta depende de la cuota y del monto apostado.
+
+## Probabilidad de Equilibrio
+
+Cada cuota tiene una tasa minima de acierto para no perder valor.
+
+- Equilibrio % = (1 / Cuota Decimal) x 100
+
+Si tu proyeccion supera ese nivel, tienes edge positivo.
+
+## Ejemplo Rapido
+
+- Monto: $100
+- Cuota de mercado: 2.10 decimal
+- Tu probabilidad proyectada: 52%
+
+Calculo:
+
+- Ganancia si acierta = $110
+- EV = (0.52 x 110) - (0.48 x 100) = 57.2 - 48 = +$9.20
+- EV% = 9.20%
+
+Ese escenario tiene valor esperado positivo.
+
+## Flujo Practico
+
+1. Convierte la cuota a probabilidad implicita y equilibrio.
+2. Estima tu probabilidad real.
+3. Calcula EV y edge.
+4. Solo considera jugadas con EV positivo claro.
+
+Usa la [Calculadora +EV](/es/ev) para calcular resultados completos, el [Conversor de Cuotas](/es/odds-converter) para convertir formatos y la guía [Cómo Usar la Calculadora +EV](/es/guides/como-usar-calculadora-ev) para un flujo paso a paso.

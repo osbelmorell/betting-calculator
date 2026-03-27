@@ -53,6 +53,7 @@ export default function GlobalCalcToggle() {
   const tabs = [
     { href: buildSeededRoute(localizePath('/', currentLocale), singleSeed), route: '/', label: labelCopy.single },
     { href: buildSeededRoute(localizePath('/parlay', currentLocale), parlaySeed), route: '/parlay', label: labelCopy.parlay },
+    { href: localizePath('/ev', currentLocale), route: '/ev', label: labelCopy.ev },
     { href: localizePath('/odds-converter', currentLocale), route: '/odds-converter', label: labelCopy.odds },
     { href: localizePath('/guides', currentLocale), route: '/guides', label: labelCopy.guides },
   ] as const;

@@ -37,6 +37,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
       },
       {
+        url: localizedUrl('/ev'),
+        lastModified: buildTime,
+        alternates: {
+          languages: localizeLanguages('/ev'),
+        },
+      },
+      {
         url: localizedUrl('/guides'),
         lastModified: buildTime,
         alternates: {

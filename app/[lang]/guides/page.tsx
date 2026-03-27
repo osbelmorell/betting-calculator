@@ -16,8 +16,8 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides'>): Prom
   const title = lang === 'es' ? 'Guías de Apuestas | Cuotas, Parlay y Probabilidad' : 'Sports Betting Guides';
   const description =
     lang === 'es'
-      ? 'Guías prácticas para entender conversión de líneas, probabilidad implícita, fórmula de parlay y valor esperado en apuestas deportivas.'
-      : 'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and value betting decisions.';
+      ? 'Guías prácticas para entender conversión de líneas, probabilidad implícita, fórmula de parlay y decisiones +EV en apuestas deportivas.'
+      : 'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and +EV decision making.';
   const keywords =
     lang === 'es'
       ? [
@@ -26,6 +26,8 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides'>): Prom
           'formula de parlay',
           'valor esperado apuestas',
           'conversion de cuotas',
+          'formula apuestas ev positivo',
+          'como usar calculadora ev',
         ]
       : [
           'sports betting guides',
@@ -33,6 +35,8 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides'>): Prom
           'implied probability guide',
           'parlay odds formula',
           'value betting guide',
+          'positive ev betting formula',
+          'how to use ev calculator',
         ];
 
   return {
@@ -99,6 +103,31 @@ export default async function LocalizedGuidesIndexPage(props: PageProps<'/[lang]
         Explicaciones paso a paso para entender líneas, probabilidad y cálculos de pago antes de apostar.
       </p>
 
+      <section className="mt-8 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-5">
+        <h2 className="text-xl font-semibold tracking-tight">
+          {lang === 'es' ? 'Empieza con guías de +EV' : 'Start with +EV Guides'}
+        </h2>
+        <p className="mt-2 text-[var(--text-secondary)]">
+          {lang === 'es'
+            ? 'Primero aprende la fórmula de valor esperado y luego sigue la guía práctica para evaluar apuestas +EV más rápido.'
+            : 'Learn the expected value formula first, then follow the practical walkthrough to run faster +EV checks.'}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link
+            href={lang === 'es' ? '/es/guides/formula-apuestas-ev-positivo' : '/guides/positive-ev-betting-formula'}
+            className="btn btn-secondary btn-md"
+          >
+            {lang === 'es' ? 'Fórmula de Apuestas +EV' : 'Positive EV Betting Formula'}
+          </Link>
+          <Link
+            href={lang === 'es' ? '/es/guides/como-usar-calculadora-ev' : '/guides/how-to-use-ev-calculator'}
+            className="btn btn-secondary btn-md"
+          >
+            {lang === 'es' ? 'Cómo Usar la Calculadora +EV' : 'How to Use the +EV Calculator'}
+          </Link>
+        </div>
+      </section>
+
       <div className="mt-10">
         <SavedGuidesPanel lang={lang} />
       </div>
@@ -137,6 +166,9 @@ export default async function LocalizedGuidesIndexPage(props: PageProps<'/[lang]
           </Link>
           <Link href={localizePath('/parlay', lang)} className="btn btn-secondary btn-md">
             {lang === 'es' ? 'Calculadora Parlay' : 'Parlay Calculator'}
+          </Link>
+          <Link href={localizePath('/ev', lang)} className="btn btn-secondary btn-md">
+            {lang === 'es' ? 'Calculadora +EV' : '+EV Calculator'}
           </Link>
           <Link href={localizePath('/odds-converter', lang)} className="btn btn-secondary btn-md">
             {lang === 'es' ? 'Conversor de Líneas' : 'Odds Converter'}

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const STORAGE_KEY = 'guide-bookmarks';
 const INITIAL_VISIBLE_COUNT = 4;
@@ -52,17 +52,17 @@ interface Props {
 }
 
 export default function SavedGuidesPanel({ lang }: Props) {
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => {
+    if (typeof window === 'undefined') {
+      return [];
+    }
+
+    return readBookmarks();
+  });
   const [isExpanded, setIsExpanded] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setBookmarks(readBookmarks());
-    setMounted(true);
-  }, []);
-
-  // Don't render anything during SSR or when no bookmarks
-  if (!mounted || bookmarks.length === 0) return null;
+  // Don't render anything when there are no bookmarks.
+  if (bookmarks.length === 0) return null;
 
   const isEs = lang === 'es';
   const shouldCollapse = bookmarks.length > INITIAL_VISIBLE_COUNT;

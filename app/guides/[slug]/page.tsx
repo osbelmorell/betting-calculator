@@ -69,6 +69,7 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
     '@type': 'Article',
     headline: guide.meta.title,
     description: guide.meta.description,
+    inLanguage: 'en',
     datePublished: `${guide.meta.publishedAt}T00:00:00Z`,
     dateModified: `${guide.meta.updatedAt}T00:00:00Z`,
     mainEntityOfPage: canonicalUrl,
@@ -261,6 +262,7 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
             <div className="mt-5 flex flex-wrap gap-3">
               <Link href="/" className="btn btn-secondary btn-md">Single Calculator</Link>
               <Link href="/parlay" className="btn btn-secondary btn-md">Parlay Calculator</Link>
+              <Link href="/ev" className="btn btn-secondary btn-md">+EV Calculator</Link>
               <Link href="/odds-converter" className="btn btn-secondary btn-md">Odds Converter</Link>
             </div>
           </section>

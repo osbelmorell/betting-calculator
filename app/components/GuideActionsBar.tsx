@@ -43,18 +43,24 @@ function writeBookmarks(bookmarks: Bookmark[]): void {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function GuideActionsBar({ contentSelector, lang, title }: Props) {
-  const [ttsSupported, setTtsSupported] = useState(false);
+  const [ttsSupported] = useState(() => typeof window !== 'undefined' && 'speechSynthesis' in window);
   const [listenState, setListenState] = useState<ListenState>('idle');
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle');
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    const currentPath = `${window.location.pathname}${window.location.search}`;
+    return readBookmarks().some((b) => b.url === currentPath);
+  });
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
-    setTtsSupported(typeof window !== 'undefined' && 'speechSynthesis' in window);
-    const currentPath = `${window.location.pathname}${window.location.search}`;
-    setIsBookmarked(readBookmarks().some((b) => b.url === currentPath));
     return () => {
-      window.speechSynthesis?.cancel();
+      if (typeof window !== 'undefined') {
+        window.speechSynthesis?.cancel();
+      }
     };
   }, []);
 

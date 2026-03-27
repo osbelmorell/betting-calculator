@@ -1,0 +1,127 @@
+export const meta = {
+  title: 'How to Use the +EV Calculator',
+  description: 'Step-by-step guide to entering stake, odds, and projected win probability so you can interpret EV, ROI, edge, and break-even correctly.',
+  publishedAt: '2026-03-27',
+  updatedAt: '2026-03-27',
+  keywords: ['how to use ev calculator', 'expected value betting tool', 'sports betting ev tutorial'],
+  faq: [
+    {
+      question: 'What inputs do I need for the +EV calculator?',
+      answer: 'You need stake, market odds, and your own estimated win probability. The tool calculates EV amount, EV percent, break-even rate, and edge.',
+    },
+    {
+      question: 'What does EV percent mean?',
+      answer: 'EV percent is expected value divided by stake. It shows the expected return per dollar wagered in percentage terms.',
+    },
+    {
+      question: 'How can I estimate win probability as a bettor?',
+      answer: 'Start with the market implied probability, then adjust for injuries, matchup style, schedule, and your model inputs. Keep notes and compare your projections to real results to calibrate over time.',
+    },
+  ],
+};
+
+The +EV calculator is designed to answer one question quickly: does this price have long-term value based on your projection?
+
+## What Is +EV in Simple Terms?
+
++EV means your bet is priced better than your estimated chance of winning.
+
+- If your win estimate is higher than break-even, you have positive value (+EV).
+- If your win estimate is lower than break-even, it is negative value (-EV).
+
+Important: +EV does **not** guarantee this one bet wins. It means the decision is better over many similar bets.
+
+## How Bettors Use +EV in Practice
+
+Most bettors use +EV as a filter before placing bets:
+
+1. Check market odds.
+2. Build their own win estimate.
+3. Compare estimate vs break-even.
+4. Bet only when there is clear positive value.
+
+This helps remove emotional bets and keeps decisions consistent.
+
+## Quick Examples
+
+### Example A: Positive Value (+EV)
+
+- Odds imply break-even = 48%
+- Your estimate = 54%
+- Difference = +6 points
+
+Result: This is a +EV spot because your estimate is above the required win rate.
+
+### Example B: Negative Value (-EV)
+
+- Odds imply break-even = 52%
+- Your estimate = 47%
+- Difference = -5 points
+
+Result: This is likely a pass because your estimate is below the required win rate.
+
+## Step 1: Enter Bet Amount
+
+Set the amount you would actually risk on this wager.
+
+## Step 2: Enter Market Odds
+
+Pick any odds format:
+
+- American
+- Decimal
+- Fractional
+- Implied probability
+
+The calculator converts all formats automatically.
+
+## Step 3: Enter Your Estimated Win Probability
+
+Input your own estimate as a percentage. This should come from your model, matchup analysis, or process.
+
+## Practical Bettor Workflow: How to Find Win Probability
+
+If you do not have a full predictive model yet, use this process:
+
+1. Start with market baseline.
+- Convert the sportsbook price to implied probability.
+- Example: decimal 2.00 starts at 50% baseline.
+
+2. Build a matchup adjustment list.
+- Team/player form and efficiency.
+- Injuries, suspensions, and lineup changes.
+- Rest/travel, schedule spots, and fatigue.
+- Style matchup (pace, shot profile, turnover pressure, etc.).
+
+3. Assign small probability adjustments.
+- Add or subtract points from the baseline based on your evidence.
+- Keep each adjustment modest unless the signal is very strong.
+
+4. Sanity check your final number.
+- Compare your projection against market consensus across books.
+- If your estimate is far from market, verify your assumptions before betting.
+
+5. Track and calibrate.
+- Log your projected probability and closing line.
+- Review results in sample size, then tighten or loosen your adjustments.
+
+This gives you a repeatable way to create a Win Probability number you can trust in the +EV calculator.
+
+## Step 4: Read the Outputs
+
+- EV Amount: expected dollar value per bet.
+- EV %: expected return relative to stake.
+- Break-Even %: minimum hit rate required at current odds.
+- Edge %: your estimate minus break-even.
+
+## Step 5: Decide with a Rule
+
+Many bettors use a simple rule set:
+
+1. No bet when EV is negative.
+2. Review assumptions when EV is near zero.
+3. Consider action only when EV is clearly positive.
+
+Use the [+EV Calculator](/ev) for live calculations, then compare outcomes in the [Single Bet Calculator](/) and [Parlay Calculator](/parlay) when building your card.
+
+For the math behind each output, read [Positive EV Betting Formula Explained](/guides/positive-ev-betting-formula) and use the [Odds Converter](/odds-converter) to standardize price formats before evaluating edge.

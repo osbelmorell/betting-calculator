@@ -174,6 +174,9 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
             <Link href={locale === 'es' ? '/es/parlay' : '/parlay'} className="btn btn-secondary btn-md">
               {copy.relatedParlay}
             </Link>
+            <Link href={locale === 'es' ? '/es/ev' : '/ev'} className="btn btn-secondary btn-md">
+              {locale === 'es' ? 'Calculadora +EV' : '+EV Calculator'}
+            </Link>
           </div>
         </section>
 

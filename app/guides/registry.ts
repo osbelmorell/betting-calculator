@@ -70,6 +70,20 @@ const guideDefinitions = [
     loadEn: () => import('@/content/guides/en/parlay-vs-straight-bets.mdx') as Promise<GuideModule>,
     loadEs: () => import('@/content/guides/es/parlay-vs-straight-bets.mdx') as Promise<GuideModule>,
   },
+  {
+    ...guideSlugPairs[6],
+    sourceEn: 'positive-ev-betting-formula.mdx',
+    sourceEs: 'formula-apuestas-ev-positivo.mdx',
+    loadEn: () => import('@/content/guides/en/positive-ev-betting-formula.mdx') as Promise<GuideModule>,
+    loadEs: () => import('@/content/guides/es/formula-apuestas-ev-positivo.mdx') as Promise<GuideModule>,
+  },
+  {
+    ...guideSlugPairs[7],
+    sourceEn: 'how-to-use-ev-calculator.mdx',
+    sourceEs: 'como-usar-calculadora-ev.mdx',
+    loadEn: () => import('@/content/guides/en/how-to-use-ev-calculator.mdx') as Promise<GuideModule>,
+    loadEs: () => import('@/content/guides/es/como-usar-calculadora-ev.mdx') as Promise<GuideModule>,
+  },
 ] as const;
 
 function stripMetaExport(source: string): string {

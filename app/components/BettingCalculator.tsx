@@ -442,6 +442,9 @@ export default function BettingCalculator({
             <Link href={locale === 'es' ? '/es/parlay' : '/parlay'} className="btn btn-secondary btn-md">
               {locale === 'es' ? 'Calculadora Parlay' : 'Parlay Calculator'}
             </Link>
+            <Link href={locale === 'es' ? '/es/ev' : '/ev'} className="btn btn-secondary btn-md">
+              {locale === 'es' ? 'Calculadora +EV' : '+EV Calculator'}
+            </Link>
             <Link href={locale === 'es' ? '/es/odds-converter' : '/odds-converter'} className="btn btn-secondary btn-md">
               {locale === 'es' ? 'Conversor de Líneas' : 'Odds Converter'}
             </Link>

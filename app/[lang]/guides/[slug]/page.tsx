@@ -85,6 +85,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
     '@type': 'Article',
     headline: guide.meta.title,
     description: guide.meta.description,
+    inLanguage: lang,
     datePublished: `${guide.meta.publishedAt}T00:00:00Z`,
     dateModified: `${guide.meta.updatedAt}T00:00:00Z`,
     mainEntityOfPage: canonicalUrl,
@@ -294,6 +295,9 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
               </Link>
               <Link href={localizePath('/parlay', lang)} className="btn btn-secondary btn-md">
                 {lang === 'es' ? 'Calculadora Parlay' : 'Parlay Calculator'}
+              </Link>
+              <Link href={localizePath('/ev', lang)} className="btn btn-secondary btn-md">
+                {lang === 'es' ? 'Calculadora +EV' : '+EV Calculator'}
               </Link>
               <Link href={localizePath('/odds-converter', lang)} className="btn btn-secondary btn-md">
                 {lang === 'es' ? 'Conversor de Líneas' : 'Odds Converter'}

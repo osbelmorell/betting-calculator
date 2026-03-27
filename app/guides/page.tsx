@@ -7,13 +7,15 @@ import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 export const metadata: Metadata = {
   title: 'Sports Betting Guides',
   description:
-    'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and value betting decisions.',
+    'Learn sports betting math with practical guides on odds conversion, implied probability, parlay formulas, and +EV decision making.',
   keywords: [
     'sports betting guides',
     'betting odds explained',
     'implied probability guide',
     'parlay odds formula',
     'value betting guide',
+    'positive ev betting formula',
+    'how to use ev calculator',
   ],
   alternates: {
     canonical: getCanonicalUrl('/guides'),
@@ -66,6 +68,21 @@ export default async function GuidesIndexPage() {
         Step-by-step explainers to help you understand odds, probability, and payout math before you place a bet.
       </p>
 
+      <section className="mt-8 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-5">
+        <h2 className="text-xl font-semibold tracking-tight">Start with +EV Guides</h2>
+        <p className="mt-2 text-[var(--text-secondary)]">
+          Learn the expected value formula first, then follow the practical walkthrough to run faster +EV checks.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/guides/positive-ev-betting-formula" className="btn btn-secondary btn-md">
+            Positive EV Betting Formula
+          </Link>
+          <Link href="/guides/how-to-use-ev-calculator" className="btn btn-secondary btn-md">
+            How to Use the +EV Calculator
+          </Link>
+        </div>
+      </section>
+
       <div className="mt-10">
         <SavedGuidesPanel lang="en" />
       </div>
@@ -94,6 +111,7 @@ export default async function GuidesIndexPage() {
         <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/" className="btn btn-secondary btn-md">Single Bet Calculator</Link>
           <Link href="/parlay" className="btn btn-secondary btn-md">Parlay Calculator</Link>
+          <Link href="/ev" className="btn btn-secondary btn-md">+EV Calculator</Link>
           <Link href="/odds-converter" className="btn btn-secondary btn-md">Odds Converter</Link>
         </div>
       </section>

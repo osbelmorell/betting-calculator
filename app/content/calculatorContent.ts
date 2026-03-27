@@ -122,6 +122,7 @@ type BetAmountSliderCopy = {
 type GlobalCalcToggleCopy = {
   single: string;
   parlay: string;
+  ev: string;
   odds: string;
   guides: string;
   nav: string;
@@ -453,6 +454,7 @@ export const globalCalcToggleContent: Record<Locale, GlobalCalcToggleCopy> = {
   en: {
     single: 'Single',
     parlay: 'Parlay',
+    ev: '+EV',
     odds: 'Odds',
     guides: 'Guides',
     nav: 'Calculator navigation',
@@ -466,6 +468,7 @@ export const globalCalcToggleContent: Record<Locale, GlobalCalcToggleCopy> = {
   es: {
     single: 'Simple',
     parlay: 'Parlay',
+    ev: '+EV',
     odds: 'Líneas',
     guides: 'Guías',
     nav: 'Navegación de calculadora',

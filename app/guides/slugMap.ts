@@ -25,6 +25,14 @@ export const guideSlugPairs = [
     en: 'parlay-vs-straight-bets',
     es: 'parlay-vs-apuesta-simple',
   },
+  {
+    en: 'positive-ev-betting-formula',
+    es: 'formula-apuestas-ev-positivo',
+  },
+  {
+    en: 'how-to-use-ev-calculator',
+    es: 'como-usar-calculadora-ev',
+  },
 ] as const;
 
 export function mapGuideSlug(slug: string, fromLocale: Locale, toLocale: Locale): string | null {

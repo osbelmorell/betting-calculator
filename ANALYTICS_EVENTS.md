@@ -7,6 +7,7 @@ This document defines the event contract emitted by the betting calculator app.
 Events are emitted from:
 - Single calculator interactions
 - Parlay calculator interactions
+- +EV calculator interactions
 - Share actions
 - Parlay leg management
 
@@ -39,10 +40,16 @@ Parlay calculator:
 - parlay_leg_removed
 - parlay_share_copied
 
++EV calculator:
+- ev_first_input
+- ev_first_calc
+- ev_reset
+- ev_share_copied
+
 ## Standardized Payload Fields
 
 These fields are normalized automatically for every emitted event:
-- calculator: single or parlay
+- calculator: single, parlay, or ev
 - event_version: currently 1
 - page_path: current route path
 - sticky_variant: compact or expanded
