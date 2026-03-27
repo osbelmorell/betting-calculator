@@ -432,24 +432,20 @@ export default function BettingCalculator({
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-section-title">{locale === 'es' ? 'Herramientas y guías relacionadas' : 'Related tools and guides'}</h2>
-          <p className="text-base leading-relaxed text-[var(--foreground)]">
-            {locale === 'es'
-              ? 'Compara escenarios con el parlay, convierte líneas rápido y profundiza con guías prácticas.'
-              : 'Compare scenarios with the parlay tool, convert odds quickly, and dive deeper with practical guides.'}
-          </p>
+          <h2 className="text-section-title">{copy.relatedToolsTitle}</h2>
+          <p className="text-base leading-relaxed text-[var(--foreground)]">{copy.relatedToolsBody}</p>
           <div className="flex flex-wrap gap-3">
             <Link href={locale === 'es' ? '/es/parlay' : '/parlay'} className="btn btn-secondary btn-md">
-              {locale === 'es' ? 'Calculadora Parlay' : 'Parlay Calculator'}
+              {copy.relatedParlay}
             </Link>
             <Link href={locale === 'es' ? '/es/ev' : '/ev'} className="btn btn-secondary btn-md">
-              {locale === 'es' ? 'Calculadora +EV' : '+EV Calculator'}
+              {copy.relatedEv}
             </Link>
             <Link href={locale === 'es' ? '/es/odds-converter' : '/odds-converter'} className="btn btn-secondary btn-md">
-              {locale === 'es' ? 'Conversor de Líneas' : 'Odds Converter'}
+              {copy.relatedOdds}
             </Link>
             <Link href={locale === 'es' ? '/es/guides' : '/guides'} className="btn btn-secondary btn-md">
-              {locale === 'es' ? 'Guías de Apuestas' : 'Betting Guides'}
+              {copy.relatedGuides}
             </Link>
           </div>
         </section>

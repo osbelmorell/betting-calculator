@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev --webpack",
     "dev:turbo": "next dev --turbo",
-    "build": "next build && npm run check:sitemap-host",
+    "build": "npm run calc:contract:sync && next build && npm run check:sitemap-host",
     "check:sitemap-host": "node scripts/check-sitemap-host.mjs",
+    "calc:contract:sync": "node scripts/sync-calculator-content-contract.mjs",
+    "calc:contract:check": "node scripts/sync-calculator-content-contract.mjs --check",
     "start": "next start",
     "lint": "eslint"
   },

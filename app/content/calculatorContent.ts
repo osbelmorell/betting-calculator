@@ -28,6 +28,12 @@ type SingleCalculatorUiCopy = {
   howToOutro: string;
   oddsIntro: string;
   oddsSections: readonly TextPair[];
+  relatedToolsTitle: string;
+  relatedToolsBody: string;
+  relatedParlay: string;
+  relatedEv: string;
+  relatedOdds: string;
+  relatedGuides: string;
   faqItems: readonly TextPair[];
 };
 
@@ -60,6 +66,12 @@ type ParlayCalculatorUiCopy = {
   howItWorksOutro: string;
   buildIntro: string;
   buildSteps: readonly TextPair[];
+  relatedToolsTitle: string;
+  relatedToolsBody: string;
+  relatedSingle: string;
+  relatedEv: string;
+  relatedOdds: string;
+  relatedGuides: string;
   faqItems: readonly TextPair[];
 };
 
@@ -164,6 +176,12 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
         ['Fractional Odds', 'Common in UK and European betting. Shows profit relative to stake. Example: 5/2 means a $2 bet wins $5 profit, returning $7 total.'],
         ['Implied Probability', 'Expresses odds as a percentage likelihood of winning. Example: 52% implies you will win about half of comparable 52% probability bets over time.'],
       ],
+      relatedToolsTitle: 'Related tools and guides',
+      relatedToolsBody: 'Compare scenarios with the parlay tool, convert odds quickly, and dive deeper with practical guides.',
+      relatedParlay: 'Parlay Calculator',
+      relatedEv: '+EV Calculator',
+      relatedOdds: 'Odds Converter',
+      relatedGuides: 'Betting Guides',
       faqItems: [
         ['What is the difference between payout and winnings?', 'Winnings = profit only (original bet removed). Payout = total return including your original bet. If you bet $100 at 2.0 decimal odds: winnings = $100, payout = $200.'],
         ['What does +150 mean in American odds?', '+150 means if you bet $100, you win $150 profit (total payout $250). Positive American odds show how much profit $100 will make. The higher the number, the more likely the bookmaker thinks you will lose.'],
@@ -222,6 +240,12 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
         ['Línea Fraccional', 'Es común en Reino Unido y Europa. Muestra la ganancia en relación con el monto apostado. Ejemplo: 5/2 significa que una apuesta de $2 gana $5 y devuelve $7 en total.'],
         ['Probabilidad Implicita', 'Expresa la línea como una probabilidad de ganar en porcentaje. Ejemplo: 52% implica que ganarías aproximadamente la mitad de apuestas comparables a largo plazo.'],
       ],
+      relatedToolsTitle: 'Herramientas y guías relacionadas',
+      relatedToolsBody: 'Compara escenarios con el parlay, convierte líneas rápido y profundiza con guías prácticas.',
+      relatedParlay: 'Calculadora Parlay',
+      relatedEv: 'Calculadora +EV',
+      relatedOdds: 'Conversor de Líneas',
+      relatedGuides: 'Guías de Apuestas',
       faqItems: [
         ['Cual es la diferencia entre pago total y ganancias?', 'Ganancias = solo beneficio neto (sin contar la apuesta original). Pago total = retorno completo incluyendo tu apuesta original. Si apuestas $100 a línea decimal 2.0: ganancias = $100 y pago total = $200.'],
         ['Que significa +150 en línea americana?', '+150 significa que si apuestas $100, ganas $150 de beneficio para un pago total de $250. Las líneas americanas positivas muestran cuanto beneficio genera una apuesta de $100. Mientras más alto el numero, menos probable considera la casa que ocurra el resultado.'],
@@ -288,6 +312,12 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
         ['Remove any leg', 'If you change your mind, remove that leg as long as at least one remains'],
         ['View your combined payout', 'See what you could win if all legs hit'],
       ],
+      relatedToolsTitle: 'Related tools and guides',
+      relatedToolsBody: 'Validate each leg with the odds converter and compare against a single bet to weigh risk and return.',
+      relatedSingle: 'Single Bet Calculator',
+      relatedEv: '+EV Calculator',
+      relatedOdds: 'Odds Converter',
+      relatedGuides: 'Betting Guides',
       faqItems: [
         ['What happens if one leg of my parlay loses?', 'The entire parlay loses. There are no partial payouts in traditional parlays. If you hit 5 out of 6 legs, you get nothing. This is why parlays are high-risk, high-reward bets.'],
         ['How many legs can I add to a parlay?', 'This calculator supports unlimited legs. Most sportsbooks limit parlays to 10 to 15 legs. The more legs you add, the lower your probability of cashing, but the higher your potential payout. A 10-leg parlay at 2.0 decimal odds would return 1024x your bet.'],
@@ -352,6 +382,12 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
         ['Elimina cualquier pierna', 'Si cambias de idea, puedes quitar esa pierna mientras quede al menos una'],
         ['Consulta tu pago combinado', 'Ve cuanto podrias ganar si todas las piernas aciertan'],
       ],
+      relatedToolsTitle: 'Herramientas y guías relacionadas',
+      relatedToolsBody: 'Valida cada tramo con el conversor de líneas y compáralo con una apuesta simple para medir riesgo y retorno.',
+      relatedSingle: 'Calculadora Simple',
+      relatedEv: 'Calculadora +EV',
+      relatedOdds: 'Conversor de Líneas',
+      relatedGuides: 'Guías de Apuestas',
       faqItems: [
         ['Que pasa si una pierna de mi parlay pierde?', 'Se pierde todo el parlay. En los parlays tradicionales no hay pagos parciales. Si aciertas 5 de 6 piernas, no cobras nada. Por eso los parlays son apuestas de alto riesgo y alta recompensa.'],
         ['Cuantas piernas puedo agregar a un parlay?', 'Esta calculadora soporta piernas ilimitadas. La mayoria de las casas de apuestas limita los parlays entre 10 y 15 piernas. Cuantas más piernas agregues, menor sera tu probabilidad de cobrar, pero mayor sera el pago potencial. Un parlay de 10 piernas con línea decimal 2.0 devolveria 1024 veces tu apuesta.'],
