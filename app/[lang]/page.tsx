@@ -67,6 +67,18 @@ export default async function Home(props: PageProps<'/[lang]'>) {
       priceCurrency: 'USD',
     },
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: lang === 'es' ? 'Inicio' : 'Home',
+        item: getCanonicalUrl(localizePath('/', lang)),
+      },
+    ],
+  };
 
   return (
     <>
@@ -74,6 +86,12 @@ export default async function Home(props: PageProps<'/[lang]'>) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <script

@@ -48,6 +48,24 @@ export default function OddsConverterPage() {
       priceCurrency: 'USD',
     },
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: getCanonicalUrl('/'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Odds Converter',
+        item: getCanonicalUrl('/odds-converter'),
+      },
+    ],
+  };
 
   return (
     <>
@@ -55,6 +73,12 @@ export default function OddsConverterPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <script

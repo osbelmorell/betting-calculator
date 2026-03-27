@@ -48,6 +48,18 @@ export default function Home() {
       priceCurrency: 'USD',
     },
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: getCanonicalUrl('/'),
+      },
+    ],
+  };
 
   return (
     <>
@@ -55,6 +67,12 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <script

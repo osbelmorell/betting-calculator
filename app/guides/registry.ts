@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { ComponentType } from 'react';
 import type { Locale } from '../i18n';
 import { guideSlugPairs } from './slugMap';
+import { siteConfig } from '../siteConfig';
 
 export type GuideFaqItem = {
   question: string;
@@ -16,7 +17,15 @@ export type GuideMeta = {
   updatedAt: string;
   keywords: string[];
   faq?: GuideFaqItem[];
+  author?: GuideAuthor;
   readingTimeMinutes?: number;
+};
+
+export type GuideAuthor = {
+  type?: 'Person' | 'Organization';
+  name: string;
+  credentials?: string;
+  url?: string;
 };
 
 type GuideModule = {
@@ -26,6 +35,12 @@ type GuideModule = {
 
 const WORDS_PER_MINUTE = 220;
 const readingTimeCache = new Map<string, number>();
+const DEFAULT_GUIDE_AUTHOR: GuideAuthor = {
+  type: 'Organization',
+  name: siteConfig.name,
+  credentials: 'Editorial Team',
+  url: siteConfig.url,
+};
 
 const guideDefinitions = [
   {
@@ -139,6 +154,7 @@ export async function getGuide(locale: Locale, slug: string): Promise<GuideModul
     ...guide,
     meta: {
       ...guide.meta,
+      author: guide.meta.author ?? DEFAULT_GUIDE_AUTHOR,
       readingTimeMinutes,
     },
   };

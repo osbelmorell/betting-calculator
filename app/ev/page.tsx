@@ -54,6 +54,24 @@ export default function EvPage() {
       priceCurrency: 'USD',
     },
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: getCanonicalUrl('/'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'EV Calculator',
+        item: getCanonicalUrl('/ev'),
+      },
+    ],
+  };
 
   return (
     <>
@@ -61,6 +79,12 @@ export default function EvPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <script

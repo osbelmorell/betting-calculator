@@ -67,6 +67,24 @@ export default async function ParlayPage(props: PageProps<'/[lang]/parlay'>) {
       priceCurrency: 'USD',
     },
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: lang === 'es' ? 'Inicio' : 'Home',
+        item: getCanonicalUrl(localizePath('/', lang)),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: lang === 'es' ? 'Calculadora Parlay' : 'Parlay Calculator',
+        item: getCanonicalUrl(localizePath('/parlay', lang)),
+      },
+    ],
+  };
 
   return (
     <>
@@ -74,6 +92,12 @@ export default async function ParlayPage(props: PageProps<'/[lang]/parlay'>) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <script

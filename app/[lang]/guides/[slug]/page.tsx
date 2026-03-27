@@ -80,6 +80,25 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
   const Guide = guide.default;
   const canonicalUrl = getCanonicalUrl(localizePath(`/guides/${slug}`, lang));
   const guidesIndexUrl = getCanonicalUrl(localizePath('/guides', lang));
+  const articleAuthor = guide.meta.author ?? {
+    type: 'Organization' as const,
+    name: siteConfig.name,
+    credentials: lang === 'es' ? 'Equipo editorial' : 'Editorial Team',
+    url: siteConfig.url,
+  };
+  const authorJsonLd = articleAuthor.type === 'Person'
+    ? {
+        '@type': 'Person',
+        name: articleAuthor.name,
+        ...(articleAuthor.credentials ? { description: articleAuthor.credentials } : {}),
+        ...(articleAuthor.url ? { url: articleAuthor.url } : {}),
+      }
+    : {
+        '@type': 'Organization',
+        name: articleAuthor.name,
+        ...(articleAuthor.url ? { url: articleAuthor.url } : {}),
+      };
+
   const articleJsonLd = {
     '@context': schemaOrgUrl,
     '@type': 'Article',
@@ -89,11 +108,7 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
     datePublished: `${guide.meta.publishedAt}T00:00:00Z`,
     dateModified: `${guide.meta.updatedAt}T00:00:00Z`,
     mainEntityOfPage: canonicalUrl,
-    author: {
-      '@type': 'Organization',
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    author: authorJsonLd,
     publisher: {
       '@type': 'Organization',
       name: siteConfig.name,
@@ -252,6 +267,10 @@ export default async function LocalizedGuidePage(props: PageProps<'/[lang]/guide
             <h1 className="mt-3 max-w-4xl text-hero">{guide.meta.title}</h1>
             <p className="mt-4 max-w-3xl text-subtitle">{guide.meta.description}</p>
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--text-secondary)]">
+              <span>
+                {lang === 'es' ? 'Por' : 'By'} {articleAuthor.name}
+                {articleAuthor.credentials ? `, ${articleAuthor.credentials}` : ''}
+              </span>
               <time dateTime={guide.meta.publishedAt}>{lang === 'es' ? 'Publicado' : 'Published'} {guide.meta.publishedAt}</time>
               <time dateTime={guide.meta.updatedAt}>{lang === 'es' ? 'Actualizado' : 'Updated'} {guide.meta.updatedAt}</time>
               <span>

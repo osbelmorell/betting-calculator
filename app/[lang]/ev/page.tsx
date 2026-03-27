@@ -83,6 +83,24 @@ export default async function LocalizedEvPage(props: PageProps<'/[lang]/ev'>) {
       priceCurrency: 'USD',
     },
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: lang === 'es' ? 'Inicio' : 'Home',
+        item: getCanonicalUrl(localizePath('/', lang)),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: lang === 'es' ? 'Calculadora EV' : 'EV Calculator',
+        item: getCanonicalUrl(localizePath('/ev', lang)),
+      },
+    ],
+  };
 
   return (
     <>
@@ -90,6 +108,12 @@ export default async function LocalizedEvPage(props: PageProps<'/[lang]/ev'>) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <script

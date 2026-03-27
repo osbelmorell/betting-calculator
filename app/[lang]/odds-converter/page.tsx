@@ -69,6 +69,24 @@ export default async function OddsConverterPage(props: PageProps<'/[lang]/odds-c
       priceCurrency: 'USD',
     },
   };
+  const breadcrumbJsonLd = {
+    '@context': schemaOrgUrl,
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: lang === 'es' ? 'Inicio' : 'Home',
+        item: getCanonicalUrl(localizePath('/', lang)),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: lang === 'es' ? 'Conversor de Líneas' : 'Odds Converter',
+        item: getCanonicalUrl(localizePath('/odds-converter', lang)),
+      },
+    ],
+  };
 
   return (
     <>
@@ -76,6 +94,12 @@ export default async function OddsConverterPage(props: PageProps<'/[lang]/odds-c
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <script
