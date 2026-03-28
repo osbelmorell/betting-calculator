@@ -10,6 +10,11 @@ type OddsFieldsProps = {
   contextLabel?: string;
   locale?: Locale;
   values: OddsValues;
+  activeFormat?: OddsField;
+  onActiveFormatChange?: (format: OddsField) => void;
+  showFormatSelector?: boolean;
+  showConvertedOptions?: boolean;
+  convertedOptionsInteractive?: boolean;
   onAmericanChange: (value: string) => void;
   onFractionalChange: (value: string) => void;
   onDecimalChange: (value: string) => void;
@@ -76,13 +81,28 @@ export default function OddsFields({
   contextLabel = 'Odds',
   locale = 'en',
   values,
+  activeFormat: controlledActiveFormat,
+  onActiveFormatChange,
+  showFormatSelector = true,
+  showConvertedOptions = true,
+  convertedOptionsInteractive = true,
   onAmericanChange,
   onFractionalChange,
   onDecimalChange,
   onImpliedChange,
 }: OddsFieldsProps) {
   const formatOptions = getFormatOptions(locale);
-  const [activeFormat, setActiveFormat] = useState<OddsField>('american');
+  const [localActiveFormat, setLocalActiveFormat] = useState<OddsField>('american');
+  const activeFormat = controlledActiveFormat ?? localActiveFormat;
+
+  const setActiveFormat = (format: OddsField) => {
+    if (onActiveFormatChange) {
+      onActiveFormatChange(format);
+      return;
+    }
+
+    setLocalActiveFormat(format);
+  };
 
   const activeOption = formatOptions.find((option) => option.key === activeFormat) ?? formatOptions[0];
   const activeValue = values[activeOption.key];
@@ -112,31 +132,33 @@ export default function OddsFields({
 
   return (
     <fieldset className="space-y-4" aria-label={`${contextLabel} ${copy.inputFields}`}>
-      <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface-soft)] p-1">
-        <div role="tablist" aria-label={`${contextLabel} ${copy.selector}`} className="grid grid-cols-4 gap-1">
-          {formatOptions.map((option) => {
-            const isActive = option.key === activeFormat;
+      {showFormatSelector ? (
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface-soft)] p-1">
+          <div role="tablist" aria-label={`${contextLabel} ${copy.selector}`} className="grid grid-cols-4 gap-1">
+            {formatOptions.map((option) => {
+              const isActive = option.key === activeFormat;
 
-            return (
-              <button
-                key={option.key}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setActiveFormat(option.key)}
-                className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors sm:text-sm ${
-                  isActive
-                    ? 'bg-[var(--brand)] text-[var(--brand-foreground)]'
-                    : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
-                }`}
-              >
-                <span className="sm:hidden">{option.shortLabel}</span>
-                <span className="hidden sm:inline">{option.label}</span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={option.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveFormat(option.key)}
+                  className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                    isActive
+                      ? 'bg-[var(--brand)] text-[var(--brand-foreground)]'
+                      : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
+                  }`}
+                >
+                  <span className="sm:hidden">{option.shortLabel}</span>
+                  <span className="hidden sm:inline">{option.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="flex flex-col gap-2">
         <label htmlFor={`${idPrefix}-${activeOption.key}-odds`} className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)]">
@@ -164,28 +186,43 @@ export default function OddsFields({
         </div>
       </div>
 
-      <div className="space-y-2">
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
-          {copy.converted}
-        </p>
-        <div className="grid gap-2 sm:grid-cols-3">
-          {convertedOptions.map((option) => (
-            <button
-              key={option.key}
-              type="button"
-              onClick={() => setActiveFormat(option.key)}
-              className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-left transition-colors hover:border-[var(--brand)]/40 hover:bg-[var(--surface-soft)]"
-              aria-label={`${copy.switchInput} ${option.label}`}
-            >
-              <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
-              <p className="mt-1 truncate text-sm font-semibold">
-                {values[option.key]}
-                {option.suffix ?? ''}
-              </p>
-            </button>
-          ))}
+      {showConvertedOptions ? (
+        <div className="space-y-2">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
+            {copy.converted}
+          </p>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {convertedOptions.map((option) => (
+              convertedOptionsInteractive ? (
+                <button
+                  key={option.key}
+                  type="button"
+                  onClick={() => setActiveFormat(option.key)}
+                  className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-left transition-colors hover:border-[var(--brand)]/40 hover:bg-[var(--surface-soft)]"
+                  aria-label={`${copy.switchInput} ${option.label}`}
+                >
+                  <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
+                  <p className="mt-1 truncate text-sm font-semibold">
+                    {values[option.key]}
+                    {option.suffix ?? ''}
+                  </p>
+                </button>
+              ) : (
+                <div
+                  key={option.key}
+                  className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-left"
+                >
+                  <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
+                  <p className="mt-1 truncate text-sm font-semibold">
+                    {values[option.key]}
+                    {option.suffix ?? ''}
+                  </p>
+                </div>
+              )
+            ))}
+          </div>
         </div>
-      </div>
+      ) : null}
     </fieldset>
   );
 }

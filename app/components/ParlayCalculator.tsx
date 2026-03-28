@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Locale } from '../i18n';
-import { parlayCalculatorContent } from '../content/calculatorContent';
+import { oddsFieldsContent, parlayCalculatorContent } from '../content/calculatorContent';
 import { trackCalculatorEvent } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import {
@@ -51,6 +51,7 @@ export default function ParlayCalculator({
   incomingSeedState,
 }: ParlayCalculatorProps) {
   const copy = parlayCalculatorContent[locale].ui;
+  const oddsFieldsCopy = oddsFieldsContent[locale];
 
   const initialState = useMemo<ParlayCalculatorState>(() => {
     return decodeParlayState(initialSharedState) ?? createDefaultParlayState();
@@ -58,9 +59,36 @@ export default function ParlayCalculator({
 
   const [betAmount, setBetAmount] = useState(initialState.betAmount);
   const [legs, setLegs] = useState<ParlayLeg[]>(initialState.legs);
+  const [activeOddsFormat, setActiveOddsFormat] = useState<OddsField>('american');
   const [hasHydrated, setHasHydrated] = useState(false);
   const hasTrackedFirstInput = useRef(false);
   const hasTrackedFirstCalc = useRef(false);
+
+  const oddsFormatOptions = useMemo(
+    () => [
+      {
+        key: 'american' as const,
+        label: oddsFieldsCopy.formats.american.label,
+        shortLabel: oddsFieldsCopy.formats.american.shortLabel,
+      },
+      {
+        key: 'decimal' as const,
+        label: oddsFieldsCopy.formats.decimal.label,
+        shortLabel: oddsFieldsCopy.formats.decimal.shortLabel,
+      },
+      {
+        key: 'fractional' as const,
+        label: oddsFieldsCopy.formats.fractional.label,
+        shortLabel: oddsFieldsCopy.formats.fractional.shortLabel,
+      },
+      {
+        key: 'implied' as const,
+        label: oddsFieldsCopy.formats.implied.label,
+        shortLabel: oddsFieldsCopy.formats.implied.shortLabel,
+      },
+    ],
+    [oddsFieldsCopy],
+  );
 
   useEffect(() => {
     const params = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search);
@@ -326,6 +354,7 @@ export default function ParlayCalculator({
 
     setBetAmount(resetState.betAmount);
     setLegs(resetState.legs);
+    setActiveOddsFormat('american');
   };
 
   return (
@@ -384,6 +413,41 @@ export default function ParlayCalculator({
 
             <h2 className="text-sm font-semibold">{copy.legs}</h2>
 
+            <div className="space-y-2">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
+                {oddsFieldsCopy.selector}
+              </p>
+              <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface-soft)] p-1">
+                <div
+                  role="tablist"
+                  aria-label={oddsFieldsCopy.selector}
+                  className="grid grid-cols-4 gap-1"
+                >
+                  {oddsFormatOptions.map((option) => {
+                    const isActive = option.key === activeOddsFormat;
+
+                    return (
+                      <button
+                        key={option.key}
+                        type="button"
+                        role="tab"
+                        aria-selected={isActive}
+                        onClick={() => setActiveOddsFormat(option.key)}
+                        className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                          isActive
+                            ? 'bg-[var(--brand)] text-[var(--brand-foreground)]'
+                            : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
+                        }`}
+                      >
+                        <span className="sm:hidden">{option.shortLabel}</span>
+                        <span className="hidden sm:inline">{option.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
             <div className="flex flex-col gap-4" role="list" aria-label={copy.legListAria}>
               {legs.map((leg, index) => (
                 <section
@@ -424,6 +488,10 @@ export default function ParlayCalculator({
                     locale={locale}
                     contextLabel={leg.label.trim() || `${copy.leg} ${index + 1}`}
                     values={leg.odds}
+                    activeFormat={activeOddsFormat}
+                    showFormatSelector={false}
+                    showConvertedOptions={true}
+                    convertedOptionsInteractive={false}
                     onAmericanChange={(value) => onAmericanChange(leg.id, value)}
                     onFractionalChange={(value) => onFractionalChange(leg.id, value)}
                     onDecimalChange={(value) => onDecimalChange(leg.id, value)}
