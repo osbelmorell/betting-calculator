@@ -29,6 +29,16 @@ All custom agents must follow this collaboration contract:
 - First ask why the exception is needed, then explain why the request conflicts with rules, and provide a compliant alternative.
 - Application success is the top priority over literal execution of a conflicting request.
 
+## Mandatory GA Report Handoff Protocol
+
+When a task requires Google Analytics evidence (funnel validation, UX impact checks, conversion analysis), follow this protocol:
+- Agents must explicitly ask the user for a GA report snapshot if direct GA access is not available.
+- The request must include: date range, timezone, property/stream, funnel definition, segment filters, and event metrics.
+- User-provided GA reports must be saved under `reports/ga/` using this naming format:
+  - `YYYY-MM-DD-<scope>-ga-report.md`
+- Decisions that rely on GA data must reference the specific report file used.
+- If GA data is missing, agents must state uncertainty and request the report before finalizing optimization decisions.
+
 ## Mandatory Usability Skill
 
 For any task that creates or significantly updates a user-facing page, component, flow, or content section, invoke and follow:

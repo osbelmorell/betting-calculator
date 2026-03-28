@@ -129,6 +129,23 @@ To verify these events are working in Google Analytics 4:
 - Step 2: `*_first_calc`
 - Breakdown by `calculator` and `page_path`
 
+## GA Report Request Rule
+
+When optimization decisions need GA evidence and direct GA access is unavailable, use this request template with the user:
+
+- Date range:
+- Timezone:
+- GA4 property and web stream:
+- Funnel steps (ordered event names):
+- Segments (calculator, locale, device, etc.):
+- Metrics needed (users, event count, conversion rate):
+- Any anomalies observed:
+
+Store the returned report in `reports/ga/` as:
+- `YYYY-MM-DD-<scope>-ga-report.md`
+
+When presenting conclusions, reference the exact report file used.
+
 ## Versioning Guidance
 
 When changing event semantics:
