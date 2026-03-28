@@ -455,7 +455,8 @@ export default function ParlayCalculator({
                             : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
                         }`}
                       >
-                        <span className="leading-tight">{option.label}</span>
+                        <span className="sm:hidden whitespace-nowrap">{option.shortLabel}</span>
+                        <span className="hidden sm:inline whitespace-nowrap">{option.label}</span>
                       </button>
                     );
                   })}
