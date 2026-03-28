@@ -133,6 +133,12 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
               onDecimalChange={onDecimalChange}
               onImpliedChange={onImpliedChange}
             />
+            <p className="text-sm text-[var(--text-secondary)]">
+              {locale === 'es' ? '¿No sabes qué formato usar?' : 'Not sure which odds format to use?'}{' '}
+              <Link href={locale === 'es' ? '/es/guides/lineas-americanas-a-decimales' : '/guides/american-odds-to-decimal'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+                {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+              </Link>
+            </p>
           </section>
         </div>
       </div>
@@ -150,6 +156,12 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
 
         <section className="space-y-4" aria-labelledby="odds-table-title">
           <h2 id="odds-table-title" className="text-section-title">{copy.tableTitle}</h2>
+          <p className="text-sm text-[var(--text-secondary)]">
+            {locale === 'es' ? '¿Cómo leer probabilidad implícita en la tabla?' : 'How to read implied probability in the table?'}{' '}
+            <Link href={locale === 'es' ? '/es/guides/guia-probabilidad-implicita' : '/guides/implied-probability-guide'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+              {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+            </Link>
+          </p>
           <div className="overflow-x-auto rounded-xl border border-[var(--border-color)] bg-[var(--surface)]">
             <table className="min-w-full text-left text-sm">
               <thead>

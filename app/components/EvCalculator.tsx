@@ -503,6 +503,12 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
                   </div>
                 </div>
                 <p className="text-xs text-[var(--text-secondary)]">{copy.estimatedProbabilityHint}</p>
+                <p className="text-sm text-[var(--text-secondary)]">
+                  {locale === 'es' ? '¿Cómo estimar tu probabilidad de acierto?' : 'How to estimate your win probability?'}{' '}
+                  <Link href={locale === 'es' ? '/es/guides/como-usar-calculadora-ev' : '/guides/how-to-use-ev-calculator'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+                    {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+                  </Link>
+                </p>
               </div>
             </div>
 
@@ -519,6 +525,22 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
                   {locale === 'es'
                     ? 'Lectura rápida: EV positivo indica valor a largo plazo, no un resultado garantizado en esta apuesta.'
                     : 'Quick read: positive EV signals long-run value, not a guaranteed result on this single bet.'}
+                </p>
+                <details className="mb-4 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--foreground)]">
+                  <summary className="cursor-pointer font-medium">
+                    {locale === 'es' ? 'En palabras simples' : 'In plain English'}
+                  </summary>
+                  <p className="mt-2 text-sm text-[var(--text-secondary)]">
+                    {locale === 'es'
+                      ? 'Si tu % estimado es mayor que el equilibrio, hay valor esperado positivo. Si es menor, hay valor esperado negativo.'
+                      : 'If your estimated win % is above break-even, the bet has positive expected value. If it is below break-even, expected value is negative.'}
+                  </p>
+                </details>
+                <p className="mb-4 text-sm text-[var(--text-secondary)]">
+                  {locale === 'es' ? '¿Cómo interpretar EV y equilibrio?' : 'How to interpret EV and break-even?'}{' '}
+                  <Link href={locale === 'es' ? '/es/guides/formula-apuestas-ev-positivo' : '/guides/positive-ev-betting-formula'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+                    {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+                  </Link>
                 </p>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                   <div className="result-stat">

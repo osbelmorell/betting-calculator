@@ -481,10 +481,10 @@ export const oddsFieldsContent: Record<Locale, OddsFieldsCopy> = {
     inputFields: 'input fields',
     oddsLabel: 'odds',
     formats: {
-      american: { label: 'American', shortLabel: 'US', placeholder: '-110' },
-      decimal: { label: 'Decimal', shortLabel: 'Dec', placeholder: '1.909' },
-      fractional: { label: 'Fractional', shortLabel: 'Frac', placeholder: '10/11' },
-      implied: { label: 'Probability', shortLabel: 'Prob', placeholder: '52.38', suffix: '%' },
+      american: { label: 'American (US)', shortLabel: 'US', placeholder: '-110' },
+      decimal: { label: 'Decimal (Dec)', shortLabel: 'Dec', placeholder: '1.909' },
+      fractional: { label: 'Fractional (Frac)', shortLabel: 'Frac', placeholder: '10/11' },
+      implied: { label: 'Implied Probability (Prob)', shortLabel: 'Prob', placeholder: '52.38', suffix: '%' },
     },
   },
   es: {
@@ -495,10 +495,10 @@ export const oddsFieldsContent: Record<Locale, OddsFieldsCopy> = {
     inputFields: 'campos de entrada',
     oddsLabel: 'líneas',
     formats: {
-      american: { label: 'línea americana', shortLabel: 'US', placeholder: '-110' },
-      decimal: { label: 'línea decimal', shortLabel: 'Dec', placeholder: '1.909' },
-      fractional: { label: 'línea fraccional', shortLabel: 'Frac', placeholder: '10/11' },
-      implied: { label: 'probabilidad', shortLabel: 'Prob', placeholder: '52.38', suffix: '%' },
+      american: { label: 'Línea americana (US)', shortLabel: 'US', placeholder: '-110' },
+      decimal: { label: 'Línea decimal (Dec)', shortLabel: 'Dec', placeholder: '1.909' },
+      fractional: { label: 'Línea fraccional (Frac)', shortLabel: 'Frac', placeholder: '10/11' },
+      implied: { label: 'Probabilidad implícita (Prob)', shortLabel: 'Prob', placeholder: '52.38', suffix: '%' },
     },
   },
 };

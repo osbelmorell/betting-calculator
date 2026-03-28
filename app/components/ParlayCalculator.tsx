@@ -455,17 +455,17 @@ export default function ParlayCalculator({
                             : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
                         }`}
                       >
-                        <span className="sm:hidden">{option.shortLabel}</span>
-                        <span className="hidden sm:inline">{option.label}</span>
+                        <span className="leading-tight">{option.label}</span>
                       </button>
                     );
                   })}
                 </div>
               </div>
-              <p className="text-xs text-[var(--text-secondary)]">
-                {locale === 'es'
-                  ? 'US = línea americana, Dec = línea decimal, Frac = línea fraccional, Prob = probabilidad.'
-                  : 'US = American odds, Dec = Decimal, Frac = Fractional, Prob = Probability.'}
+              <p className="text-sm text-[var(--text-secondary)]">
+                {locale === 'es' ? '¿Necesitas ayuda con formatos de cuotas?' : 'Need help with odds formats?'}{' '}
+                <Link href={locale === 'es' ? '/es/guides/lineas-americanas-a-decimales' : '/guides/american-odds-to-decimal'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+                  {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+                </Link>
               </p>
             </div>
 
@@ -552,6 +552,12 @@ export default function ParlayCalculator({
                 {locale === 'es'
                   ? 'Regla clave: si falla una pierna, pierde todo el parlay.'
                   : 'Key rule: if one leg loses, the entire parlay loses.'}
+              </p>
+              <p className="mb-4 text-sm text-[var(--text-secondary)]">
+                {locale === 'es' ? '¿Cómo leer cuota combinada y probabilidad?' : 'How to read combined odds and win probability?'}{' '}
+                <Link href={locale === 'es' ? '/es/guides/formula-cuotas-parlay' : '/guides/parlay-odds-formula'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+                  {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+                </Link>
               </p>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div className="result-stat">

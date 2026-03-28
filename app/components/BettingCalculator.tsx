@@ -327,6 +327,13 @@ export default function BettingCalculator({
               onDecimalChange={onDecimalChange}
               onImpliedChange={onImpliedChange}
             />
+
+            <p className="text-sm text-[var(--text-secondary)]">
+              {locale === 'es' ? '¿No sabes qué formato usar?' : 'Not sure which odds format to use?'}{' '}
+              <Link href={locale === 'es' ? '/es/guides/lineas-americanas-a-decimales' : '/guides/american-odds-to-decimal'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+                {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+              </Link>
+            </p>
           </div>
 
           <footer
@@ -365,6 +372,12 @@ export default function BettingCalculator({
                   </p>
                 </div>
               </div>
+              <p className="mt-4 text-sm text-[var(--text-secondary)]">
+                {locale === 'es' ? '¿Cómo leer Prob. de acierto?' : 'How to read win probability?'}{' '}
+                <Link href={locale === 'es' ? '/es/guides/guia-probabilidad-implicita' : '/guides/implied-probability-guide'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+                  {locale === 'es' ? 'Aprende este paso' : 'Learn this step'}
+                </Link>
+              </p>
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">

@@ -152,18 +152,12 @@ export default function OddsFields({
                         : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
                     }`}
                   >
-                    <span className="sm:hidden">{option.shortLabel}</span>
-                    <span className="hidden sm:inline">{option.label}</span>
+                      <span className="leading-tight">{option.label}</span>
                   </button>
                 );
               })}
             </div>
           </div>
-          <p className="text-xs text-[var(--text-secondary)]">
-            {locale === 'es'
-              ? 'US = línea americana, Dec = línea decimal, Frac = línea fraccional, Prob = probabilidad.'
-              : 'US = American odds, Dec = Decimal, Frac = Fractional, Prob = Probability.'}
-          </p>
         </div>
       ) : null}
 
