@@ -19,6 +19,19 @@ When making architecture or performance decisions, default to Vercel best practi
 - Use `next.config` redirects/headers over runtime request handling where equivalent.
 - Keep metadata routes (like `sitemap.xml` and `robots.txt`) cache-friendly.
 
+## Mandatory Usability Skill
+
+For any task that creates or significantly updates a user-facing page, component, flow, or content section, invoke and follow:
+- [Krug-Inspired Usability Skill](.github/skills/krug-usability/SKILL.md)
+
+This requirement applies to:
+- New routes, pages, calculators, guides, and major content sections.
+- New components and substantial UI refactors.
+- Changes to navigation, forms, labels, calls to action, and task flows.
+
+When implementation reveals a better repeatable usability pattern, update the skill docs in the same change:
+- [.github/skills/krug-usability/SKILL.md](.github/skills/krug-usability/SKILL.md)
+
 ## Mandatory Page Quality Skill
 
 For any task that creates or significantly updates a page, guide, or article, invoke and follow:
