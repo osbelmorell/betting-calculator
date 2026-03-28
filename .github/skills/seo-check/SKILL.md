@@ -17,6 +17,15 @@ Use this skill when the user asks to run an SEO pass, improve discoverability, o
 - If a guideline in [Project SEO Guidelines](../../../SEO.md) conflicts with the SEO Starter Guide, prioritize Google guidance and note the conflict in your summary.
 - Deployment target is Vercel; prefer Vercel-friendly defaults (static rendering/SSG, edge caching, and `next.config` redirects/headers over runtime middleware when equivalent).
 
+## Required Cross-Skills
+
+When SEO changes include user-facing UX or content edits, this skill must invoke and follow related skills:
+
+- Invoke [Krug-Inspired Usability Skill](../krug-usability/SKILL.md) when editing page structure, CTA hierarchy, form labels, interaction flows, or scannability.
+- Invoke [Page Content Quality Skill](../page-content-quality/SKILL.md) when creating or significantly updating page/guide/article content.
+- Invoke [Calculator Content Alignment Skill](../calculator-content-alignment/SKILL.md) when touching calculator routes, calculator components, or calculator copy contracts.
+- If the scope is metadata/schema-only and no UX/content changes are made, explicitly state these cross-skills were reviewed and marked not applicable.
+
 ## SEO Principles (Google-Aligned)
 
 - Start with eligibility: ensure pages can be crawled, rendered, indexed, and internally discovered before tuning metadata.

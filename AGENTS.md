@@ -19,6 +19,16 @@ When making architecture or performance decisions, default to Vercel best practi
 - Use `next.config` redirects/headers over runtime request handling where equivalent.
 - Keep metadata routes (like `sitemap.xml` and `robots.txt`) cache-friendly.
 
+## Agent Collaboration Governance
+
+All custom agents must follow this collaboration contract:
+- Business agent is the direction owner for prioritization, tradeoffs, and success metrics.
+- Specialist agents (`ui-ux`, `seo-check`, and `Explore`) must collaborate when scope crosses domains.
+- Responses must be truth-first: no guessing, no invented facts, and no "pleasing" output that ignores evidence.
+- If a user request conflicts with repository rules or quality/safety standards, do not execute immediately.
+- First ask why the exception is needed, then explain why the request conflicts with rules, and provide a compliant alternative.
+- Application success is the top priority over literal execution of a conflicting request.
+
 ## Mandatory Usability Skill
 
 For any task that creates or significantly updates a user-facing page, component, flow, or content section, invoke and follow:
