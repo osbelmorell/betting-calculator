@@ -150,7 +150,7 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
   ];
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 py-12 lg:py-16">
+    <main role="main" className="mx-auto w-full max-w-7xl px-6 py-12 lg:py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -269,10 +269,14 @@ export default async function GuidePage(props: PageProps<'/guides/[slug]'>) {
               <h2 className="text-3xl font-semibold tracking-tight">Common Questions</h2>
               <div className="mt-6 space-y-6">
                 {guide.meta.faq.map((item) => (
-                  <div key={item.question} className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-5">
-                    <h3 className="text-lg font-semibold">{item.question}</h3>
-                    <p className="mt-2 text-base leading-7 text-[var(--text-secondary)]">{item.answer}</p>
-                  </div>
+                  <details key={item.question} className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-5 group">
+                    <summary className="text-lg font-semibold cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded">
+                      {item.question}
+                    </summary>
+                    <div className="mt-2 text-base leading-7 text-[var(--text-secondary)]">
+                      {item.answer}
+                    </div>
+                  </details>
                 ))}
               </div>
             </section>
