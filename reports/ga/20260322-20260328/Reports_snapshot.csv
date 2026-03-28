@@ -1,0 +1,129 @@
+# ----------------------------------------
+# Reports snapshot
+# Account: OSBEL MORELL
+# Property: calcmybets.com
+# ----------------------------------------
+#  
+# Start date: 20260322
+# End date: 20260328
+Active users,New users,Average engagement time per active user,Event count
+51,50,280.8627450980392,1821
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Page title and screen class,Views,Active users,Event count,Bounce rate
+Single Bet Calculator | Free Odds Conversion Tool,298,51,667,0.62
+Parlay Calculator | Free Multi-Leg Betting Tool | Betting Calculator,72,7,118,0
+Calculadora de Apuesta Simple | Conversor de Cuotas Gratis | Betting Calculator,63,6,134,0.08333333333333333
+Sports Betting Guides | Betting Calculator,49,3,66,0
++EV Calculator | Expected Value Betting Tool,44,6,89,0.8333333333333334
+Calculadora de Apuesta Simple | Conversor de Líneas Gratis | Betting Calculator,40,4,89,0.125
+Parlay Calculator | Free Multi-Leg Betting Tool,35,6,87,0.75
+How to Convert American Odds to Decimal and Fractional | Betting Calculator,33,3,35,0.16666666666666666
+Calculadora de Parlay | Herramienta Gratis de Apuestas Multiples | Betting Calculator,32,5,60,0.08333333333333333
+Cómo Convertir Líneas Americanas a Decimal y Fraccional | Betting Calculator,28,4,37,0
+"Sports Betting Guides | Odds, Parlay, and +EV | Betting Calculator",28,7,37,0.7692307692307693
+"Guías de Apuestas | Cuotas, Parlay y Probabilidad",25,3,32,0.14285714285714285
+"Odds Converter | Free American, Decimal & Fractional Calculator",25,5,28,0.46153846153846156
+Calculadora de Apuesta Simple | Conversor de Líneas Gratis,24,4,42,0.38461538461538464
+Calculadora +EV | Valor Esperado en Apuestas,15,5,22,0.42857142857142855
+Calculadora de Parlay | Herramienta Gratis de Apuestas Multiples,13,4,35,0.4
+How to Calculate Implied Probability in Sports Betting | Betting Calculator,13,3,13,0
+How to Spot Value Bets With Implied Probability | Betting Calculator,13,4,15,0.5
+"Guías de Apuestas | Cuotas, Parlay y +EV",12,3,14,0
+404: This page could not be found.,11,3,18,0.5
+Parlay vs Straight Bets: Risk and Return Comparison | Betting Calculator,11,2,12,0
+Parlay Odds Formula Explained With Examples | Betting Calculator,10,2,12,0
+"Conversor de Cuotas | Calculadora Gratis Americana, Decimal y Fraccional",9,3,10,0
+How to Use the +EV Calculator | Betting Calculator,9,4,9,0.6
+Positive EV Betting Formula Explained | Betting Calculator,9,2,14,0.6666666666666666
+What Does -110 Mean in Betting? | Betting Calculator,9,3,12,0
+Cómo Calcular Probabilidad Implícita en Apuestas Deportivas | Betting Calculator,8,3,8,0.16666666666666666
+Parlay vs Apuesta Simple: Comparación de Riesgo y Retorno | Betting Calculator,8,3,8,0
+Cómo Detectar Apuestas de Valor con Probabilidad Implícita | Betting Calculator,7,4,7,0
+Fórmula de Parlay Explicada con Ejemplos | Betting Calculator,7,3,8,0
+"Guías de Apuestas | Cuotas, Parlay y Probabilidad | Betting Calculator",7,1,10,0
+"Conversor de Cuotas | Calculadora Gratis Americana, Decimal y Fraccional | Betting Calculator",6,1,6,0
+Formula de Apuestas +EV Explicada | Betting Calculator,6,2,6,0
+Como Usar la Calculadora +EV | Betting Calculator,5,3,5,0.25
+Qué Significa -110 en Apuestas | Betting Calculator,5,2,5,0
+Single Bet Calculator | Free Odds Conversion Tool | Betting Calculator,5,1,9,0
+Betting Calculator | Free Odds & Parlay Calculator,2,2,14,0
+"Sports Betting Guides | Odds, Parlay, and Probability Explained | Betting Calculator",2,1,2,0
+"Odds Converter | Free American, Decimal & Fractional Calculator | Betting Calculator",1,1,2,0
+
+#  
+# Start date: 20260322
+# End date: 20260328
+First user source / medium,Active users
+(direct) / (none),49
+american / (not set),1
+bing / organic,1
+vercel.com / referral,1
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Session source / medium,Sessions
+(direct) / (none),56
+american / (not set),23
+google / organic,7
+bet_amount / (not set),5
+american / (none),4
+estimated_probability / (not set),4
+vercel.com / referral,4
+estimated_probability / (none),3
+bet_amount / (none),1
+bing / organic,1
+googlechrome.github.io / referral,1
+reddit.com / referral,1
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Nth day,new,returning
+0000,0,0
+0001,0,0
+0002,6,1
+0003,21,5
+0004,12,4
+0005,11,5
+0006,0,3
+
+# How does activity on your platforms compare?
+# Start date: 20260322
+# End date: 20260328
+Platform,Key events
+
+
+#  
+# Start date: 20260322
+# End date: 20260328
+City,Active users
+Paris,6
+Plantation,6
+Council Bluffs,5
+Boardman,4
+Miami,4
+Chicago,3
+Warsaw,3
+Anyang-si,2
+Ashburn,2
+Aspen,2
+Burnaby,2
+Beaufort,1
+Cardiff,1
+Columbus,1
+Dublin,1
+Munich,1
+New York,1
+Perry,1
+Singapore,1
+Sumter,1
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Audience name,Active users
+All Users,51

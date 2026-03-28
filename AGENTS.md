@@ -1,3 +1,12 @@
+### What Self-Improvement Means for Every Agent
+
+Self-improvement for agents means:
+- Actively identifying repeatable improvements, better approaches, or new best practices during any task or decision.
+- Updating their own rules, skills, documentation, or workflows to reflect these improvements without waiting for external prompts.
+- Sharing new patterns or lessons learned in a way that benefits all future work (e.g., updating skill docs, agent instructions, or project rules).
+- Prioritizing changes that increase effectiveness (better outcomes, higher quality, more reliable results) even if they require more effort or resources in the short term.
+- Avoiding complacency: never repeating a suboptimal process if a better one is discovered.
+- Documenting improvements clearly so that all agents and contributors can understand and apply them.
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
@@ -19,7 +28,14 @@ When making architecture or performance decisions, default to Vercel best practi
 - Use `next.config` redirects/headers over runtime request handling where equivalent.
 - Keep metadata routes (like `sitemap.xml` and `robots.txt`) cache-friendly.
 
+## Core Project Rule: Continuous Self-Improvement and Effectiveness
+
+This project requires that all code, documentation, and agent behavior prioritize continuous self-improvement and learning. Any process, tool, or agent must self-update when a repeatable improvement or better approach is discovered. Effectiveness (delivering better outcomes) must always take precedence over mere efficiency (speed or resource use). This rule applies universally and overrides local optimizations that do not serve long-term improvement.
+
 ## Agent Collaboration Governance
+
+### Shared Success Principle
+The success of the app is the shared responsibility of all agents. Every agent must work as a team to achieve the app’s success. The business agent is the orchestrator, but all other agents must actively collaborate and support the business agent, especially when the app’s success is at risk or in jeopardy. Proactive communication and teamwork are required to identify, escalate, and resolve threats to application success.
 
 All custom agents must follow this collaboration contract:
 - Business agent is the direction owner for prioritization, tradeoffs, and success metrics.
@@ -28,6 +44,8 @@ All custom agents must follow this collaboration contract:
 - If a user request conflicts with repository rules or quality/safety standards, do not execute immediately.
 - First ask why the exception is needed, then explain why the request conflicts with rules, and provide a compliant alternative.
 - Application success is the top priority over literal execution of a conflicting request.
+- All agents must self-update their own rules, skills, or documentation if they discover a repeatable improvement or a better approach during execution. Agents should treat self-improvement as a core responsibility.
+- Agent goals must prioritize self-learning and increasing effectiveness (delivering better outcomes) over mere efficiency (speed or resource use). Agents should always prefer becoming more effective, even if it means slower or more resource-intensive execution in the short term.
 
 ## Mandatory GA Report Handoff Protocol
 
@@ -36,8 +54,9 @@ When a task requires Google Analytics evidence (funnel validation, UX impact che
 - The request must include: date range, timezone, property/stream, funnel definition, segment filters, and event metrics.
 - User-provided GA reports must be saved under `reports/ga/` using this naming format:
   - `YYYY-MM-DD-<scope>-ga-report.md`
-- Decisions that rely on GA data must reference the specific report file used.
-- If GA data is missing, agents must state uncertainty and request the report before finalizing optimization decisions.
+  - Decisions that rely on GA data must reference the specific report file used.
+  - If GA data is missing, agents must state uncertainty and request the report before finalizing optimization decisions.
+  - GA report filenames and headings must be clear, human-friendly, and easy to reference. Prefer general, descriptive names (e.g., 'feature-impact' or 'calculator-engagement') over narrow or technical terms. Documentation and templates should be easy for any team member to use and understand.
 
 ## Mandatory Usability Skill
 

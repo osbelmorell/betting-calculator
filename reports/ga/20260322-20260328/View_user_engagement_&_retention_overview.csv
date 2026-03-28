@@ -1,0 +1,155 @@
+# ----------------------------------------
+# View user engagement & retention overview
+# Account: OSBEL MORELL
+# Property: calcmybets.com
+# ----------------------------------------
+#  
+# Start date: 20260322
+# End date: 20260328
+Nth day,Active users
+0000,0
+0001,0
+0002,6
+0003,23
+0004,16
+0005,17
+0006,4
+
+# Start date: 20260322
+# End date: 20260328
+Nth day,New users
+0000,0
+0001,0
+0002,6
+0003,21
+0004,12
+0005,11
+0006,1
+
+# Where do your new users come from?
+# Start date: 20260322
+# End date: 20260328
+First user primary channel group (Default Channel Group),New users
+Direct,50
+Organic Search,1
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Page title and screen class,Views
+Single Bet Calculator | Free Odds Conversion Tool,299
+Parlay Calculator | Free Multi-Leg Betting Tool | Betting Calculator,72
+Calculadora de Apuesta Simple | Conversor de Cuotas Gratis | Betting Calculator,63
+Sports Betting Guides | Betting Calculator,49
++EV Calculator | Expected Value Betting Tool,44
+Calculadora de Apuesta Simple | Conversor de Líneas Gratis | Betting Calculator,40
+Parlay Calculator | Free Multi-Leg Betting Tool,35
+How to Convert American Odds to Decimal and Fractional | Betting Calculator,33
+Calculadora de Parlay | Herramienta Gratis de Apuestas Multiples | Betting Calculator,32
+Cómo Convertir Líneas Americanas a Decimal y Fraccional | Betting Calculator,28
+"Sports Betting Guides | Odds, Parlay, and +EV | Betting Calculator",28
+"Guías de Apuestas | Cuotas, Parlay y Probabilidad",25
+"Odds Converter | Free American, Decimal & Fractional Calculator",25
+Calculadora de Apuesta Simple | Conversor de Líneas Gratis,24
+Calculadora +EV | Valor Esperado en Apuestas,15
+Calculadora de Parlay | Herramienta Gratis de Apuestas Multiples,13
+How to Calculate Implied Probability in Sports Betting | Betting Calculator,13
+How to Spot Value Bets With Implied Probability | Betting Calculator,13
+"Guías de Apuestas | Cuotas, Parlay y +EV",12
+404: This page could not be found.,11
+Parlay vs Straight Bets: Risk and Return Comparison | Betting Calculator,11
+Parlay Odds Formula Explained With Examples | Betting Calculator,10
+"Conversor de Cuotas | Calculadora Gratis Americana, Decimal y Fraccional",9
+How to Use the +EV Calculator | Betting Calculator,9
+Positive EV Betting Formula Explained | Betting Calculator,9
+What Does -110 Mean in Betting? | Betting Calculator,9
+Cómo Calcular Probabilidad Implícita en Apuestas Deportivas | Betting Calculator,8
+Parlay vs Apuesta Simple: Comparación de Riesgo y Retorno | Betting Calculator,8
+Cómo Detectar Apuestas de Valor con Probabilidad Implícita | Betting Calculator,7
+Fórmula de Parlay Explicada con Ejemplos | Betting Calculator,7
+"Guías de Apuestas | Cuotas, Parlay y Probabilidad | Betting Calculator",7
+"Conversor de Cuotas | Calculadora Gratis Americana, Decimal y Fraccional | Betting Calculator",6
+Formula de Apuestas +EV Explicada | Betting Calculator,6
+Como Usar la Calculadora +EV | Betting Calculator,5
+Qué Significa -110 en Apuestas | Betting Calculator,5
+Single Bet Calculator | Free Odds Conversion Tool | Betting Calculator,5
+Betting Calculator | Free Odds & Parlay Calculator,2
+"Sports Betting Guides | Odds, Parlay, and Probability Explained | Betting Calculator",2
+"Odds Converter | Free American, Decimal & Fractional Calculator | Betting Calculator",1
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Platform,Active users
+"[""Web""]",52
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Cohort,Day 1
+0,0
+1,0
+2,0.3333333333333333
+3,0.09523809523809523
+4,0
+5,0
+6,0
+
+#  
+# Start date: 20260322
+# End date: 20260328
+Cohort,Day 1
+0,0
+1,0
+2,571.5
+3,703
+4,0
+5,0
+6,0
+
+#  
+# Start date: 20260214
+# End date: 20260327
+Cohort,Average engagement time per active user
+0000,10.209415584415584
+0001,30.345238095238095
+0002,73.4959349593496
+0003,8.4125
+0004,14.846153846153847
+0005,0
+0006,0
+0007,0
+0008,0
+0009,0
+0010,0
+0011,0
+0012,0
+0013,0
+0014,0
+0015,0
+0016,0
+0017,0
+0018,0
+0019,0
+0020,0
+0021,0
+0022,0
+0023,0
+0024,0
+0025,0
+0026,0
+0027,0
+0028,0
+0029,0
+0030,0
+0031,0
+0032,0
+0033,0
+0034,0
+0035,0
+0036,0
+0037,0
+0038,0
+0039,0
+0040,0
+0041,0
