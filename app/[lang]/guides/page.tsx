@@ -125,9 +125,11 @@ export default async function LocalizedGuidesIndexPage(props: PageProps<'/[lang]
           __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <h1 className="text-hero">Guías de Apuestas</h1>
+      <h1 className="text-hero">{lang === 'es' ? 'Guías de Apuestas' : 'Sports Betting Guides'}</h1>
       <p className="text-subtitle mt-4 max-w-2xl">
-        Explicaciones paso a paso para entender líneas, probabilidad y cálculos de pago antes de apostar.
+        {lang === 'es'
+          ? 'Explicaciones paso a paso para entender líneas, probabilidad y cálculos de pago antes de apostar.'
+          : 'Step-by-step explainers to help you understand odds, probability, and payout math before you place a bet.'}
       </p>
 
       <section className="mt-8 rounded-lg border border-[var(--border-color)] bg-[var(--surface)] p-5">

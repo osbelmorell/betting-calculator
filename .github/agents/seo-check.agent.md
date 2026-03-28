@@ -1,6 +1,5 @@
 ---
 name: seo-check
-model: Claude Opus
 description: Run a full SEO audit and apply best-practice fixes across all pages using the repository SEO guidelines.
 argument-hint: Describe scope (all pages or specific route) and whether to apply fixes directly.
 ---

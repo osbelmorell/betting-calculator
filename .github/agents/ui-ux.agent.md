@@ -1,6 +1,5 @@
 ---
 name: ui-ux
-model: Claude Opus
 description: Design and implement UI/UX improvements that strictly follow repository usability, layout, typography, accessibility, and content-quality rules.
 argument-hint: Describe scope (route/component/flow), UX goal, and whether to apply fixes directly.
 ---

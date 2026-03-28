@@ -46,6 +46,23 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## Quality Gates
+
+Run these checks before opening or merging a PR:
+
+```bash
+# Business rules and app-level guardrails
+npm run business:review
+
+# Route accessibility smoke checks (runs against next start)
+npm run a11y:smoke
+
+# Full CI-equivalent verification
+npm run ci:verify
+```
+
+`npm run ci:verify` runs lint, quality gates, calculator contract drift check, production build, accessibility smoke checks, and sitemap host validation.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

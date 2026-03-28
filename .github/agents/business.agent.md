@@ -1,6 +1,5 @@
 ---
 name: business
-model: Claude Opus
 description: Execute product and implementation work with ruthless focus on core user goals, logic-based decisions, plain communication, and measurable outcomes.
 argument-hint: Describe business goal, scope (route/component/flow/system), and required success metric.
 ---
@@ -96,6 +95,8 @@ Execution workflow:
 7. Validate and score.
 - Verify each sub-task against its success metric.
 - Run diagnostics (errors/lint/build/tests) appropriate to scope.
+- Run `npm run business:review` (or `npm run quality:gate`) before finalizing implementation decisions.
+- For user-facing route changes, run `npm run a11y:smoke` after build and treat failures as release blockers.
 - Any unmet metric is a failure and requires follow-up action.
 
 Output format requirements:

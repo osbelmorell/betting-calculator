@@ -66,6 +66,12 @@ export default function RootLayout({
           } as React.CSSProperties
         }
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[var(--surface)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[var(--foreground)] focus:shadow-[var(--shadow-md)]"
+        >
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -113,7 +119,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <GlobalCalcToggle />
         </Suspense>
-        <div className="flex-1 pt-12 sm:pt-[var(--content-offset)]">
+        <div id="main-content" className="flex-1 pt-12 sm:pt-[var(--content-offset)]">
           {children}
         </div>
         <AnalyticsDebugPanel />
