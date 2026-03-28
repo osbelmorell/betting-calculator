@@ -10,7 +10,10 @@ type SeoFaqItem = {
 type SingleCalculatorUiCopy = {
   title: string;
   subtitle: string;
+  quickStartTitle: string;
+  quickStartSteps: readonly string[];
   cardTitle: string;
+  autoUpdateHint: string;
   betAmount: string;
   betAmountAria: string;
   results: string;
@@ -40,7 +43,10 @@ type SingleCalculatorUiCopy = {
 type ParlayCalculatorUiCopy = {
   title: string;
   subtitle: string;
+  quickStartTitle: string;
+  quickStartSteps: readonly string[];
   cardTitle: string;
+  autoUpdateHint: string;
   betAmount: string;
   betAmountAria: string;
   legs: string;
@@ -148,7 +154,14 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
     ui: {
       title: 'Single Bet Calculator',
       subtitle: 'Pick one odds format, enter once, and see every other format convert instantly.',
+      quickStartTitle: 'Quick start',
+      quickStartSteps: [
+        'Enter stake amount',
+        'Type odds in any one field',
+        'Read winnings and payout below',
+      ],
       cardTitle: 'Odds & Amount',
+      autoUpdateHint: 'No calculate button needed. Results update instantly as you type.',
       betAmount: 'Bet Amount',
       betAmountAria: 'Single bet amount in dollars',
       results: 'Projected Results',
@@ -161,15 +174,15 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
       oddsFormatsTitle: 'Understanding Betting Odds Formats',
       faqTitle: 'Frequently Asked Questions',
       shareLabel: 'single bet',
-      howToIntro: 'Our single bet calculator makes it easy to calculate your potential winnings and payout instantly. Whether you are betting on moneyline, spread, or totals, follow these simple steps:',
+      howToIntro: 'Enter a stake, choose an odds format, and results appear instantly. Works with moneyline, spread, and totals:',
       howToSteps: [
         ['Enter your bet amount', 'Type the amount you plan to wager in dollars'],
         ['Choose an odds format', 'Select from American, Decimal, Fractional, or Implied Probability'],
         ['Enter the odds', 'Input your odds in your chosen format'],
         ['View results instantly', 'See your potential winnings, total payout, and winning probability automatically'],
       ],
-      howToOutro: 'The calculator automatically converts your odds to all other formats, so you can see the full picture no matter which format your sportsbook uses.',
-      oddsIntro: 'Different sportsbooks and betting markets use different odds formats. Here is what each one means:',
+      howToOutro: 'Odds convert between all formats automatically — use whichever your sportsbook displays.',
+      oddsIntro: 'Sportsbooks use four odds formats. Here is what each one means:',
       oddsSections: [
         ['American Odds (Moneyline)', 'Shows how much you need to bet to win $100 (negative odds) or how much $100 wins (positive odds). Example: -150 means bet $150 to win $100; +150 means $100 wins $150.'],
         ['Decimal Odds', 'Your total return for every $1 wagered, including your original stake. Example: 2.50 means a $100 bet returns $250 total ($150 profit).'],
@@ -212,7 +225,14 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
     ui: {
       title: 'Calculadora de Apuesta Simple',
       subtitle: 'Elige un formato de apuestas, introduce un valor y mira como se convierten las demás al instante.',
+      quickStartTitle: 'Inicio rapido',
+      quickStartSteps: [
+        'Ingresa tu monto',
+        'Escribe la linea en cualquier formato',
+        'Revisa ganancias y pago total abajo',
+      ],
       cardTitle: 'Apuesta y Líneas',
+      autoUpdateHint: 'No necesitas boton de calcular. Los resultados se actualizan al instante.',
       betAmount: 'Apuesta',
       betAmountAria: 'Monto de apuesta simple en dólares',
       results: 'Resultados Proyectados',
@@ -225,14 +245,14 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
       oddsFormatsTitle: 'Entender los diferentes formatos de apuestas',
       faqTitle: 'Preguntas frecuentes',
       shareLabel: 'apuesta simple',
-      howToIntro: 'Nuestra calculadora de apuesta simple te ayuda a calcular al instante tus ganancias potenciales y el pago total. Ya sea que apuestes moneyline, spread o totales, sigue estos pasos:',
+      howToIntro: 'Ingresa un monto, elige un formato de línea y los resultados aparecen de inmediato. Funciona con moneyline, spread y totales:',
       howToSteps: [
         ['Ingresa tu monto de apuesta', 'Escribe la cantidad que planeas apostar en dólares'],
         ['Elige un formato de apuestas', 'Selecciona entre línea americana, decimal, fraccional o probabilidad implícita'],
         ['Ingresa la línea', 'Escribe la línea en el formato que prefieras'],
         ['Mira los resultados al instante', 'Consulta automáticamente tus ganancias potenciales, pago total y probabilidad de acierto'],
       ],
-      howToOutro: 'La calculadora convierte automáticamente tus líneas a los demás formatos para que veas el panorama completo sin importar el formato que use tu casa de apuestas.',
+      howToOutro: 'Las líneas se convierten automáticamente — usa el formato que muestre tu casa de apuestas.',
       oddsIntro: 'Guía sobre los precios de las apuestas: esto es lo que significa cada formato.',
       oddsSections: [
         ['Línea Americana (Moneyline)', 'Muestra cuanto debes apostar para ganar $100 cuando es negativa, o cuanto ganas con $100 cuando es positiva. Ejemplo: -150 significa apostar $150 para ganar $100; +150 significa que $100 ganan $150.'],
@@ -279,7 +299,14 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
     ui: {
       title: 'Parlay Calculator',
       subtitle: 'Build parlays fast: choose a format per leg, enter once, and get live combined payouts.',
+      quickStartTitle: 'Quick start',
+      quickStartSteps: [
+        'Set stake amount',
+        'Add one or more legs',
+        'Watch combined odds and payout update live',
+      ],
       cardTitle: 'Bet & Legs',
+      autoUpdateHint: 'Results refresh automatically whenever you edit a leg or stake.',
       betAmount: 'Bet Amount',
       betAmountAria: 'Parlay bet amount in dollars',
       legs: 'Parlay Legs',
@@ -349,7 +376,14 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
     ui: {
       title: 'Calculadora de Parlay',
       subtitle: 'Construye parlays rapido: elige un formato por pierna, ingresa una vez y obtienes pagos combinados al instante.',
+      quickStartTitle: 'Inicio rapido',
+      quickStartSteps: [
+        'Define tu monto apostado',
+        'Agrega una o mas piernas',
+        'Mira como cambian la cuota combinada y el pago',
+      ],
       cardTitle: 'Apuesta y Piernas',
+      autoUpdateHint: 'Los resultados se actualizan automaticamente cuando cambias una pierna o el monto.',
       betAmount: 'Monto de la Apuesta',
       betAmountAria: 'Monto de apuesta parlay en dólares',
       legs: 'Piernas del Parlay',

@@ -352,30 +352,30 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
   const evPer100Message = (() => {
     if (locale === 'es') {
       if (evPer100Dollars > 0.005) {
-        return `Si hicieras esta misma apuesta muchas veces, ganarías en promedio unos $${Math.abs(evPer100Dollars).toFixed(2)} por cada $100 apostados.`;
+        return `Promedio a largo plazo: +$${Math.abs(evPer100Dollars).toFixed(2)} por $100 apostados.`;
       }
 
       if (evPer100Dollars < -0.005) {
-        return `Si hicieras esta misma apuesta muchas veces, perderías en promedio unos $${Math.abs(evPer100Dollars).toFixed(2)} por cada $100 apostados.`;
+        return `Promedio a largo plazo: -$${Math.abs(evPer100Dollars).toFixed(2)} por $100 apostados.`;
       }
 
-      return 'Si hicieras esta misma apuesta muchas veces, quedarías cerca de $0 por cada $100 apostados.';
+      return 'Promedio a largo plazo: ~$0 por $100 apostados.';
     }
 
     if (evPer100Dollars > 0.005) {
-      return `If you made this same bet many times, you would win about $${Math.abs(evPer100Dollars).toFixed(2)} on average for every $100 staked.`;
+      return `Long-run average: +$${Math.abs(evPer100Dollars).toFixed(2)} per $100 bet.`;
     }
 
     if (evPer100Dollars < -0.005) {
-      return `If you made this same bet many times, you would lose about $${Math.abs(evPer100Dollars).toFixed(2)} on average for every $100 staked.`;
+      return `Long-run average: -$${Math.abs(evPer100Dollars).toFixed(2)} per $100 bet.`;
     }
 
-    return 'If you made this same bet many times, you would land close to $0 for every $100 staked.';
+    return 'Long-run average: ~$0 per $100 bet.';
   })();
 
   const statusDataPoints = locale === 'es'
-    ? `Resumen rápido: tú estimas ganar ${projectedProbabilityDisplay.toFixed(2)} de cada 100 apuestas, y necesitas ${breakEvenProbability.toFixed(2)} de cada 100 para quedar en equilibrio. Diferencia: ${edgePercent.toFixed(2)} puntos. ${evPer100Message}`
-    : `Quick check: you estimate winning ${projectedProbabilityDisplay.toFixed(2)} out of 100 bets, and you need ${breakEvenProbability.toFixed(2)} out of 100 to break even. Difference: ${edgePercent.toFixed(2)} points. ${evPer100Message}`;
+    ? `Tu estimado: ${projectedProbabilityDisplay.toFixed(2)}% vs ${breakEvenProbability.toFixed(2)}% de equilibrio — edge: ${edgePercent.toFixed(2)} pts. ${evPer100Message}`
+    : `Your estimate: ${projectedProbabilityDisplay.toFixed(2)}% vs ${breakEvenProbability.toFixed(2)}% break-even — edge: ${edgePercent.toFixed(2)} pts. ${evPer100Message}`;
 
   const outcomeToneClass = expectedValueAmount > 0.005
     ? 'text-[var(--brand)]'
@@ -407,6 +407,14 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
         <div className="space-y-4">
           <h1 id="ev-calculator-title" className="text-hero">{copy.title}</h1>
           <p id="ev-calculator-help" className="text-subtitle max-w-lg">{copy.subtitle}</p>
+          <section aria-label={copy.quickStartTitle} className="rounded-xl border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.quickStartTitle}</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--foreground)]">
+              {copy.quickStartSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </section>
         </div>
 
         <div
@@ -418,6 +426,7 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
           <section className="flex max-h-[inherit] flex-col overflow-hidden" aria-describedby="ev-calculator-help">
             <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
               <h2 className="text-card-title">{copy.cardTitle}</h2>
+              <p className="mt-2 text-sm text-[var(--text-secondary)]">{copy.autoUpdateHint}</p>
             </div>
 
             <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-8 sm:px-8">
@@ -499,29 +508,29 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
                 </p>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                   <div className="result-stat">
-                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.evAmount}</p>
+                    <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.evAmount}</p>
                     <p className={`mt-2 text-xl font-semibold leading-tight ${outcomeToneClass}`}>
                       <MoneyDisplay value={expectedValueAmount} />
                     </p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.evPercent}</p>
+                    <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.evPercent}</p>
                     <p className={`mt-2 text-xl font-semibold leading-tight ${outcomeToneClass}`}>{expectedValuePercent.toFixed(2)}%</p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.breakEven}</p>
+                    <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.breakEven}</p>
                     <p className="mt-2 text-xl font-semibold leading-tight">{breakEvenProbability.toFixed(2)}%</p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.edge}</p>
+                    <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.edge}</p>
                     <p className={`mt-2 text-xl font-semibold leading-tight ${outcomeToneClass}`}>{edgePercent.toFixed(2)}%</p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.expectedPayout}</p>
+                    <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.expectedPayout}</p>
                     <p className="mt-2 text-xl font-semibold leading-tight"><MoneyDisplay value={expectedProfitIfWin} /></p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-[10px] leading-tight whitespace-nowrap text-[var(--text-secondary)]">{copy.expectedLoss}</p>
+                    <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.expectedLoss}</p>
                     <p className="mt-2 text-xl font-semibold leading-tight"><MoneyDisplay value={-expectedLossIfLose} /></p>
                   </div>
                 </div>

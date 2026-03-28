@@ -145,7 +145,7 @@ export default function OddsFields({
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setActiveFormat(option.key)}
-                  className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors sm:text-sm ${
+                  className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--brand)] focus-visible:outline-offset-2 sm:text-sm ${
                     isActive
                       ? 'bg-[var(--brand)] text-[var(--brand-foreground)]'
                       : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'

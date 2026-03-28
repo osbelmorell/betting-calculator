@@ -5,6 +5,9 @@ Do not edit manually.
 
 ## Shared Keys Across All Calculators
 
+- autoUpdateHint
+- quickStartSteps
+- quickStartTitle
 - relatedGuides
 - relatedToolsTitle
 - subtitle
@@ -12,8 +15,9 @@ Do not edit manually.
 
 ## Per-Calculator Key Matrix
 
-### Single (27 keys)
+### Single (30 keys)
 
+- autoUpdateHint
 - betAmount
 - betAmountAria
 - cardTitle
@@ -27,6 +31,8 @@ Do not edit manually.
 - oddsIntro
 - oddsSections
 - payout
+- quickStartSteps
+- quickStartTitle
 - relatedEv
 - relatedGuides
 - relatedOdds
@@ -42,10 +48,11 @@ Do not edit manually.
 - winnings
 - winPct
 
-### Parlay (35 keys)
+### Parlay (38 keys)
 
 - addLeg
 - addLegAria
+- autoUpdateHint
 - betAmount
 - betAmountAria
 - buildIntro
@@ -65,6 +72,8 @@ Do not edit manually.
 - legs
 - payout
 - projectedResults
+- quickStartSteps
+- quickStartTitle
 - relatedEv
 - relatedGuides
 - relatedOdds
@@ -80,8 +89,9 @@ Do not edit manually.
 - winnings
 - winPct
 
-### EV (33 keys)
+### EV (36 keys)
 
+- autoUpdateHint
 - betAmount
 - betAmountAria
 - breakEven
@@ -98,6 +108,8 @@ Do not edit manually.
 - faqTitle
 - howToBody
 - howToTitle
+- quickStartSteps
+- quickStartTitle
 - relatedGuides
 - relatedOdds
 - relatedParlay
@@ -116,8 +128,9 @@ Do not edit manually.
 - subtitle
 - title
 
-### Odds Converter (16 keys)
+### Odds Converter (19 keys)
 
+- autoUpdateHint
 - converterCardTitle
 - faq
 - faqTitle
@@ -125,6 +138,8 @@ Do not edit manually.
 - formatsTitle
 - howItWorksBody
 - howItWorksTitle
+- quickStartSteps
+- quickStartTitle
 - relatedGuides
 - relatedParlay
 - relatedSingle

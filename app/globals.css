@@ -422,6 +422,12 @@ input[type="range"]::-webkit-slider-runnable-track {
   border: none;
 }
 
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 @keyframes value-pop {
   0% {
     opacity: 0.55;

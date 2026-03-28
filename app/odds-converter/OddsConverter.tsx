@@ -109,11 +109,20 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
         <div className="space-y-4">
           <h1 id="odds-converter-title" className="text-hero">{copy.title}</h1>
           <p className="text-subtitle max-w-lg">{copy.subtitle}</p>
+          <section aria-label={copy.quickStartTitle} className="rounded-xl border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.quickStartTitle}</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--foreground)]">
+              {copy.quickStartSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </section>
         </div>
 
         <div className="calculator-surface w-full overflow-hidden rounded-2xl">
           <section className="space-y-6 px-6 py-8 sm:px-8" aria-labelledby="odds-converter-card-title">
             <h2 id="odds-converter-card-title" className="text-card-title">{copy.converterCardTitle}</h2>
+            <p className="text-sm text-[var(--text-secondary)]">{copy.autoUpdateHint}</p>
             <OddsFields
               idPrefix="odds-converter"
               locale={locale}
@@ -145,10 +154,10 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
             <table className="min-w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-[var(--border-color)] bg-[var(--surface-soft)]">
-                  <th className="px-4 py-3 font-semibold">{copy.tableColumns.american}</th>
-                  <th className="px-4 py-3 font-semibold">{copy.tableColumns.decimal}</th>
-                  <th className="px-4 py-3 font-semibold">{copy.tableColumns.fractional}</th>
-                  <th className="px-4 py-3 font-semibold">{copy.tableColumns.implied}</th>
+                  <th scope="col" className="px-4 py-3 font-semibold">{copy.tableColumns.american}</th>
+                  <th scope="col" className="px-4 py-3 font-semibold">{copy.tableColumns.decimal}</th>
+                  <th scope="col" className="px-4 py-3 font-semibold">{copy.tableColumns.fractional}</th>
+                  <th scope="col" className="px-4 py-3 font-semibold">{copy.tableColumns.implied}</th>
                 </tr>
               </thead>
               <tbody>

@@ -8,7 +8,10 @@ type FaqItem = {
 type OddsConverterCopy = {
   title: string;
   subtitle: string;
+  quickStartTitle: string;
+  quickStartSteps: ReadonlyArray<string>;
   converterCardTitle: string;
+  autoUpdateHint: string;
   howItWorksTitle: string;
   howItWorksBody: string;
   formatsTitle: string;
@@ -86,13 +89,20 @@ export const oddsConverterContent: Record<Locale, OddsConverterCopy> = {
     title: 'Odds Converter',
     subtitle:
       'Convert American, decimal, fractional, and implied probability odds in real time with a free betting odds converter.',
+    quickStartTitle: 'Quick start',
+    quickStartSteps: [
+      'Enter odds in one field',
+      'Check converted values instantly',
+      'Use related tools for payout and EV decisions',
+    ],
     converterCardTitle: 'Convert Odds Instantly',
+    autoUpdateHint: 'Type in any odds format. All other formats update automatically.',
     howItWorksTitle: 'How the Odds Converter Works',
     howItWorksBody:
-      'Enter odds in one format and the converter instantly calculates all other formats. Use it to compare sportsbook lines, estimate implied win probability, and check whether a price is worth betting.',
+      'Enter any odds format. The converter instantly shows all other formats, including implied win probability. Use it to compare lines and evaluate whether a price is worth betting.',
     formatsTitle: 'Supported Betting Odds Formats',
     formatsBody:
-      'This converter supports American (moneyline), decimal, fractional, and implied probability formats. You can switch formats at any time and keep all values synchronized automatically.',
+      'Supports American (moneyline), decimal, fractional, and implied probability. All formats sync as you type.',
     tableTitle: 'Popular Odds Conversion Table',
     tableColumns: {
       american: 'American',
@@ -118,13 +128,20 @@ export const oddsConverterContent: Record<Locale, OddsConverterCopy> = {
     title: 'Conversor de Cuotas',
     subtitle:
       'Convierte cuotas americanas, decimales, fraccionales y probabilidad implícita en tiempo real con este conversor de apuestas gratis.',
+    quickStartTitle: 'Inicio rapido',
+    quickStartSteps: [
+      'Ingresa la cuota en un campo',
+      'Revisa las conversiones al instante',
+      'Usa herramientas relacionadas para payout y EV',
+    ],
     converterCardTitle: 'Convierte Cuotas al Instante',
+    autoUpdateHint: 'Escribe en cualquier formato de cuota. Los demas formatos se actualizan automaticamente.',
     howItWorksTitle: 'Como Funciona el Conversor de Cuotas',
     howItWorksBody:
-      'Ingresa cuotas en un formato y el conversor calcula al instante los demás formatos. Sirve para comparar líneas entre casas, estimar probabilidad de acierto y evaluar si una cuota tiene valor.',
+      'Ingresa una cuota en cualquier formato. El conversor muestra de inmediato los otros formatos, incluyendo la probabilidad implícita. Úsalo para comparar líneas y evaluar si una cuota tiene valor.',
     formatsTitle: 'Formatos de Cuotas Compatibles',
     formatsBody:
-      'El conversor soporta cuotas americanas (moneyline), decimales, fraccionales y probabilidad implícita. Puedes cambiar de formato en cualquier momento y los valores se mantienen sincronizados automáticamente.',
+      'Soporta cuotas americanas (moneyline), decimales, fraccionales y probabilidad implícita. Todos los formatos se sincronizan al escribir.',
     tableTitle: 'Tabla Rapida de Conversión de Cuotas',
     tableColumns: {
       american: 'Americana',

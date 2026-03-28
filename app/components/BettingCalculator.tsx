@@ -267,6 +267,14 @@ export default function BettingCalculator({
           <p id="single-calculator-help" className="text-subtitle max-w-lg">
             {copy.subtitle}
           </p>
+          <section aria-label={copy.quickStartTitle} className="rounded-xl border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.quickStartTitle}</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--foreground)]">
+              {copy.quickStartSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </section>
         </div>
 
         {/* Calculator Card */}
@@ -282,6 +290,7 @@ export default function BettingCalculator({
           >
             <div className="border-b border-[var(--border-color)] px-6 py-8 sm:px-8">
               <h2 className="text-card-title">{copy.cardTitle}</h2>
+              <p className="mt-2 text-sm text-[var(--text-secondary)]">{copy.autoUpdateHint}</p>
             </div>
 
           <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-8 sm:px-8">
@@ -331,7 +340,7 @@ export default function BettingCalculator({
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                 <div className="result-stat col-span-2 sm:col-span-1">
                   <p className="text-xs text-[var(--text-secondary)]">{copy.winnings}</p>
-                  <p key={`single-winnings-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-2 text-xl font-semibold leading-tight">
+                  <p key={`single-winnings-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-2 text-2xl font-semibold leading-tight">
                     <MoneyDisplay value={expectedWinnings} />
                   </p>
                 </div>
