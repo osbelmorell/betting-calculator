@@ -31,6 +31,7 @@ Single calculator:
 - single_first_calc
 - single_reset
 - single_share_copied
+- single_example_applied
 
 Parlay calculator:
 - parlay_first_input
@@ -39,12 +40,17 @@ Parlay calculator:
 - parlay_leg_added
 - parlay_leg_removed
 - parlay_share_copied
+- parlay_example_applied
 
 +EV calculator:
 - ev_first_input
 - ev_first_calc
 - ev_reset
 - ev_share_copied
+- ev_example_applied
+
+Odds converter:
+- odds_example_applied
 
 ## Standardized Payload Fields
 
@@ -84,6 +90,7 @@ Recommended primary funnel:
 1. first_input events
 2. first_calc events
 3. share_copied events
+4. example_applied events
 
 Recommended segments:
 - calculator
@@ -91,6 +98,36 @@ Recommended segments:
 - stake_bucket
 - leg_count
 - odds_format
+
+## GA4 Verification Workflow
+
+To verify these events are working in Google Analytics 4:
+
+1. Confirm GA is configured:
+- Ensure `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set in your environment.
+- Run the app in production mode locally (`next build && next start`) or verify in preview/prod.
+
+2. Use GA4 DebugView for real-time validation:
+- Open GA4 -> Admin -> DebugView.
+- Open your site with GA Debug mode enabled (for example via the GA Debugger extension).
+- Trigger each scenario:
+	- click `Apply Example` on single calculator -> expect `single_example_applied`
+	- click `Apply Example` on parlay calculator -> expect `parlay_example_applied`
+	- click `Apply Example` on EV calculator -> expect `ev_example_applied`
+	- click `Apply Example` on odds converter -> expect `odds_example_applied`
+
+3. Validate payload fields in event parameters:
+- `calculator`
+- `event_version`
+- `page_path`
+- `sticky_variant`
+- `stake_bucket` and `stake_amount` (when available)
+- `leg_count`
+
+4. Build a GA4 Exploration to measure impact:
+- Step 1: `*_example_applied`
+- Step 2: `*_first_calc`
+- Breakdown by `calculator` and `page_path`
 
 ## Versioning Guidance
 

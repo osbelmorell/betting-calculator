@@ -255,6 +255,7 @@ export default function BettingCalculator({
   };
 
   const applyExampleScenario = () => {
+    trackCalculatorEvent('single_example_applied', { source: 'guided_example', betAmount: 100, legCount: 1 });
     setBetAmount('100');
     setOdds({
       american: '-110',

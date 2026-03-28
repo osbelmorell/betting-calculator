@@ -3,16 +3,20 @@ export type CalculatorEventName =
   | 'single_first_calc'
   | 'single_reset'
   | 'single_share_copied'
+  | 'single_example_applied'
   | 'parlay_first_input'
   | 'parlay_first_calc'
   | 'parlay_reset'
   | 'parlay_leg_added'
   | 'parlay_leg_removed'
   | 'parlay_share_copied'
+  | 'parlay_example_applied'
   | 'ev_first_input'
   | 'ev_first_calc'
   | 'ev_reset'
-  | 'ev_share_copied';
+  | 'ev_share_copied'
+  | 'ev_example_applied'
+  | 'odds_example_applied';
 
 export type StickyBarVariant = 'compact' | 'expanded';
 
@@ -87,7 +91,9 @@ function normalizePayload(eventName: CalculatorEventName, payload: RawPayload): 
     ? 'single'
     : eventName.startsWith('parlay_')
       ? 'parlay'
-      : 'ev';
+      : eventName.startsWith('odds_')
+        ? 'odds'
+        : 'ev';
   const source = normalized.source;
   const betAmount = parseBetAmount(payload.betAmount);
   const legCount = typeof payload.legCount === 'number' ? payload.legCount : undefined;

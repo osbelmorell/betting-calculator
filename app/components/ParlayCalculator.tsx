@@ -359,6 +359,7 @@ export default function ParlayCalculator({
   };
 
   const applyExampleScenario = () => {
+    trackCalculatorEvent('parlay_example_applied', { source: 'guided_example', betAmount: 100, legCount: 2 });
     setBetAmount('100');
     setActiveOddsFormat('american');
     setLegs([

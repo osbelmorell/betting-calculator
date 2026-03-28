@@ -333,6 +333,7 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
   };
 
   const applyExampleScenario = () => {
+    trackCalculatorEvent('ev_example_applied', { source: 'guided_example', betAmount: 100, legCount: 1 });
     setBetAmount('100');
     setOdds({
       american: '+120',

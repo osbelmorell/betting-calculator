@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { oddsConverterContent } from './content';
 import type { Locale } from '../i18n';
+import { trackCalculatorEvent } from '../components/analytics';
 import OddsFields from '../components/OddsFields';
 import {
   clampPercent,
@@ -101,6 +102,7 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
   };
 
   const applyExampleScenario = () => {
+    trackCalculatorEvent('odds_example_applied', { source: 'guided_example', legCount: 1 });
     setOdds({
       american: '+150',
       decimal: '2.500',
