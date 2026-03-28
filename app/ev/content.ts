@@ -139,7 +139,7 @@ export const evCalculatorContent: Record<Locale, EvCalculatorCopy> = {
   es: {
     title: 'Calculadora +EV',
     subtitle: 'Ingresa tu monto, la cuota del mercado y tu mejor estimación para ver rápido si la apuesta vale la pena.',
-    quickStartTitle: 'Inicio rapido',
+    quickStartTitle: 'Inicio rápido',
     quickStartSteps: [
       'Ingresa el monto apostado',
       'Ingresa la cuota en cualquier formato',

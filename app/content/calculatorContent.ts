@@ -225,7 +225,7 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
     ui: {
       title: 'Calculadora de Apuesta Simple',
       subtitle: 'Elige un formato de apuestas, introduce un valor y mira como se convierten las demás al instante.',
-      quickStartTitle: 'Inicio rapido',
+      quickStartTitle: 'Inicio rápido',
       quickStartSteps: [
         'Ingresa tu monto',
         'Escribe la linea en cualquier formato',
@@ -376,7 +376,7 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
     ui: {
       title: 'Calculadora de Parlay',
       subtitle: 'Construye parlays rapido: elige un formato por pierna, ingresa una vez y obtienes pagos combinados al instante.',
-      quickStartTitle: 'Inicio rapido',
+      quickStartTitle: 'Inicio rápido',
       quickStartSteps: [
         'Define tu monto apostado',
         'Agrega una o mas piernas',

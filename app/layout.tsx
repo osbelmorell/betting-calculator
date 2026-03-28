@@ -4,7 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import AnalyticsDebugPanel from './components/AnalyticsDebugPanel';
 import GlobalCalcToggle from './components/GlobalCalcToggle';
 import { defaultLocale } from './i18n';
-import { getLocalizedCanonicalUrl, schemaOrgUrl, siteConfig, siteTitleTemplate } from './siteConfig';
+import { getLocalizedCanonicalUrl, getSocialImageUrl, schemaOrgUrl, siteConfig, siteTitleTemplate } from './siteConfig';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,11 +33,13 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: siteConfig.name,
     url: siteConfig.url,
+    images: [{ url: getSocialImageUrl(), width: 1200, height: 630, alt: siteConfig.defaultTitle }],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.defaultTitle,
     description: siteConfig.twitterDescription,
+    images: [getSocialImageUrl()],
   },
 };
 
@@ -70,7 +72,7 @@ export default function RootLayout({
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[var(--surface)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[var(--foreground)] focus:shadow-[var(--shadow-md)]"
         >
-          Skip to main content
+          Skip to main content / Saltar al contenido principal
         </a>
         <script
           type="application/ld+json"

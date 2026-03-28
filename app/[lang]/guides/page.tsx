@@ -4,7 +4,7 @@ import { notFound, redirect } from 'next/navigation';
 import SavedGuidesPanel from '../../components/SavedGuidesPanel';
 import { defaultLocale, isLocale, localizePath } from '../../i18n';
 import { getGuideSummaries } from '../../guides/registry';
-import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
+import { getCanonicalUrl, getSocialImageUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
 
 export async function generateMetadata(props: PageProps<'/[lang]/guides'>): Promise<Metadata> {
   const { lang } = await props.params;
@@ -61,11 +61,13 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides'>): Prom
       url: getCanonicalUrl(localizePath('/guides', lang)),
       siteName: siteConfig.name,
       locale: lang === 'es' ? 'es_ES' : 'en_US',
+      images: [{ url: getSocialImageUrl(), width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [getSocialImageUrl()],
     },
   };
 }

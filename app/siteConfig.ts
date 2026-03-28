@@ -72,6 +72,10 @@ export function getLocalizedCanonicalUrl(pathname: string, locale: Locale = defa
   return getCanonicalUrl(localizePath(pathname, locale));
 }
 
+export function getSocialImageUrl(): string {
+  return getCanonicalUrl('/opengraph-image');
+}
+
 export function resolveLocale(value: string | undefined): Locale {
   if (value && isLocale(value)) {
     return value;

@@ -423,7 +423,7 @@ export default function ParlayCalculator({
             <h2 className="text-sm font-semibold">{copy.legs}</h2>
 
             <div className="space-y-2">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
                 {oddsFieldsCopy.selector}
               </p>
               <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface-soft)] p-1">
@@ -487,7 +487,9 @@ export default function ParlayCalculator({
                       value={leg.label}
                       onChange={(event) => updateLegLabel(leg.id, event.target.value)}
                       className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm transition-colors placeholder:text-[var(--text-placeholder)] focus:border-[var(--brand)] focus:outline-none"
-                      placeholder={`${copy.leg} ${index + 1} (Team, mercado, etc.)`}
+                      placeholder={locale === 'es'
+                        ? `${copy.leg} ${index + 1} (Equipo, mercado, etc.)`
+                        : `${copy.leg} ${index + 1} (Team, market, etc.)`}
                       aria-label={`${copy.label} ${copy.leg.toLowerCase()} ${index + 1}`}
                     />
                   </div>
@@ -590,19 +592,19 @@ export default function ParlayCalculator({
       >
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{locale === 'es' ? 'Apuestas' : copy.betAmount}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{locale === 'es' ? 'Apuestas' : copy.betAmount}</p>
             <p key={`parlay-sticky-bet-${betAmount}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={parseFloat(betAmount) || 0} />
             </p>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
             <p key={`parlay-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedWinnings} />
             </p>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.payout}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.payout}</p>
             <p key={`parlay-sticky-pay-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedPayout} />
             </p>

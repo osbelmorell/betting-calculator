@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import SavedGuidesPanel from '../components/SavedGuidesPanel';
 import { getGuideSummaries } from './registry';
-import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
+import { getCanonicalUrl, getSocialImageUrl, schemaOrgUrl, siteConfig } from '../siteConfig';
 
 export const metadata: Metadata = {
   title: 'Sports Betting Guides | Odds, Parlay, and +EV',
@@ -33,12 +33,14 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: siteConfig.name,
     locale: 'en_US',
+    images: [{ url: getSocialImageUrl(), width: 1200, height: 630, alt: 'Sports Betting Guides' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sports Betting Guides | Odds, Parlay, and +EV',
     description:
       'Learn odds conversion, implied probability, parlay calculations, and betting value with practical examples.',
+    images: [getSocialImageUrl()],
   },
 };
 

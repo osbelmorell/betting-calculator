@@ -128,7 +128,7 @@ export const oddsConverterContent: Record<Locale, OddsConverterCopy> = {
     title: 'Conversor de Cuotas',
     subtitle:
       'Convierte cuotas americanas, decimales, fraccionales y probabilidad implícita en tiempo real con este conversor de apuestas gratis.',
-    quickStartTitle: 'Inicio rapido',
+    quickStartTitle: 'Inicio rápido',
     quickStartSteps: [
       'Ingresa la cuota en un campo',
       'Revisa las conversiones al instante',

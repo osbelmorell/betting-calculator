@@ -563,19 +563,19 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
         >
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
               <p key={`ev-sticky-bet-${betAmount}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
                 <MoneyDisplay value={parseFloat(betAmount) || 0} />
               </p>
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.evAmount}</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.evAmount}</p>
               <p key={`ev-sticky-amount-${expectedValueAmount.toFixed(2)}`} className={`calc-value-pop mt-1 text-base font-semibold leading-tight ${outcomeToneClass}`}>
                 <MoneyDisplay value={expectedValueAmount} />
               </p>
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.edge}</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.edge}</p>
               <p key={`ev-sticky-edge-${edgePercent.toFixed(2)}`} className={`calc-value-pop mt-1 text-base font-semibold leading-tight ${outcomeToneClass}`}>
                 {edgePercent.toFixed(2)}%
               </p>

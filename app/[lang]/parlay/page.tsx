@@ -3,7 +3,7 @@ import { notFound, redirect } from 'next/navigation';
 import { parlayCalculatorContent } from '../../content/calculatorContent';
 import ParlayCalculator from '../../components/ParlayCalculator';
 import { defaultLocale, isLocale, localizePath } from '../../i18n';
-import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
+import { getCanonicalUrl, getSocialImageUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
 
 export async function generateMetadata(props: PageProps<'/[lang]/parlay'>): Promise<Metadata> {
   const { lang } = await props.params;
@@ -31,11 +31,13 @@ export async function generateMetadata(props: PageProps<'/[lang]/parlay'>): Prom
       siteName: siteConfig.name,
       type: 'website',
       locale: lang === 'es' ? 'es_ES' : 'en_US',
+      images: [{ url: getSocialImageUrl(), width: 1200, height: 630, alt: localizedCopy.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: localizedCopy.title,
       description: localizedCopy.description,
+      images: [getSocialImageUrl()],
     },
   };
 }

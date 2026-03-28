@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { singleCalculatorContent } from './content/calculatorContent';
 import BettingCalculator from './components/BettingCalculator';
-import { getCanonicalUrl, schemaOrgUrl, siteConfig } from './siteConfig';
+import { getCanonicalUrl, getSocialImageUrl, schemaOrgUrl, siteConfig } from './siteConfig';
 
 const metadataCopy = singleCalculatorContent.en.seo;
 
@@ -23,11 +23,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     type: 'website',
     locale: 'en_US',
+    images: [{ url: getSocialImageUrl(), width: 1200, height: 630, alt: metadataCopy.title }],
   },
   twitter: {
     card: 'summary_large_image',
     title: metadataCopy.title,
     description: metadataCopy.description,
+    images: [getSocialImageUrl()],
   },
 };
 

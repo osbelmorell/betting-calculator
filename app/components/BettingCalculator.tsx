@@ -389,19 +389,19 @@ export default function BettingCalculator({
       >
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.betAmount}</p>
             <p key={`single-sticky-bet-${betAmount}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={parseFloat(betAmount) || 0} />
             </p>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.winnings}</p>
             <p key={`single-sticky-win-${expectedWinnings.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedWinnings} />
             </p>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.payout}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.payout}</p>
             <p key={`single-sticky-pay-${expectedPayout.toFixed(2)}`} className="calc-value-pop mt-1 text-base font-semibold leading-tight">
               <MoneyDisplay value={expectedPayout} />
             </p>

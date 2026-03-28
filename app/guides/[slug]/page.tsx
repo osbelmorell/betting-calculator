@@ -5,7 +5,7 @@ import GuideSectionNav from '../../components/GuideSectionNav';
 import GuideActionsBar from '../../components/GuideActionsBar';
 import { getGuide, getGuideSlugs, getGuideSummaries } from '../registry';
 import { mapGuideSlug } from '../slugMap';
-import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
+import { getCanonicalUrl, getSocialImageUrl, schemaOrgUrl, siteConfig } from '../../siteConfig';
 
 export const dynamicParams = false;
 
@@ -43,11 +43,13 @@ export async function generateMetadata(props: PageProps<'/guides/[slug]'>): Prom
       locale: 'en_US',
       publishedTime: guide.meta.publishedAt,
       modifiedTime: guide.meta.updatedAt,
+      images: [{ url: getSocialImageUrl(), width: 1200, height: 630, alt: guide.meta.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: guide.meta.title,
       description: guide.meta.description,
+      images: [getSocialImageUrl()],
     },
   };
 }

@@ -188,7 +188,7 @@ export default function OddsFields({
 
       {showConvertedOptions ? (
         <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
             {copy.converted}
           </p>
           <div className="grid gap-2 sm:grid-cols-3">
@@ -201,7 +201,7 @@ export default function OddsFields({
                   className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-left transition-colors hover:border-[var(--brand)]/40 hover:bg-[var(--surface-soft)]"
                   aria-label={`${copy.switchInput} ${option.label}`}
                 >
-                  <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
+                  <p className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
                   <p className="mt-1 truncate text-sm font-semibold">
                     {values[option.key]}
                     {option.suffix ?? ''}
@@ -212,7 +212,7 @@ export default function OddsFields({
                   key={option.key}
                   className="rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-left"
                 >
-                  <p className="text-[11px] font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
+                  <p className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)]">{option.label}</p>
                   <p className="mt-1 truncate text-sm font-semibold">
                     {values[option.key]}
                     {option.suffix ?? ''}

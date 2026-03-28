@@ -9,6 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const localizeLanguages = (pathname: string) => ({
     en: getCanonicalUrl(localizePath(pathname, 'en')),
     es: getCanonicalUrl(localizePath(pathname, 'es')),
+    'x-default': getCanonicalUrl(localizePath(pathname, 'en')),
   });
 
   const localizedRoutes = supportedLocales.flatMap((locale) => {
@@ -67,6 +68,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
               ),
               es: getCanonicalUrl(
                 localizePath(`/guides/${mapGuideSlug(guide.slug, locale, 'es') ?? guide.slug}`, 'es'),
+              ),
+              'x-default': getCanonicalUrl(
+                localizePath(`/guides/${mapGuideSlug(guide.slug, locale, 'en') ?? guide.slug}`, 'en'),
               ),
             },
           },

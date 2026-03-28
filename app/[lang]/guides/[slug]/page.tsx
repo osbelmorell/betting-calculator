@@ -6,7 +6,7 @@ import GuideActionsBar from '../../../components/GuideActionsBar';
 import { defaultLocale, isLocale, localizePath, prefixedLocales } from '../../../i18n';
 import { getGuide, getGuideSlugs, getGuideSummaries } from '../../../guides/registry';
 import { mapGuideSlug } from '../../../guides/slugMap';
-import { getCanonicalUrl, schemaOrgUrl, siteConfig } from '../../../siteConfig';
+import { getCanonicalUrl, getSocialImageUrl, schemaOrgUrl, siteConfig } from '../../../siteConfig';
 
 export const dynamicParams = false;
 
@@ -50,11 +50,13 @@ export async function generateMetadata(props: PageProps<'/[lang]/guides/[slug]'>
       locale: lang === 'es' ? 'es_ES' : 'en_US',
       publishedTime: guide.meta.publishedAt,
       modifiedTime: guide.meta.updatedAt,
+      images: [{ url: getSocialImageUrl(), width: 1200, height: 630, alt: guide.meta.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: guide.meta.title,
       description: guide.meta.description,
+      images: [getSocialImageUrl()],
     },
   };
 }
