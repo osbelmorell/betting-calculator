@@ -35,6 +35,7 @@ import {
   type OddsField,
   type OddsValues,
 } from './oddsUtils';
+import AbbreviationHelp from './AbbreviationHelp';
 
 type BettingCalculatorProps = {
   locale?: Locale;
@@ -353,7 +354,12 @@ export default function BettingCalculator({
                 </div>
 
                 <div className="result-stat col-span-1">
-                  <p className="text-xs text-[var(--text-secondary)]">{copy.winPct}</p>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    <AbbreviationHelp
+                      short={copy.winPct}
+                      expanded={locale === 'es' ? 'Porcentaje de probabilidad implícita de acierto.' : 'Implied winning probability percentage.'}
+                    />
+                  </p>
                   <p key={`single-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-2 truncate text-xl font-semibold leading-tight">
                     {impliedWinningPercentage.toFixed(2)}%
                   </p>

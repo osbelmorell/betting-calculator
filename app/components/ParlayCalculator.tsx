@@ -24,6 +24,7 @@ import {
 import MoneyDisplay from './MoneyDisplay';
 import OddsFields from './OddsFields';
 import ShareLinkButton from './ShareLinkButton';
+import AbbreviationHelp from './AbbreviationHelp';
 import {
   clampPercent,
   decimalDisplay,
@@ -371,6 +372,12 @@ export default function ParlayCalculator({
           <p id="parlay-calculator-help" className="text-subtitle max-w-lg">
             {copy.subtitle}
           </p>
+          <p className="text-sm text-[var(--text-secondary)]">
+            {locale === 'es' ? '¿Qué es un parlay? Una apuesta con varias piernas donde todas deben acertarse.' : 'What is a parlay? A multi-leg bet where every leg must win.'}{' '}
+            <Link href={locale === 'es' ? '/es/guides/parlay-vs-straight-bets' : '/guides/parlay-vs-straight-bets'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+              {locale === 'es' ? 'Aprende más' : 'Learn more'}
+            </Link>
+          </p>
           <section aria-label={copy.quickStartTitle} className="rounded-xl border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.quickStartTitle}</p>
             <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--foreground)]">
@@ -455,6 +462,11 @@ export default function ParlayCalculator({
                   })}
                 </div>
               </div>
+              <p className="text-xs text-[var(--text-secondary)]">
+                {locale === 'es'
+                  ? 'US = línea americana, Dec = línea decimal, Frac = línea fraccional, Prob = probabilidad.'
+                  : 'US = American odds, Dec = Decimal, Frac = Fractional, Prob = Probability.'}
+              </p>
             </div>
 
             <div className="flex flex-col gap-4" role="list" aria-label={copy.legListAria}>
@@ -492,6 +504,9 @@ export default function ParlayCalculator({
                         : `${copy.leg} ${index + 1} (Team, market, etc.)`}
                       aria-label={`${copy.label} ${copy.leg.toLowerCase()} ${index + 1}`}
                     />
+                    <p className="text-xs text-[var(--text-secondary)]">
+                      {locale === 'es' ? 'Opcional: usa una nota corta para identificar este pick.' : 'Optional: use a short note to identify this pick.'}
+                    </p>
                   </div>
 
                   <OddsFields
@@ -533,6 +548,11 @@ export default function ParlayCalculator({
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">
                 {copy.projectedResults}
               </p>
+              <p className="mb-4 text-sm text-[var(--text-secondary)]">
+                {locale === 'es'
+                  ? 'Regla clave: si falla una pierna, pierde todo el parlay.'
+                  : 'Key rule: if one leg loses, the entire parlay loses.'}
+              </p>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div className="result-stat">
                   <p className="text-xs text-[var(--text-secondary)]">{copy.combined}</p>
@@ -556,7 +576,12 @@ export default function ParlayCalculator({
                 </div>
 
                 <div className="result-stat">
-                  <p className="text-xs text-[var(--text-secondary)]">{copy.winPct}</p>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    <AbbreviationHelp
+                      short={copy.winPct}
+                      expanded={locale === 'es' ? 'Porcentaje de probabilidad implícita de acierto del parlay.' : 'Implied win probability percentage for this parlay.'}
+                    />
+                  </p>
                   <p key={`parlay-winp-${impliedWinningPercentage.toFixed(2)}`} className="calc-value-pop mt-2 truncate text-lg font-semibold">
                     {impliedWinningPercentage.toFixed(2)}%
                   </p>

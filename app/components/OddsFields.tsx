@@ -133,30 +133,37 @@ export default function OddsFields({
   return (
     <fieldset className="space-y-4" aria-label={`${contextLabel} ${copy.inputFields}`}>
       {showFormatSelector ? (
-        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface-soft)] p-1">
-          <div role="tablist" aria-label={`${contextLabel} ${copy.selector}`} className="grid grid-cols-4 gap-1">
-            {formatOptions.map((option) => {
-              const isActive = option.key === activeFormat;
+        <div className="space-y-2">
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface-soft)] p-1">
+            <div role="tablist" aria-label={`${contextLabel} ${copy.selector}`} className="grid grid-cols-4 gap-1">
+              {formatOptions.map((option) => {
+                const isActive = option.key === activeFormat;
 
-              return (
-                <button
-                  key={option.key}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveFormat(option.key)}
-                  className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--brand)] focus-visible:outline-offset-2 sm:text-sm ${
-                    isActive
-                      ? 'bg-[var(--brand)] text-[var(--brand-foreground)]'
-                      : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
-                  }`}
-                >
-                  <span className="sm:hidden">{option.shortLabel}</span>
-                  <span className="hidden sm:inline">{option.label}</span>
-                </button>
-              );
-            })}
+                return (
+                  <button
+                    key={option.key}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActiveFormat(option.key)}
+                    className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--brand)] focus-visible:outline-offset-2 sm:text-sm ${
+                      isActive
+                        ? 'bg-[var(--brand)] text-[var(--brand-foreground)]'
+                        : 'text-[var(--text-secondary)] hover:bg-[var(--border-color)]/40 hover:text-[var(--foreground)]'
+                    }`}
+                  >
+                    <span className="sm:hidden">{option.shortLabel}</span>
+                    <span className="hidden sm:inline">{option.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
+          <p className="text-xs text-[var(--text-secondary)]">
+            {locale === 'es'
+              ? 'US = línea americana, Dec = línea decimal, Frac = línea fraccional, Prob = probabilidad.'
+              : 'US = American odds, Dec = Decimal, Frac = Fractional, Prob = Probability.'}
+          </p>
         </div>
       ) : null}
 

@@ -99,20 +99,20 @@ Place in `layout.tsx` or use JSON-LD in script tags:
 - Use **one `<h1>` per page** (main page title, not site name)
 - Use `<h2>` for major sections
 - Use `<h3>`, `<h4>` for subsections
-- Never skip heading levels
-- Include target keywords naturally in headings
+- Use semantic heading structure for readability and accessibility; strict heading order is not a direct ranking lever
+- Include topic terms naturally in headings when they improve clarity
 
 ### Content Guidelines
-- **Primary Keyword**: Include in first 100 words
-- **Keyword Density**: Maintain 1-2% density (natural placement)
+- **Topic Clarity**: Make page purpose obvious in the opening section
+- **Natural Language**: Write for users first; do not target artificial keyword density
 - **LSI Keywords**: Use related keywords and synonyms naturally
-- **Content Length**: Aim for 300+ words per page (1,500+ for cornerstone content)
+- **Content Length**: No fixed word-count targets; include only as much detail as needed to satisfy intent
 - **Readability**: Keep paragraphs to 3-4 sentences max
 - **Scanability**: Use bullets, numbered lists, and bold text
 
 ### Internal Linking
 - Link to related pages with descriptive anchor text (avoid "click here")
-- Minimum 2-3 internal links per 1,000 words
+- Add links when they improve navigation or understanding (no fixed quota)
 - Use keyword-rich URLs in links
 - Ensure all links are valid (no 404s)
 
@@ -237,7 +237,7 @@ Place in `layout.tsx` or use JSON-LD in script tags:
 ## 8. Image Optimization for SEO
 
 ### Image Best Practices
-- **Alt Text**: Descriptive, keyword-relevant (aim for 8-12 words)
+- **Alt Text**: Descriptive and context-relevant; do not force keywords or fixed length
   - Bad: `alt="image"`
   - Good: `alt="Parlay betting calculator showing odds calculation"`
 - **File Names**: Descriptive, hyphenated (e.g., `parlay-calculator-interface.png`)
@@ -267,6 +267,12 @@ import Image from 'next/image';
 - Examples: "how to calculate parlay odds", "betting odds calculator free"
 - Use tools: Google Keyword Planner, SEMrush, Ahrefs
 - Analyze competitor keywords
+
+### People-First Content Rules (Google-Aligned)
+- Prioritize helpful, reliable, people-first content over keyword formulas.
+- Keep content unique, current, and clearly organized for scanability.
+- Avoid keyword stuffing or repetitive phrase patterns.
+- Do not use arbitrary minimum/maximum content length as a ranking proxy.
 
 ### Content Pillars for Betting Calculator
 1. **Moneyline Odds Calculation**
@@ -357,6 +363,32 @@ Use this section whenever changes are intended to improve discoverability in LLM
   - Guide/article routes: `Article` (+ `FAQPage`, `HowTo`, `BreadcrumbList` where applicable)
   - Site-wide: `Organization` and `WebSite`
 - For images with instructional value, include context-rich alt text and captions/nearby explanatory text.
+
+---
+
+## 14. Google SEO Starter Guide Alignment (Source URLs)
+
+These URLs are treated as normative references and have been reviewed for this repository's SEO rules:
+
+- Starter guide: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- How Search works: https://developers.google.com/search/docs/fundamentals/how-search-works
+- Search Essentials (eligibility): https://developers.google.com/search/docs/essentials
+- Technical requirements: https://developers.google.com/search/docs/essentials/technical
+- Helpful, reliable, people-first content: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+- Canonicalization and duplicate URLs: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+- Redirect guidance: https://developers.google.com/search/docs/crawling-indexing/301-redirects
+- Snippet/meta description guidance: https://developers.google.com/search/docs/appearance/snippet#meta-descriptions
+- Title link guidance: https://developers.google.com/search/docs/appearance/title-link
+- Crawlable links and anchor text: https://developers.google.com/search/docs/crawling-indexing/links-crawlable#write-good-anchor-text
+- Outbound link qualification: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- Image best practices and alt text: https://developers.google.com/search/docs/appearance/google-images#descriptive-alt-text
+- Video SEO: https://developers.google.com/search/docs/appearance/video
+- Structured data intro: https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+- Structured data gallery: https://developers.google.com/search/docs/appearance/structured-data/search-gallery
+- Search Console URL inspection: https://support.google.com/webmasters/answer/9012289
+- Search Console getting started: https://developers.google.com/search/docs/monitor-debug/search-console-start
+
+Do not optimize around outdated/low-value tactics called out by Google (for example: meta keywords, keyword stuffing, arbitrary word-count targets, heading count/order obsession, and treating E-E-A-T as a direct ranking factor).
 
 ### `llms.txt` Maintenance
 - For new major routes, features, or content sections, review and update `public/llms.txt`.

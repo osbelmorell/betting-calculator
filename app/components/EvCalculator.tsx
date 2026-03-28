@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { evCalculatorContent } from '../ev/content';
 import type { Locale } from '../i18n';
+import AbbreviationHelp from './AbbreviationHelp';
 import { trackCalculatorEvent } from './analytics';
 import BetAmountSlider from './BetAmountSlider';
 import MoneyDisplay from './MoneyDisplay';
@@ -407,6 +408,14 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
         <div className="space-y-4">
           <h1 id="ev-calculator-title" className="text-hero">{copy.title}</h1>
           <p id="ev-calculator-help" className="text-subtitle max-w-lg">{copy.subtitle}</p>
+          <p className="text-sm text-[var(--text-secondary)]">
+            {locale === 'es'
+              ? '¿Qué es EV? Es la ganancia o pérdida promedio esperada por apuesta a largo plazo.'
+              : 'What is EV? It is the long-run average profit or loss per bet.'}{' '}
+            <Link href={locale === 'es' ? '/es/guides/como-usar-calculadora-ev' : '/guides/how-to-use-ev-calculator'} className="text-[var(--brand)] underline underline-offset-2 hover:opacity-90">
+              {locale === 'es' ? 'Aprende más' : 'Learn more'}
+            </Link>
+          </p>
           <section aria-label={copy.quickStartTitle} className="rounded-xl border border-[var(--border-color)] bg-[var(--surface)] px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.quickStartTitle}</p>
             <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--foreground)]">
@@ -506,6 +515,11 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
                 <p className="mb-4 text-sm text-[var(--text-secondary)]">
                   {statusHint} {statusDataPoints}
                 </p>
+                <p className="mb-4 text-sm text-[var(--text-secondary)]">
+                  {locale === 'es'
+                    ? 'Lectura rápida: EV positivo indica valor a largo plazo, no un resultado garantizado en esta apuesta.'
+                    : 'Quick read: positive EV signals long-run value, not a guaranteed result on this single bet.'}
+                </p>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                   <div className="result-stat">
                     <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.evAmount}</p>
@@ -514,7 +528,12 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
                     </p>
                   </div>
                   <div className="result-stat">
-                    <p className="text-xs leading-tight text-[var(--text-secondary)]">{copy.evPercent}</p>
+                    <p className="text-xs leading-tight text-[var(--text-secondary)]">
+                      <AbbreviationHelp
+                        short={copy.evPercent}
+                        expanded={locale === 'es' ? 'Porcentaje de valor esperado por cada apuesta.' : 'Expected value percentage for each bet.'}
+                      />
+                    </p>
                     <p className={`mt-2 text-xl font-semibold leading-tight ${outcomeToneClass}`}>{expectedValuePercent.toFixed(2)}%</p>
                   </div>
                   <div className="result-stat">
@@ -592,7 +611,21 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
           <h2 className="text-section-title">{locale === 'es' ? 'Como se calcula' : 'How EV Is Calculated'}</h2>
           <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface)] p-5">
             <p className="text-base font-semibold text-[var(--foreground)]">
-              EV = (P(win) x Profit if Win) - (P(lose) x Stake)
+              <AbbreviationHelp
+                short="EV"
+                expanded={locale === 'es' ? 'Valor esperado: promedio de ganancia o pérdida por apuesta a largo plazo.' : 'Expected value: average profit or loss per bet over the long run.'}
+              />{' '}
+              = (
+              <AbbreviationHelp
+                short="P(win)"
+                expanded={locale === 'es' ? 'Probabilidad estimada de acertar la apuesta.' : 'Estimated probability that the bet wins.'}
+              />
+              {' x Profit if Win) - ('}
+              <AbbreviationHelp
+                short="P(lose)"
+                expanded={locale === 'es' ? 'Probabilidad estimada de perder la apuesta.' : 'Estimated probability that the bet loses.'}
+              />
+              {' x Stake)'}
             </p>
             <p className="mt-2 text-sm text-[var(--text-secondary)]">
               {locale === 'es'
