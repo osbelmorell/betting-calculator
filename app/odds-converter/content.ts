@@ -12,6 +12,9 @@ type OddsConverterCopy = {
   quickStartSteps: ReadonlyArray<string>;
   converterCardTitle: string;
   autoUpdateHint: string;
+  exampleTitle: string;
+  exampleSummary: string;
+  exampleCta: string;
   howItWorksTitle: string;
   howItWorksBody: string;
   formatsTitle: string;
@@ -97,6 +100,9 @@ export const oddsConverterContent: Record<Locale, OddsConverterCopy> = {
     ],
     converterCardTitle: 'Convert Odds Instantly',
     autoUpdateHint: 'Type in any odds format. All other formats update automatically.',
+    exampleTitle: 'Try a quick conversion example',
+    exampleSummary: 'Start with +150 American odds to see all formats update instantly.',
+    exampleCta: 'Apply Example',
     howItWorksTitle: 'How the Odds Converter Works',
     howItWorksBody:
       'Enter any odds format. The converter instantly shows all other formats, including implied win probability. Use it to compare lines and evaluate whether a price is worth betting.',
@@ -136,6 +142,9 @@ export const oddsConverterContent: Record<Locale, OddsConverterCopy> = {
     ],
     converterCardTitle: 'Convierte Cuotas al Instante',
     autoUpdateHint: 'Escribe en cualquier formato de cuota. Los demas formatos se actualizan automaticamente.',
+    exampleTitle: 'Prueba un ejemplo rápido de conversión',
+    exampleSummary: 'Empieza con cuota americana +150 para ver todos los formatos al instante.',
+    exampleCta: 'Aplicar ejemplo',
     howItWorksTitle: 'Como Funciona el Conversor de Cuotas',
     howItWorksBody:
       'Ingresa una cuota en cualquier formato. El conversor muestra de inmediato los otros formatos, incluyendo la probabilidad implícita. Úsalo para comparar líneas y evaluar si una cuota tiene valor.',

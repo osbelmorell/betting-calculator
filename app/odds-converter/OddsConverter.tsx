@@ -100,6 +100,15 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
     applyFromDecimal(toDecimalFromImplied(clamped), 'implied');
   };
 
+  const applyExampleScenario = () => {
+    setOdds({
+      american: '+150',
+      decimal: '2.500',
+      fractional: '3/2',
+      implied: '40.00',
+    });
+  };
+
   return (
     <main
       className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 sm:py-16 md:py-20"
@@ -123,6 +132,13 @@ export default function OddsConverter({ locale = 'en' }: OddsConverterProps) {
           <section className="space-y-6 px-6 py-8 sm:px-8" aria-labelledby="odds-converter-card-title">
             <h2 id="odds-converter-card-title" className="text-card-title">{copy.converterCardTitle}</h2>
             <p className="text-sm text-[var(--text-secondary)]">{copy.autoUpdateHint}</p>
+            <section className="rounded-lg border border-[var(--border-color)] bg-[var(--surface-soft)] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.exampleTitle}</p>
+              <p className="mt-2 text-sm text-[var(--foreground)]">{copy.exampleSummary}</p>
+              <button type="button" onClick={applyExampleScenario} className="btn btn-secondary btn-sm mt-3">
+                {copy.exampleCta}
+              </button>
+            </section>
             <OddsFields
               idPrefix="odds-converter"
               locale={locale}

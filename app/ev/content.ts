@@ -14,6 +14,9 @@ export type EvCalculatorCopy = {
   autoUpdateHint: string;
   betAmount: string;
   betAmountAria: string;
+  exampleTitle: string;
+  exampleSummary: string;
+  exampleCta: string;
   estimatedProbability: string;
   estimatedProbabilityAria: string;
   estimatedProbabilityHint: string;
@@ -106,6 +109,9 @@ export const evCalculatorContent: Record<Locale, EvCalculatorCopy> = {
     autoUpdateHint: 'No manual calculate action. EV updates instantly as inputs change.',
     betAmount: 'Bet Amount',
     betAmountAria: 'Bet amount in dollars for expected value calculation',
+    exampleTitle: 'Try a quick EV example',
+    exampleSummary: '$100 at +120 odds with 50% win estimate to see a positive EV case.',
+    exampleCta: 'Apply Example',
     estimatedProbability: 'Your Estimated Win Probability',
     estimatedProbabilityAria: 'Your estimated probability of winning in percentage',
     estimatedProbabilityHint: 'Enter your true win estimate, not the sportsbook implied probability.',
@@ -150,6 +156,9 @@ export const evCalculatorContent: Record<Locale, EvCalculatorCopy> = {
     autoUpdateHint: 'No necesitas calcular manualmente. El EV se actualiza al instante.',
     betAmount: 'Monto de la Apuesta',
     betAmountAria: 'Monto de apuesta en dolares para calcular valor esperado',
+    exampleTitle: 'Prueba un ejemplo rápido de EV',
+    exampleSummary: '$100 a cuota +120 con 50% estimado para ver un caso de EV positivo.',
+    exampleCta: 'Aplicar ejemplo',
     estimatedProbability: 'Tu Probabilidad Estimada de Acierto',
     estimatedProbabilityAria: 'Tu probabilidad estimada de acierto en porcentaje',
     estimatedProbabilityHint: 'Ingresa tu estimación real de acierto, no la probabilidad implícita de la casa.',

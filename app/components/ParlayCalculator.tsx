@@ -358,6 +358,33 @@ export default function ParlayCalculator({
     setActiveOddsFormat('american');
   };
 
+  const applyExampleScenario = () => {
+    setBetAmount('100');
+    setActiveOddsFormat('american');
+    setLegs([
+      {
+        ...createLeg(1),
+        label: locale === 'es' ? 'Selección 1' : 'Leg 1',
+        odds: {
+          american: '-110',
+          decimal: '1.909',
+          fractional: '10/11',
+          implied: '52.38',
+        },
+      },
+      {
+        ...createLeg(2),
+        label: locale === 'es' ? 'Selección 2' : 'Leg 2',
+        odds: {
+          american: '+150',
+          decimal: '2.500',
+          fractional: '3/2',
+          implied: '40.00',
+        },
+      },
+    ]);
+  };
+
   return (
     <main
       className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 pb-36 sm:py-16 sm:pb-16 md:py-20"
@@ -426,6 +453,14 @@ export default function ParlayCalculator({
               </div>
               <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={onBetAmountChange} max={1000} />
             </div>
+
+            <section className="rounded-lg border border-[var(--border-color)] bg-[var(--surface-soft)] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.exampleTitle}</p>
+              <p className="mt-2 text-sm text-[var(--foreground)]">{copy.exampleSummary}</p>
+              <button type="button" onClick={applyExampleScenario} className="btn btn-secondary btn-sm mt-3">
+                {copy.exampleCta}
+              </button>
+            </section>
 
             <h2 className="text-sm font-semibold">{copy.legs}</h2>
 

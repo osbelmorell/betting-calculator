@@ -16,6 +16,9 @@ type SingleCalculatorUiCopy = {
   autoUpdateHint: string;
   betAmount: string;
   betAmountAria: string;
+  exampleTitle: string;
+  exampleSummary: string;
+  exampleCta: string;
   results: string;
   winnings: string;
   payout: string;
@@ -49,6 +52,9 @@ type ParlayCalculatorUiCopy = {
   autoUpdateHint: string;
   betAmount: string;
   betAmountAria: string;
+  exampleTitle: string;
+  exampleSummary: string;
+  exampleCta: string;
   legs: string;
   addLeg: string;
   addLegAria: string;
@@ -164,6 +170,9 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
       autoUpdateHint: 'No calculate button needed. Results update instantly as you type.',
       betAmount: 'Bet Amount',
       betAmountAria: 'Single bet amount in dollars',
+      exampleTitle: 'Try a quick example',
+      exampleSummary: '$100 stake at -110 odds to see payout and win probability instantly.',
+      exampleCta: 'Apply Example',
       results: 'Projected Results',
       winnings: 'Winnings',
       payout: 'Payout',
@@ -231,10 +240,13 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
         'Escribe la linea en cualquier formato',
         'Revisa ganancias y pago total abajo',
       ],
-      cardTitle: 'Apuesta y Líneas',
+      cardTitle: 'Apuesta y Cuotas',
       autoUpdateHint: 'No necesitas boton de calcular. Los resultados se actualizan al instante.',
       betAmount: 'Apuesta',
       betAmountAria: 'Monto de apuesta simple en dólares',
+      exampleTitle: 'Prueba un ejemplo rápido',
+      exampleSummary: 'Apuesta $100 a cuota -110 para ver pago y probabilidad al instante.',
+      exampleCta: 'Aplicar ejemplo',
       results: 'Resultados Proyectados',
       winnings: 'Ganancias',
       payout: 'Pago Total',
@@ -245,14 +257,14 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
       oddsFormatsTitle: 'Entender los diferentes formatos de apuestas',
       faqTitle: 'Preguntas frecuentes',
       shareLabel: 'apuesta simple',
-      howToIntro: 'Ingresa un monto, elige un formato de línea y los resultados aparecen de inmediato. Funciona con moneyline, spread y totales:',
+      howToIntro: 'Ingresa un monto, elige un formato de cuota y los resultados aparecen de inmediato. Funciona con moneyline, spread y totales:',
       howToSteps: [
         ['Ingresa tu monto de apuesta', 'Escribe la cantidad que planeas apostar en dólares'],
-        ['Elige un formato de apuestas', 'Selecciona entre línea americana, decimal, fraccional o probabilidad implícita'],
-        ['Ingresa la línea', 'Escribe la línea en el formato que prefieras'],
+        ['Elige un formato de apuestas', 'Selecciona entre cuota americana, decimal, fraccional o probabilidad implícita'],
+        ['Ingresa la cuota', 'Escribe la cuota en el formato que prefieras'],
         ['Mira los resultados al instante', 'Consulta automáticamente tus ganancias potenciales, pago total y probabilidad de acierto'],
       ],
-      howToOutro: 'Las líneas se convierten automáticamente — usa el formato que muestre tu casa de apuestas.',
+      howToOutro: 'Las cuotas se convierten automáticamente — usa el formato que muestre tu casa de apuestas.',
       oddsIntro: 'Guía sobre los precios de las apuestas: esto es lo que significa cada formato.',
       oddsSections: [
         ['Línea Americana (Moneyline)', 'Muestra cuanto debes apostar para ganar $100 cuando es negativa, o cuanto ganas con $100 cuando es positiva. Ejemplo: -150 significa apostar $150 para ganar $100; +150 significa que $100 ganan $150.'],
@@ -261,10 +273,10 @@ export const singleCalculatorContent: Record<Locale, SingleCalculatorContent> = 
         ['Probabilidad Implicita', 'Expresa la línea como una probabilidad de ganar en porcentaje. Ejemplo: 52% implica que ganarías aproximadamente la mitad de apuestas comparables a largo plazo.'],
       ],
       relatedToolsTitle: 'Herramientas y guías relacionadas',
-      relatedToolsBody: 'Compara escenarios con el parlay, convierte líneas rápido y profundiza con guías prácticas.',
+      relatedToolsBody: 'Compara escenarios con el parlay, convierte cuotas rápido y profundiza con guías prácticas.',
       relatedParlay: 'Calculadora Parlay',
       relatedEv: 'Calculadora +EV',
-      relatedOdds: 'Conversor de Líneas',
+      relatedOdds: 'Conversor de Cuotas',
       relatedGuides: 'Guías de Apuestas',
       faqItems: [
         ['Cual es la diferencia entre pago total y ganancias?', 'Ganancias = solo beneficio neto (sin contar la apuesta original). Pago total = retorno completo incluyendo tu apuesta original. Si apuestas $100 a línea decimal 2.0: ganancias = $100 y pago total = $200.'],
@@ -309,6 +321,9 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
       autoUpdateHint: 'Results refresh automatically whenever you edit a leg or stake.',
       betAmount: 'Bet Amount',
       betAmountAria: 'Parlay bet amount in dollars',
+      exampleTitle: 'Try a quick parlay example',
+      exampleSummary: 'Use 2 legs and see how combined odds and payout change instantly.',
+      exampleCta: 'Apply Example',
       legs: 'Parlay Legs',
       addLeg: '+ Add Leg',
       addLegAria: 'Add a parlay leg',
@@ -382,13 +397,16 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
         'Agrega una o mas piernas',
         'Mira cómo cambian la cuota combinada y el pago (todas deben acertarse)',
       ],
-      cardTitle: 'Apuesta y Piernas',
+      cardTitle: 'Apuesta y Selecciones',
       autoUpdateHint: 'Los resultados se actualizan automaticamente cuando cambias una pierna o el monto.',
       betAmount: 'Monto de la Apuesta',
       betAmountAria: 'Monto de apuesta parlay en dólares',
-      legs: 'Piernas del Parlay',
-      addLeg: '+ Agregar pierna',
-      addLegAria: 'Agregar una pierna al parlay',
+      exampleTitle: 'Prueba un ejemplo rápido de parlay',
+      exampleSummary: 'Usa 2 selecciones y ve cómo cambian la cuota combinada y el pago al instante.',
+      exampleCta: 'Aplicar ejemplo',
+      legs: 'Selecciones del Parlay',
+      addLeg: '+ Agregar selección',
+      addLegAria: 'Agregar una selección al parlay',
       remove: 'Eliminar',
       removeAria: 'Eliminar',
       label: 'Etiqueta',
@@ -399,28 +417,28 @@ export const parlayCalculatorContent: Record<Locale, ParlayCalculatorContent> = 
       winPct: 'Prob. de acierto %',
       reset: 'Reiniciar',
       resetAria: 'Restablecer valores y piernas de la calculadora de parlay',
-      leg: 'Pierna',
-      legListAria: 'Lista de piernas del parlay',
-      howItWorks: 'Cómo funcionan las líneas en un parlay',
+      leg: 'Selección',
+      legListAria: 'Lista de selecciones del parlay',
+      howItWorks: 'Cómo funcionan las cuotas en un parlay',
       buildParlay: 'Cómo construir un parlay con esta calculadora',
       faq: 'Preguntas frecuentes sobre parlays',
-      howItWorksIntro: 'Un parlay combina multiples apuestas en una sola. Todas las piernas deben acertarse para cobrar el parlay. Las líneas se multiplican entre si, por lo que el pago potencial crece mucho, pero tambien el riesgo.',
-      howItWorksExample: 'Si combinas tres piernas con líneas decimales de 2.0, 1.5 y 2.0, la línea decimal combinada es 2.0 × 1.5 × 2.0 = 6.0. Un parlay de $100 devuelve $600 en total ($500 de ganancia).',
-      howItWorksOutro: 'La principal ventaja del parlay es que una sola apuesta de $100 puede convertirse en $600 (retorno 6x). El principal riesgo es que, si una sola pierna pierde, se pierde todo el parlay sin pagos parciales.',
+      howItWorksIntro: 'Un parlay combina multiples apuestas en una sola. Todas las selecciones deben acertarse para cobrar el parlay. Las cuotas se multiplican entre si, por lo que el pago potencial crece mucho, pero tambien el riesgo.',
+      howItWorksExample: 'Si combinas tres selecciones con cuotas decimales de 2.0, 1.5 y 2.0, la cuota decimal combinada es 2.0 × 1.5 × 2.0 = 6.0. Un parlay de $100 devuelve $600 en total ($500 de ganancia).',
+      howItWorksOutro: 'La principal ventaja del parlay es que una sola apuesta de $100 puede convertirse en $600 (retorno 6x). El principal riesgo es que, si una sola selección pierde, se pierde todo el parlay sin pagos parciales.',
       buildIntro: 'Construir un parlay es sencillo:',
       buildSteps: [
-        ['Ingresa el monto de tu parlay', 'Es tu monto total apostado para todas las piernas'],
-        ['Agrega tu primera pierna', 'Ingresa la línea en cualquier formato y la calculadora la convierte automáticamente'],
-        ['Haz clic en "+ Agregar pierna"', 'Sigue agregando todas las piernas que quieras'],
-        ['Observa como se multiplican las líneas combinadas', 'Cada pierna multiplica la anterior y aumenta el pago potencial'],
-        ['Elimina cualquier pierna', 'Si cambias de idea, puedes quitar esa pierna mientras quede al menos una'],
-        ['Consulta tu pago combinado', 'Ve cuanto podrias ganar si todas las piernas aciertan'],
+        ['Ingresa el monto de tu parlay', 'Es tu monto total apostado para todas las selecciones'],
+        ['Agrega tu primera selección', 'Ingresa la cuota en cualquier formato y la calculadora la convierte automáticamente'],
+        ['Haz clic en "+ Agregar selección"', 'Sigue agregando todas las selecciones que quieras'],
+        ['Observa como se multiplican las cuotas combinadas', 'Cada selección multiplica la anterior y aumenta el pago potencial'],
+        ['Elimina cualquier selección', 'Si cambias de idea, puedes quitar esa selección mientras quede al menos una'],
+        ['Consulta tu pago combinado', 'Ve cuanto podrias ganar si todas las selecciones aciertan'],
       ],
       relatedToolsTitle: 'Herramientas y guías relacionadas',
-      relatedToolsBody: 'Aprende lo básico del parlay, valida cada tramo con el conversor de líneas y compáralo con una apuesta simple para medir riesgo y retorno.',
+      relatedToolsBody: 'Aprende lo básico del parlay, valida cada tramo con el conversor de cuotas y compáralo con una apuesta simple para medir riesgo y retorno.',
       relatedSingle: 'Calculadora Simple',
       relatedEv: 'Calculadora +EV',
-      relatedOdds: 'Conversor de Líneas',
+      relatedOdds: 'Conversor de Cuotas',
       relatedGuides: 'Guías de Apuestas',
       faqItems: [
         ['Que pasa si una pierna de mi parlay pierde?', 'Se pierde todo el parlay. En los parlays tradicionales no hay pagos parciales. Si aciertas 5 de 6 piernas, no cobras nada. Por eso los parlays son apuestas de alto riesgo y alta recompensa.'],
@@ -488,12 +506,12 @@ export const oddsFieldsContent: Record<Locale, OddsFieldsCopy> = {
     },
   },
   es: {
-    selector: 'selector de formato de apuestas',
+    selector: 'selector de formato de cuotas',
     enter: 'Ingresa',
-    converted: 'Líneas convertidas',
-    switchInput: 'Cambiar campo de línea a',
+    converted: 'Cuotas convertidas',
+    switchInput: 'Cambiar campo de cuota a',
     inputFields: 'campos de entrada',
-    oddsLabel: 'líneas',
+    oddsLabel: 'cuotas',
     formats: {
       american: { label: 'Americana', shortLabel: 'US', placeholder: '-110' },
       decimal: { label: 'Decimal', shortLabel: 'Dec', placeholder: '1.909' },

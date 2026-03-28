@@ -254,6 +254,16 @@ export default function BettingCalculator({
     setOdds(resetState.odds);
   };
 
+  const applyExampleScenario = () => {
+    setBetAmount('100');
+    setOdds({
+      american: '-110',
+      decimal: '1.909',
+      fractional: '10/11',
+      implied: '52.38',
+    });
+  };
+
   return (
     <main
       className="flex min-h-[calc(100dvh-var(--content-offset))] flex-col items-center justify-start px-6 py-12 pb-36 sm:py-16 sm:pb-16 md:py-20"
@@ -316,6 +326,14 @@ export default function BettingCalculator({
               </div>
               <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={onBetAmountChange} max={1000} />
             </div>
+
+            <section className="rounded-lg border border-[var(--border-color)] bg-[var(--surface-soft)] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.exampleTitle}</p>
+              <p className="mt-2 text-sm text-[var(--foreground)]">{copy.exampleSummary}</p>
+              <button type="button" onClick={applyExampleScenario} className="btn btn-secondary btn-sm mt-3">
+                {copy.exampleCta}
+              </button>
+            </section>
 
             <OddsFields
               idPrefix="single"

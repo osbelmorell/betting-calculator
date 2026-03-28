@@ -332,6 +332,17 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
     setEstimatedProbability(nextDefault.estimatedProbability);
   };
 
+  const applyExampleScenario = () => {
+    setBetAmount('100');
+    setOdds({
+      american: '+120',
+      decimal: '2.200',
+      fractional: '6/5',
+      implied: '45.45',
+    });
+    setEstimatedProbability('50');
+  };
+
   const statusLabel = expectedValueAmount > 0.005
     ? copy.statusPositive
     : expectedValueAmount < -0.005
@@ -456,6 +467,14 @@ export default function EvCalculator({ locale = 'en' }: EvCalculatorProps) {
                 </div>
                 <BetAmountSlider locale={locale} amount={betAmount} onAmountChange={onBetAmountChange} max={1000} />
               </div>
+
+              <section className="rounded-lg border border-[var(--border-color)] bg-[var(--surface-soft)] px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{copy.exampleTitle}</p>
+                <p className="mt-2 text-sm text-[var(--foreground)]">{copy.exampleSummary}</p>
+                <button type="button" onClick={applyExampleScenario} className="btn btn-secondary btn-sm mt-3">
+                  {copy.exampleCta}
+                </button>
+              </section>
 
               <OddsFields
                 idPrefix="ev"
